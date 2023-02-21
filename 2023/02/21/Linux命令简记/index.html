@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Linux命令简记简介由于部分linux命令使用频率较低，导致遇到时常常忘记命令选项的含义和使用方法，因此在本文中记录linux命令的常用选项和具体使用方法，并对部分命令记录使用实例。 tar常用选项：  -c: 建立压缩档案 -x：解压 -t：查看内容 -r：向压缩归档文件末尾追加文件 -u：更新原压缩包中的文件 -f: 使用档案名字，这个参数是最后一个参数，后面只能接档案名  可选参数：  -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux命令简记">
+<meta property="og:url" content="https://ccccx159.github.io/2023/02/21/Linux%E5%91%BD%E4%BB%A4%E7%AE%80%E8%AE%B0/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="Linux命令简记简介由于部分linux命令使用频率较低，导致遇到时常常忘记命令选项的含义和使用方法，因此在本文中记录linux命令的常用选项和具体使用方法，并对部分命令记录使用实例。 tar常用选项：  -c: 建立压缩档案 -x：解压 -t：查看内容 -r：向压缩归档文件末尾追加文件 -u：更新原压缩包中的文件 -f: 使用档案名字，这个参数是最后一个参数，后面只能接档案名  可选参数：  -">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/212609068-f83073cf-06b9-4c73-ad8b-55af99d80d98.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/212609286-2525b883-4bfc-4ac9-a804-09f720f3828e.png">
+<meta property="article:published_time" content="2023-02-21T02:18:28.000Z">
+<meta property="article:modified_time" content="2023-02-21T02:24:38.693Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="Linux">
+<meta property="article:tag" content="Shell">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/35327600/212609068-f83073cf-06b9-4c73-ad8b-55af99d80d98.png">
+  
+  
+  
+  <title>Linux命令简记 - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Linux命令简记"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-21 10:18" pubdate>
+          2023年2月21日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.9k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          33 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Linux命令简记</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Linux命令简记"><a href="#Linux命令简记" class="headerlink" title="Linux命令简记"></a>Linux命令简记</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>由于部分linux命令使用频率较低，导致遇到时常常忘记命令选项的含义和使用方法，因此在本文中记录linux命令的常用选项和具体使用方法，并对部分命令记录使用实例。</p>
+<h2 id="tar"><a href="#tar" class="headerlink" title="tar"></a>tar</h2><p>常用选项：</p>
+<ul>
+<li>-c: 建立压缩档案</li>
+<li>-x：解压</li>
+<li>-t：查看内容</li>
+<li>-r：向压缩归档文件末尾追加文件</li>
+<li>-u：更新原压缩包中的文件</li>
+<li>-f: 使用档案名字，这个参数是最后一个参数，后面只能接档案名</li>
+</ul>
+<p>可选参数：</p>
+<ul>
+<li>-z：有gzip属性的</li>
+<li>-j：有bz2属性的</li>
+<li>-Z：有compress属性的</li>
+<li>-v：显示所有过程</li>
+<li>-O：将文件解开到标准输出</li>
+</ul>
+<h3 id="压缩、解压"><a href="#压缩、解压" class="headerlink" title="压缩、解压"></a>压缩、解压</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 压缩 file.tar.gz：压缩档案名称；file：待压缩目录</span><br>tar -czvf file.tar.gz ./file<br><br><span class="hljs-comment"># 解压</span><br>tar -xzvf file.tar.gz<br></code></pre></td></tr></table></figure>
+
+<h3 id="加密压缩、解压"><a href="#加密压缩、解压" class="headerlink" title="加密压缩、解压"></a>加密压缩、解压</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 加密压缩</span><br><span class="hljs-comment"># 使用 --exclude 选项排除指定目录</span><br>tar -czvf - --exclue=<span class="hljs-string">&quot;file/exclude_dir&quot;</span> ./file | openssl enc -e -des3 -salt -k P@ssw0rd | <span class="hljs-built_in">dd</span> of=file.tar.gz.des3<br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=file.tar.gz.des3 | openssl enc -d -des3 -salt -k P@ssw0rd | tar -xzvf -<br></code></pre></td></tr></table></figure>
+
+<h3 id="分卷加密压缩、解压"><a href="#分卷加密压缩、解压" class="headerlink" title="分卷加密压缩、解压"></a>分卷加密压缩、解压</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 分卷加密压缩</span><br><span class="hljs-comment"># split 参数</span><br><span class="hljs-comment"># -b, --bytes=SIZE, 指定每个分割文件的大小，单位有K, M, G, P等</span><br><span class="hljs-comment"># -d, --numeric-suffixes, 指定分割文件的后缀为数字</span><br><span class="hljs-comment"># -a, --suffix-length=N, 指定分割文件数字后缀的长度，如果-a 1，则后缀为*.1，*.2；如果-a 2，则后缀为*.01，*.02</span><br><span class="hljs-comment"># -c, --line-bytes=SIZE, 指定每行最大的字节数</span><br><span class="hljs-comment"># -l, --lines=NUMBER, 指定每个文件最大的行数</span><br>tar -czvf - --exclue=<span class="hljs-string">&quot;file/exclude_dir&quot;</span> ./file | openssl enc -e -des3 -salt -k P@ssw0rd | <span class="hljs-built_in">split</span> -b 200m -d -a 2 - file.tar.gz.des3.<br><br><span class="hljs-comment"># 解压</span><br><span class="hljs-built_in">cat</span> file.tar.gz.des3.* | openssl enc -d -des3 -salt -k P@ssw0rd | tar -zxvf -<br></code></pre></td></tr></table></figure>
+
+<h3 id="FAQ"><a href="#FAQ" class="headerlink" title="FAQ"></a>FAQ</h3><ol>
+<li><p>–exclude参数报错</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">tar: The following options were used after any non-optional arguments <span class="hljs-keyword">in</span> archive create or update mode.  These options are positional and affect only arguments that follow them.  Please, rearrange them properly.<br></code></pre></td></tr></table></figure>
+<p> 这是因为不同版本的tar，<code>--exclude</code>选项添加的位置存在差异。当tar的版本小于1.30时，该选项可以放在待压缩目录之后；若tar版本为1.30时，<code>--exclude</code>需要添加在待压缩目录之前。如下所示</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># tar --version tar (GNU tar) 1.30</span><br>tar -czvf file.tar.gz --exclude=<span class="hljs-string">&quot;file/exclude_dir&quot;</span> ./file<br><br><span class="hljs-comment"># tar --version tar (GNU tar) 1.26</span><br>tar -czvf file.tar.gz ./file --exclude=<span class="hljs-string">&quot;file/exclude_dir&quot;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="grep"><a href="#grep" class="headerlink" title="grep"></a>grep</h2><p>常用选项：</p>
+<ul>
+<li>-c 或 –count : 计算符合样式的列数。</li>
+<li>-h –no-filename : 在显示符合范本样式的那一列之前，不标示该列所属的文件名称。 </li>
+<li>-H –with-filename : 在显示符合范本样式的那一列之前，标示该列的文件名称。</li>
+<li>-i 或 –ignore-case : 忽略字符大小写的差别。</li>
+<li>-E 或 –extended-regexp : 将样式为延伸的正则表达式来使用。</li>
+<li>-o 或 –only-matching : 只显示匹配PATTERN 部分。</li>
+<li>-v 或 –invert-match : 显示不包含匹配文本的所有行。</li>
+<li>-V 或 –version : 显示版本信息。</li>
+<li>–include : 搜索指定的文件</li>
+<li>–exclude : 搜索结果中排除指定文件</li>
+<li>–exclude-from &lt;fileList&gt;: 在搜索结果中排除fileList中的文件，一行一个“pattern”</li>
+</ul>
+<h3 id="多条件与（and），或（or）查询"><a href="#多条件与（and），或（or）查询" class="headerlink" title="多条件与（and），或（or）查询"></a>多条件与（and），或（or）查询</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 与（and）</span><br>grep <span class="hljs-string">&#x27;pattern1&#x27;</span> file | grep <span class="hljs-string">&#x27;pattern2&#x27;</span><br><br><span class="hljs-comment"># 或（or），用法1</span><br>grep -E <span class="hljs-string">&#x27;pattern1|pattern2&#x27;</span> file<br><span class="hljs-comment"># 或（or），用法2</span><br>grep <span class="hljs-string">&#x27;pattern1\|pattern2&#x27;</span> file<br><span class="hljs-comment"># 或（or），用法3</span><br>egrep <span class="hljs-string">&#x27;pattern1|pattern2&#x27;</span> file<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="输出不包含指定内容的行，（非（NOT）查询）"><a href="#输出不包含指定内容的行，（非（NOT）查询）" class="headerlink" title="输出不包含指定内容的行，（非（NOT）查询）"></a>输出不包含指定内容的行，（非（NOT）查询）</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 输出不包含‘pattern’的行</span><br>grep -v <span class="hljs-string">&#x27;pattern&#x27;</span> file<br></code></pre></td></tr></table></figure>
+
+<h3 id="使用实例"><a href="#使用实例" class="headerlink" title="使用实例"></a>使用实例</h3><ol>
+<li>根据可执行文件名称和运行参数，过滤输出进程id <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">ps ef | grep -i <span class="hljs-string">&#x27;$&#123;process_name&#125;&#x27;</span> | grep -i <span class="hljs-string">&#x27;$&#123;excute_param&#125;&#x27;</span> | grep -v <span class="hljs-string">&#x27;grep&#x27;</span> | awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span><br></code></pre></td></tr></table></figure></li>
+</ol>
+<h2 id="dd"><a href="#dd" class="headerlink" title="dd"></a>dd</h2><p>dd 命令用于读取、转换并输出数据。可从标准输入或文件中读取数据，根据指定的格式来转换数据，再输出到文件、设备或标准输出。</p>
+<p>格式：<br><code>dd [operand]</code><br><code>dd option</code></p>
+<p>常用参数：</p>
+<ul>
+<li>bs&#x3D;BYTES：同时设置输入&#x2F;输出的块大小为BYTES字节</li>
+<li>count&#x3D;N：仅拷贝N个block块，块大小等于ibs指定的字节数</li>
+<li>cbs&#x3D;BYTES：一次转换BYTES个字节，即指定转换缓冲区大小</li>
+<li>ibs&#x3D;BYTES：一次读取BYTES个字节，即指定读取的一个块大小为BYTES字节</li>
+<li>obs&#x3D;BYTES：一次输出BYTES个字节，即指定输出的一个块大小为BYTES字节</li>
+<li>if&#x3D;FILE：输入文件名，默认为标准输入</li>
+<li>iflag&#x3D;FLAGS</li>
+<li>of&#x3D;FILE：输出文件名，默认为标准输出</li>
+<li>oflag&#x3D;FLAGS</li>
+<li>skip&#x3D;N：从输入文件开头跳过N个block块后开始复制</li>
+<li>seek&#x3D;N：从输出文件开头跳过N个block块后开始复制</li>
+<li>status&#x3D;LEVEL：打印到stderr的信息级别<ul>
+<li>‘node’：    抑制错误消息之外的所有内容、</li>
+<li>‘noxfer’：  抑制最终的传输统计数据</li>
+<li>‘progress’：显示定期传输统计信息</li>
+</ul>
+</li>
+<li>conv&#x3D;&lt;CONVS KEY WORDS&gt;<ul>
+<li>lcase：把大写字符转换为小写字符</li>
+<li>ucase：把小写字符转换为大写字符</li>
+<li>noerror：出错时不停止</li>
+<li>notrunc：不截断输出文件</li>
+</ul>
+</li>
+</ul>
+<h3 id="与管道符（-）配合读取-x2F-输出文件"><a href="#与管道符（-）配合读取-x2F-输出文件" class="headerlink" title="与管道符（|）配合读取&#x2F;输出文件"></a>与管道符（|）配合读取&#x2F;输出文件</h3><ol>
+<li><p>读取文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 配合 grep 查找指定内容</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=./testfile status=none | grep <span class="hljs-string">&#x27;HelloWord&#x27;</span><br></code></pre></td></tr></table></figure>
+<p> <img src="https://user-images.githubusercontent.com/35327600/212609068-f83073cf-06b9-4c73-ad8b-55af99d80d98.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>输出文件</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 将docker image信息写入指定文件</span><br>docker image <span class="hljs-built_in">ls</span> | <span class="hljs-built_in">dd</span> of=./docker_image_info.txt status=none<br></code></pre></td></tr></table></figure>
+<p> <img src="https://user-images.githubusercontent.com/35327600/212609286-2525b883-4bfc-4ac9-a804-09f720f3828e.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ol>
+<h3 id="备份磁盘并恢复"><a href="#备份磁盘并恢复" class="headerlink" title="备份磁盘并恢复"></a>备份磁盘并恢复</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 备份</span><br><span class="hljs-comment"># SATA硬盘被挂载在/dev/sda，将该SATA硬盘备份到sda.img中</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/sda of=/root/sda.img<br><br><span class="hljs-comment"># 恢复</span><br><span class="hljs-comment"># /dev/sda 硬盘出现故障时，将备份的sda.img恢复到指定的sdb盘中去</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/root/sda.img of=/dev/sdb<br><br><span class="hljs-comment"># 复制完整磁盘环境</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/sda of=/dev/sdc<br></code></pre></td></tr></table></figure>
+
+<h3 id="压缩备份"><a href="#压缩备份" class="headerlink" title="压缩备份"></a>压缩备份</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 备份</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/sda | gzip &gt; /root/sda.img.gz<br><br><span class="hljs-comment"># 恢复</span><br>gzip -dc /root/sda.img.gz | <span class="hljs-built_in">dd</span> of=/dev/sdc<br></code></pre></td></tr></table></figure>
+
+<h3 id="备份磁盘MBR表"><a href="#备份磁盘MBR表" class="headerlink" title="备份磁盘MBR表"></a>备份磁盘MBR表</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 一块磁盘的第一个扇区的 512 个字节所存储的正是这块磁盘的 MBR 信息，我们尝试用 dd 命令备份 MBR：</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/sda of=/root/sda.mbr.img count=1 bs=512<br><br><span class="hljs-comment"># 恢复</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/root/sda.mbr.img of=/dev/sda<br></code></pre></td></tr></table></figure>
+
+<h3 id="简单的磁盘读写性能测试"><a href="#简单的磁盘读写性能测试" class="headerlink" title="简单的磁盘读写性能测试"></a>简单的磁盘读写性能测试</h3><p>通过 <code>/dev/null</code> 和 <code>/dev/zero</code> 完成读写性能测试</p>
+<ul>
+<li><code>/dev/null</code>，也叫空设备，小名“无底洞”。任何写入它的数据都会被无情抛弃。</li>
+<li><code>/dev/zero</code>，可以产生连续不断的 null 的流（二进制的零流），用于向设备或文件写入 null 数据，一般用它来对设备或文件进行初始化。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 向磁盘上写入一个大小为1Gb的大文件, 通过计算该命令执行时间，判断磁盘写性能</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file<br><br><span class="hljs-comment"># 读取一个刚才生成的1Gb的文件，通过计算命令执行时间，判断磁盘读取性能</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/root/1Gb.file bs=64k of=/dev/null<br></code></pre></td></tr></table></figure>
+
+<h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><h2 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h2>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%BF%9B%E9%98%B6/" class="category-chain-item">程序员进阶</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/Linux/">#Linux</a>
+      
+        <a href="/tags/Shell/">#Shell</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Linux命令简记</div>
+      <div>https://ccccx159.github.io/2023/02/21/Linux命令简记/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/21/%E4%B8%80%E4%B8%AA%E2%80%9Csize-type%E2%80%9D%E5%BC%95%E5%8F%91%E7%9A%84Bug/" title="一个“size_type”引发的Bug">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">一个“size_type”引发的Bug</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/21/%E5%9F%BA%E4%BA%8EDSM7-1%EF%BC%8C%E9%80%9A%E8%BF%87nginx%E5%8F%8D%E4%BB%A3%E7%A0%B4%E8%A7%A3Emby-Server-Premiere/" title="基于DSM7.1，通过nginx反代破解Emby Server Premiere">
+                        <span class="hidden-mobile">基于DSM7.1，通过nginx反代破解Emby Server Premiere</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

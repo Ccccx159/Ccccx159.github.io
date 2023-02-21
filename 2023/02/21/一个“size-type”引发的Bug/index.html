@@ -1,0 +1,704 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="一个“size_type”引发的Bug问题描述1234567891011121314151617#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;vector&gt;using namespace std;int main(int argc, char* argv[]) &amp;#123;  vector&lt;int&gt; v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="一个“size_type”引发的Bug">
+<meta property="og:url" content="https://ccccx159.github.io/2023/02/21/%E4%B8%80%E4%B8%AA%E2%80%9Csize-type%E2%80%9D%E5%BC%95%E5%8F%91%E7%9A%84Bug/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="一个“size_type”引发的Bug问题描述1234567891011121314151617#include &lt;iostream&gt;#include &lt;string&gt;#include &lt;vector&gt;using namespace std;int main(int argc, char* argv[]) &amp;#123;  vector&lt;int&gt; v">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/218906559-3314a6d2-d277-45a6-b50c-d9005bd3f496.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/218907216-e6132f30-a3e5-4ed8-8e52-63a242cc8242.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/218909328-2a63cad0-6eae-4bef-9529-bea27192ef65.png">
+<meta property="article:published_time" content="2023-02-21T02:24:57.000Z">
+<meta property="article:modified_time" content="2023-02-21T02:28:49.555Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="C++">
+<meta property="article:tag" content="Bug">
+<meta property="article:tag" content="溢出">
+<meta property="article:tag" content="类型转换">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/35327600/218906559-3314a6d2-d277-45a6-b50c-d9005bd3f496.png">
+  
+  
+  
+  <title>一个“size_type”引发的Bug - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="一个“size_type”引发的Bug"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-21 10:24" pubdate>
+          2023年2月21日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">一个“size_type”引发的Bug</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="一个“size-type”引发的Bug"><a href="#一个“size-type”引发的Bug" class="headerlink" title="一个“size_type”引发的Bug"></a>一个“size_type”引发的Bug</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;iostream&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;string&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;vector&gt;</span></span><br><br><span class="hljs-keyword">using</span> <span class="hljs-keyword">namespace</span> std;<br><br><span class="hljs-function"><span class="hljs-type">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">char</span>* argv[])</span> </span>&#123;<br>  vector&lt;<span class="hljs-type">int</span>&gt; v = &#123;<span class="hljs-number">10</span>&#125;;<br>  <span class="hljs-comment">// 这是一个极端示例</span><br>  <span class="hljs-type">int</span> pos = <span class="hljs-number">0</span>;<br>  <span class="hljs-keyword">if</span> (pos &lt;= v.<span class="hljs-built_in">size</span>() - <span class="hljs-number">2</span>) &#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;pos &lt;= v.size() - 2&quot;</span> &lt;&lt; endl;<br>  &#125; <span class="hljs-keyword">else</span> &#123;<br>    cout &lt;&lt; <span class="hljs-string">&quot;pos &gt; v.size() - 2&quot;</span> &lt;&lt; endl;<br>  &#125;<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过观察上述示例代码，请回答出程序输出内容是什么？答案是 “pos &lt;&#x3D; v.size() - 2”，还是 “pos &gt; v.size() - 2” 呢？</p>
+<p>可能有的人和我一样，第一反应是 <code>std::vector v</code> 中只有一个元素，因此 <code>v.size() == 1</code>，那 <code>0</code> 和 <code>1 - 2</code> 比较大小，肯定是结果是 “&gt;” 嘛。但是程序运行结果却告诉我们，这里输出的内容是 <code>pos &lt;= v.size() - 2</code> !</p>
+<p>在 Ubuntu20.04 和 Debian10.2.1 中进行测试，结果均为 <code>pos &lt;= v.size() - 2</code>。运行结果如下</p>
+<p><img src="https://user-images.githubusercontent.com/35327600/218906559-3314a6d2-d277-45a6-b50c-d9005bd3f496.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/218907216-e6132f30-a3e5-4ed8-8e52-63a242cc8242.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="问题定位"><a href="#问题定位" class="headerlink" title="问题定位"></a>问题定位</h2><p>既然运行结果是 <code>pos &lt;= v.size() - 2</code>，那我们把这个 “&lt;&#x3D;” 号左右两边的值打印出来看看，到底是否与我们认为的 <code>pos == 0</code> 和 <code>v.size() - 2 == -1</code> 的结论一致。将日志输出行修改一下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs cpp">...<br><span class="hljs-keyword">if</span> () &#123;<br>  cout &lt;&lt; <span class="hljs-string">&quot;pos[&quot;</span> &lt;&lt; pos &lt;&lt; <span class="hljs-string">&quot;] &lt;= v.size() - 2[&quot;</span> &lt;&lt; v.<span class="hljs-built_in">size</span>() - <span class="hljs-number">2</span> &lt;&lt; <span class="hljs-string">&#x27;]&#x27;</span> &lt;&lt; endl;<br>&#125;<br>...<br></code></pre></td></tr></table></figure>
+
+<p>再次编译执行，结果如下：</p>
+<p><img src="https://user-images.githubusercontent.com/35327600/218909328-2a63cad0-6eae-4bef-9529-bea27192ef65.png" srcset="/img/loading.gif" lazyload></p>
+<p>在控制台输出打印中可以看到，表达式 <code>v.size() - 2</code> 并非像我们认为的那样等于 “1 - 2 &#x3D;&#x3D; -1”，而是一个非常大的数值。其实到这里，有一定经验的程序员已经大概知道这是为什么了。负数，巨大数值，根据这两个因素基本可以确定是<font color=red>有符号类型（-1）被隐式转换成了无符号类型导致的溢出</font>！</p>
+<p>这个问题，具体情况，我们可以通过gdb进行反汇编调试来仔细跟踪一下。</p>
+<blockquote>
+<p>真正的地址需要程序运行起来之后才能正确反汇编出来，否则反汇编出来的是偏移地址。</p>
+</blockquote>
+<p>先设置一个程序入口断点，确保程序已运行，我们在 main 函数的入口设置一个断点 <code>b *main</code>，并运行命中断点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">(gdb) b *main<br>Breakpoint 1 at 0x11f5: file ./size_t.cc, line 7.<br>(gdb) r<br>Starting program: /home/openwrt/tmp/size_t/unittest_size_t<br><br>Breakpoint 1, main (argc=1, argv=0x11bf) at ./size_t.cc:7<br>7       int main(int argc, char* argv[]) &#123;<br>(gdb)<br><br></code></pre></td></tr></table></figure>
+<p>然后再确定一下 if 这个判断语句的地址范围和反汇编内容。在 gdb 模式下输入 <code>disas /m main</code> :</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs shell">(gdb) disas /m main<br>Dump of assembler code for function main(int, char**):<br>7       int main(int argc, char* argv[]) &#123;<br>=&gt; 0x00005555555551f5 &lt;+0&gt;:     push   %rbp<br><br>......<br><br>11        if (pos &lt;= v.size() - 2) &#123;<br>   0x0000555555555261 &lt;+108&gt;:   mov    -0x24(%rbp),%eax<br>   0x0000555555555264 &lt;+111&gt;:   movslq %eax,%rbx<br>   0x0000555555555267 &lt;+114&gt;:   lea    -0x50(%rbp),%rax<br>   0x000055555555526b &lt;+118&gt;:   mov    %rax,%rdi<br>   0x000055555555526e &lt;+121&gt;:   call   0x5555555554d4 &lt;_ZNKSt6vectorIiSaIiEE4sizeEv&gt;<br>   0x0000555555555273 &lt;+126&gt;:   sub    $0x2,%rax<br>   0x0000555555555277 &lt;+130&gt;:   cmp    %rax,%rbx<br>   0x000055555555527a &lt;+133&gt;:   setbe  %al<br>   0x000055555555527d &lt;+136&gt;:   test   %al,%al<br>   0x000055555555527f &lt;+138&gt;:   je     0x5555555552f5 &lt;main(int, char**)+256&gt;<br><br>......<br>(gdb)<br><br></code></pre></td></tr></table></figure>
+
+<p>我们先看其中这一段：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">0x000055555555526e &lt;+121&gt;:   call   0x5555555554d4 &lt;_ZNKSt6vectorIiSaIiEE4sizeEv&gt;<br>0x0000555555555273 &lt;+126&gt;:   sub    $0x2,%rax<br>0x0000555555555277 &lt;+130&gt;:   cmp    %rax,%rbx<br></code></pre></td></tr></table></figure>
+
+<p>这里第一个 call 语句中，我们可以看到调用了 <code>std::vector::size()</code> 的方法，我们将断点设置在这一处 <code>b *0x000055555555526e</code>，并执行 continue，直至命中断点：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs shell">(gdb) b *0x000055555555526e<br>Breakpoint 2 at 0x55555555526e: file ./size_t.cc, line 11.<br>(gdb) c<br>Continuing.<br><br>Breakpoint 2, 0x000055555555526e in main (argc=1, argv=0x7fffffffe4a8)<br>    at ./size_t.cc:11<br>11        if (pos &lt;= v.size() - 2) &#123;<br>(gdb) x/3i $pc<br>=&gt; 0x55555555526e &lt;main(int, char**)+121&gt;:<br>    call   0x5555555554d4 &lt;_ZNKSt6vectorIiSaIiEE4sizeEv&gt;<br>   0x555555555273 &lt;main(int, char**)+126&gt;:      sub    $0x2,%rax<br>   0x555555555277 &lt;main(int, char**)+130&gt;:      cmp    %rax,%rbx<br><br></code></pre></td></tr></table></figure>
+<p>观察 pc 指针，已经运行到断点所在地址，从这三句汇编语句中，我们不难看出寄存器 rax 中存放的是表达式 <code>v.size() - 2</code> 的结果，rbx 中则存放的是变量 pos 的值。我们进行单步调试，并在每次步进后查看这两个寄存器的值和寄存器标志位的状态：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs shell">(gdb) ni  ## call   0x5555555554d4 &lt;_ZNKSt6vectorIiSaIiEE4sizeEv&gt;<br>11        if (pos &lt;= v.size() - 2) &#123; <br>(gdb) i r rax rbx eflags<br>rax            0x1                 1<br>rbx            0x0                 0<br>eflags         0x202               [ IF ]<br>(gdb) ni  ## sub    $0x2,%rax<br>11        if (pos &lt;= v.size() - 2) &#123;<br>(gdb) i r rax rbx eflags<br>rax            0xffffffffffffffff  -1<br>rbx            0x0                 0<br>eflags         0x297               [ CF PF AF SF IF ]<br>(gdb) x/3i $pc<br>=&gt; 0x555555555277 &lt;main(int, char**)+130&gt;:      cmp    %rax,%rbx<br>   0x55555555527a &lt;main(int, char**)+133&gt;:      setbe  %al<br>   0x55555555527d &lt;main(int, char**)+136&gt;:      test   %al,%al<br>(gdb) ni  ## cmp    %rax,%rbx<br>0x000055555555527a      11        if (pos &lt;= v.size() - 2) &#123;<br>(gdb) i r rax rbx eflags<br>rax            0xffffffffffffffff  -1<br>rbx            0x0                 0<br>eflags         0x213               [ CF AF IF ]<br>(gdb)<br><br></code></pre></td></tr></table></figure>
+
+<p>通过记录标志位，我们不难发现，当执行 <code>sub $0x2 %rax</code> 时，标志位 CF 被置位了，这代表了<font color=red>这次的减法运算，是无符号类型数的减法运算，并且存在借位，即溢出</font>，同时 SF 也被置位了，表明当前的减法计算结果是一个负数（由于计算机中存放的数据以其补码形式存放，所以此处 0xffffffffffffffff 为补码，转换为源码就是 0x8000000000000001，十进制表示就是-1）。但是在后续的 <code>cmp %rax %rbx</code> 语句中，<mark>标志位 CF 再次被置位，也就意味着计算机将 rax 和 rbx 中的值都按照无符号数进行了减法计算</mark> <code>0x0 - 0xffffffffffffffff</code> 自然产生了借位的情况，所以计算机自然而然地认为 “0 &lt; -1”！</p>
+<p>所以问题的根本原因在于计算机执行 cmp 指令时，将原本应该是有符号数 “-1” 当成了无符号数 “0xffffffffffffffff” 进行比较。因此在判断大小时，出现了异常的结果。</p>
+<h2 id="问题跟踪"><a href="#问题跟踪" class="headerlink" title="问题跟踪"></a>问题跟踪</h2><p>那为什么计算机会将 “-1” 当成是无符号数呢，我们来看一下 <code>std::vector::size()</code> 方法的声明：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-function">size_type <span class="hljs-title">size</span><span class="hljs-params">()</span> <span class="hljs-type">const</span> <span class="hljs-keyword">noexcept</span></span>;<br></code></pre></td></tr></table></figure>
+
+<p>因此 <code>v.size()</code> 返回的 1 是 size_type 类型的。这个类型在 cplusplus 网站中，被释义为无符号整型，通常境况下同 size_t。到这里就真相大白了，由于 <code>v.size()</code> 这个方法返回了一个无符号整形结果，因此后续的减法运算和大小比较中，C++ 默认对此进行了隐式转换有符号整型转换为无符号整形，所有的运算都变成了无符号数的运算（对于无符号整形作减法的溢出，编译器不会做出任何警告）。</p>
+<p>结合上文中通过反汇编调试得到的结论，证明问题的原因和最初我们的猜想是一致的。</p>
+<h2 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h2><p>既然知道了问题的根本原因，那么解决方法也相对简单，只要保证进行运算操作时类型转换是合法的即可，</p>
+<p>因为示例代码中 <code>v.size()</code> 获得的无符号整形较小，因此我们可以将其直接显式转换为有符号整形：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cpp">...<br>  <span class="hljs-keyword">if</span> (pos &lt;= (<span class="hljs-type">int</span>)v.<span class="hljs-built_in">size</span>() - <span class="hljs-number">2</span>) &#123;<br>...<br></code></pre></td></tr></table></figure>
+
+<p>但是这并不意味着只要显式地转换数据类型，就不会发生错误了。比如负数转换成无符号数，无符号数的最大值转换成有符号数，这两种就是典型的类型转换导致数值溢出的问题。</p>
+<p>我们应该在不得不进行数据类型转换前，保证转换后不会出现溢出的问题！</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="category-chain-item">踩坑日记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/C/">#C++</a>
+      
+        <a href="/tags/Bug/">#Bug</a>
+      
+        <a href="/tags/%E6%BA%A2%E5%87%BA/">#溢出</a>
+      
+        <a href="/tags/%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2/">#类型转换</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>一个“size_type”引发的Bug</div>
+      <div>https://ccccx159.github.io/2023/02/21/一个“size-type”引发的Bug/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/21/Linux%E5%91%BD%E4%BB%A4%E7%AE%80%E8%AE%B0/" title="Linux命令简记">
+                        <span class="hidden-mobile">Linux命令简记</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

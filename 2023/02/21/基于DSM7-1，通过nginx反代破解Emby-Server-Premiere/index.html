@@ -1,0 +1,706 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="基于DSM7.1，通过nginx反代破解Emby Server Premiere一、前言！！！破解教程仅供学习参考，务必支持正版软件，构建良好的软件版权生态！！！ Emby Server是一个开源的流媒体中心软件，可以非常方便的管理和维护电影，电视剧集等媒体库，并生成强大美观的海报墙。并且全平台的客户端，使其跨设备观看变得非常便利。但是服务端的部分插件功能，以及视频转码功能，需要会员才能解锁。针对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="基于DSM7.1，通过nginx反代破解Emby Server Premiere">
+<meta property="og:url" content="https://ccccx159.github.io/2023/02/21/%E5%9F%BA%E4%BA%8EDSM7-1%EF%BC%8C%E9%80%9A%E8%BF%87nginx%E5%8F%8D%E4%BB%A3%E7%A0%B4%E8%A7%A3Emby-Server-Premiere/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="基于DSM7.1，通过nginx反代破解Emby Server Premiere一、前言！！！破解教程仅供学习参考，务必支持正版软件，构建良好的软件版权生态！！！ Emby Server是一个开源的流媒体中心软件，可以非常方便的管理和维护电影，电视剧集等媒体库，并生成强大美观的海报墙。并且全平台的客户端，使其跨设备观看变得非常便利。但是服务端的部分插件功能，以及视频转码功能，需要会员才能解锁。针对">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/201810752-d921d035-c76d-439c-9160-e320a36af37d.jpg">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/201813309-cc83b055-df1d-4b61-bda9-103939c7cc2c.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/201814624-8bc428eb-1947-430f-a27a-2301ce7379d8.png">
+<meta property="article:published_time" content="2023-02-21T02:18:05.000Z">
+<meta property="article:modified_time" content="2023-02-21T02:26:25.247Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="DSM7.1">
+<meta property="article:tag" content="破解">
+<meta property="article:tag" content="Emby">
+<meta property="article:tag" content="Nginx">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/35327600/201810752-d921d035-c76d-439c-9160-e320a36af37d.jpg">
+  
+  
+  
+  <title>基于DSM7.1，通过nginx反代破解Emby Server Premiere - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="基于DSM7.1，通过nginx反代破解Emby Server Premiere"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-21 10:18" pubdate>
+          2023年2月21日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          28 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">基于DSM7.1，通过nginx反代破解Emby Server Premiere</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="基于DSM7-1，通过nginx反代破解Emby-Server-Premiere"><a href="#基于DSM7-1，通过nginx反代破解Emby-Server-Premiere" class="headerlink" title="基于DSM7.1，通过nginx反代破解Emby Server Premiere"></a>基于DSM7.1，通过nginx反代破解Emby Server Premiere</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p><strong><font color="red">！！！破解教程仅供学习参考，务必支持正版软件，构建良好的软件版权生态！！！</font></strong></p>
+<p>Emby Server是一个开源的流媒体中心软件，可以非常方便的管理和维护电影，电视剧集等媒体库，并生成强大美观的海报墙。并且全平台的客户端，使其跨设备观看变得非常便利。但是服务端的部分插件功能，以及视频转码功能，需要会员才能解锁。针对尝鲜的个人用户来说，这个会员着实不便宜，经过搜寻相关资料后，确定其会员验证是通过与<code>mb3admin.com</code>这个网站通信完成，因此本教程将通过nginx的反向代理+hosts进行域名劫持来实现会员的”破解”。</p>
+<h2 id="二、准备工具"><a href="#二、准备工具" class="headerlink" title="二、准备工具"></a>二、准备工具</h2><ul>
+<li>DMS7.1群晖系统（本质上任意一个nginx服务都可以，DSM本身的web就是通过nginx实现的，因此不需要单独在开一个nginx服务了）</li>
+<li>文本编辑软件（Notepad++，subline text，vs code均可）</li>
+<li>ssh工具（Xshell，MobaXterm，putty，finalshell等）</li>
+</ul>
+<h2 id="三、破解步骤"><a href="#三、破解步骤" class="headerlink" title="三、破解步骤"></a>三、破解步骤</h2><h3 id="1、申请ssl证书"><a href="#1、申请ssl证书" class="headerlink" title="1、申请ssl证书"></a>1、申请ssl证书</h3><p>由于Emby Server需要和<code>mb3admin.com</code>进行https通信，因此我们需要针对该域名申请ssl证书。</p>
+<p>推荐 GMCert.org <a target="_blank" rel="noopener" href="https://www.gmcert.org/subForm%E3%80%82%E6%8C%89%E4%BB%A5%E4%B8%8B%E7%94%B3%E8%AF%B7%E6%AD%A5%E9%AA%A4%E8%BF%9B%E8%A1%8C%EF%BC%9A">https://www.gmcert.org/subForm。按以下申请步骤进行：</a></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/201810752-d921d035-c76d-439c-9160-e320a36af37d.jpg" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>CA证书如果此前PC端已安装过，则可不用重复下载安装；如果是全新安装，则尽量安装一下，双击证书，点击安装，然后手动选择证书存储，将证书安装到“受信任的根证书颁发机构”即可。</li>
+<li>主题名称为此次所需的二级域名<code>mb3admin.com</code></li>
+</ul>
+<p>点开下方的“<strong>高级选项</strong>”，并按照以下进行配置：</p>
+<p><img src="https://user-images.githubusercontent.com/35327600/201813309-cc83b055-df1d-4b61-bda9-103939c7cc2c.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li>在主题备用名称中，填入上图内容，将泛域名也填充进去，保证任意三级域名都处于ssl证书授权范围</li>
+<li>密钥用途和扩展密钥用途按图中红框勾选即可</li>
+<li>点击“<strong>签发证书</strong>”，会下载一个包含密钥和证书的压缩包，解压并保存</li>
+</ul>
+<h3 id="2、上传密钥和证书"><a href="#2、上传密钥和证书" class="headerlink" title="2、上传密钥和证书"></a>2、上传密钥和证书</h3><p>将上一步中解压获取的证书和密钥文件，上传至群晖中</p>
+<p><img src="https://user-images.githubusercontent.com/35327600/201814624-8bc428eb-1947-430f-a27a-2301ce7379d8.png" srcset="/img/loading.gif" lazyload></p>
+<h3 id="3、创建nginx代理配置"><a href="#3、创建nginx代理配置" class="headerlink" title="3、创建nginx代理配置"></a>3、创建nginx代理配置</h3><p>新建文件<code>emby_crack_nginx.conf</code>，粘贴以下内容：</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-section">server</span> &#123;<br>     <span class="hljs-attribute">listen</span> <span class="hljs-number">443</span> ssl;<br>     <span class="hljs-attribute">listen</span> [::]:<span class="hljs-number">443</span> ssl;<br>     <span class="hljs-attribute">server_name</span> mb3admin.com;<br>     <span class="hljs-attribute">ssl_certificate</span> /volume1/web/mb3admin.com/mb3admin.com.cert.pem;<br>     <span class="hljs-attribute">ssl_certificate_key</span> /volume1/web/mb3admin.com/mb3admin.com.key.pem;<br>     <span class="hljs-attribute">ssl_session_timeout</span> <span class="hljs-number">5m</span>;<br>     <span class="hljs-attribute">ssl_protocols</span> TLSv1 TLSv1.<span class="hljs-number">1</span> TLSv1.<span class="hljs-number">2</span>;<br>     <span class="hljs-attribute">ssl_ciphers</span> ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;<br>     <span class="hljs-attribute">ssl_prefer_server_ciphers</span> <span class="hljs-literal">on</span>;<br>     <span class="hljs-section">location</span> = /webdefault/images/logo.jpg &#123;<br>     <span class="hljs-attribute">alias</span> /usr/syno/share/nginx/logo.jpg;<br>            &#125;<br>     <span class="hljs-section">location</span> <span class="hljs-variable">@error_page</span> &#123;<br>     <span class="hljs-attribute">root</span> /usr/syno/share/nginx;<br>     <span class="hljs-attribute">rewrite</span> (.*) /<span class="hljs-literal">error</span>.html <span class="hljs-literal">break</span>;<br>            &#125;<br>     <span class="hljs-section">location</span><span class="hljs-regexp"> ^~</span> /.well-known/acme-challenge &#123;<br>     <span class="hljs-attribute">root</span> /var/lib/letsencrypt;<br>     <span class="hljs-attribute">default_type</span> text/plain;<br>            &#125;<br>     <span class="hljs-section">location</span> / &#123;<br>     <span class="hljs-attribute">rewrite</span><span class="hljs-regexp"> ^</span> / <span class="hljs-literal">redirect</span>;<br>            &#125;<br>     <span class="hljs-section">location</span> <span class="hljs-regexp">~ ^/$</span> &#123;<br>     <span class="hljs-attribute">rewrite</span> / https://<span class="hljs-variable">$host</span>:5001/ <span class="hljs-literal">redirect</span>;<br>            &#125;<br>     <span class="hljs-attribute">add_header</span> Access-Control-Allow-Origin *;<br>     <span class="hljs-attribute">add_header</span> Access-Control-Allow-Headers *;<br>     <span class="hljs-attribute">add_header</span> Access-Control-Allow-Method *;<br>     <span class="hljs-attribute">add_header</span> Access-Control-Allow-Credentials <span class="hljs-literal">true</span>;<br>     <span class="hljs-section">location</span> /admin/service/registration/validateDevice &#123;<br>     <span class="hljs-attribute">default_type</span> application/json;<br>     <span class="hljs-attribute">return</span> <span class="hljs-number">200</span> <span class="hljs-string">&#x27;&#123;&quot;cacheExpirationDays&quot;: 365,&quot;message&quot;: &quot;Device Valid&quot;,&quot;resultCode&quot;: &quot;GOOD&quot;&#125;&#x27;</span>;<br>    &#125;<br>     <span class="hljs-section">location</span> /admin/service/registration/validate &#123;<br>     <span class="hljs-attribute">default_type</span> application/json;<br>     <span class="hljs-attribute">return</span> <span class="hljs-number">200</span> <span class="hljs-string">&#x27;&#123;&quot;featId&quot;:&quot;&quot;,&quot;registered&quot;:true,&quot;expDate&quot;:&quot;2099-01-01&quot;,&quot;key&quot;:&quot;&quot;&#125;&#x27;</span>;<br>    &#125;<br>     <span class="hljs-section">location</span> /admin/service/registration/getStatus &#123;<br>     <span class="hljs-attribute">default_type</span> application/json;<br>     <span class="hljs-attribute">return</span> <span class="hljs-number">200</span> <span class="hljs-string">&#x27;&#123;&quot;deviceStatus&quot;:&quot;0&quot;,&quot;planType&quot;:&quot;Lifetime&quot;,&quot;subscriptions&quot;:&#123;&#125;&#125;&#x27;</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>注意：</p>
+<ul>
+<li><p>由于证书和密钥的文件路径可能各有不同，在上述代码块中修改成自定义路径</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-comment"># ssl_certificate /volume1/web/mb3admin.com/mb3admin.com.cert.pem;</span><br><span class="hljs-attribute">ssl_certificate</span> /change/to/your/own/cert/file/path;<br><span class="hljs-comment"># ssl_certificate_key /volume1/web/mb3admin.com/mb3admin.com.key.pem;</span><br><span class="hljs-attribute">ssl_certificate_key</span> /change/to/your/own/key/file/path;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<p>将配置文件<code>emby_crack_nginx.conf</code>拷贝至群晖的系统目录<code>/etc/nginx/sites-enabled</code>目录下。</p>
+<h3 id="4、修改hosts文件"><a href="#4、修改hosts文件" class="headerlink" title="4、修改hosts文件"></a>4、修改hosts文件</h3><p>由于Emby Server和Emby Client在验证会员时，向<code>mb3admin.com</code>进行post请求，因此需要在服务器或者客户端发出请求时，劫持到我们自行构建的nginx服务上，通过nginx发送假的验证通过的消息，实现会员资格验证成功。</p>
+<p>因此需要在Emby Server和Emby Client所在的设备上修改hosts文件，将mb3admin.com域名直接指向群晖的IP。</p>
+<ul>
+<li>如果家中有能修改hosts的路由设备，可在路由器中直接修改，这样就不需要在每一个子设备中进行修改了；如果没有则在以下设备中的hosts文件中加入代码块中内容；</li>
+<li>Emby Server所在服务端设备；</li>
+<li>windows系统PC端；</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># hosts</span><br>mb3admin.com &lt;群晖IP&gt;<br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%98%E8%85%BE%E4%B9%8B%E8%B7%AF/" class="category-chain-item">折腾之路</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/DSM7-1/">#DSM7.1</a>
+      
+        <a href="/tags/%E7%A0%B4%E8%A7%A3/">#破解</a>
+      
+        <a href="/tags/Emby/">#Emby</a>
+      
+        <a href="/tags/Nginx/">#Nginx</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>基于DSM7.1，通过nginx反代破解Emby Server Premiere</div>
+      <div>https://ccccx159.github.io/2023/02/21/基于DSM7-1，通过nginx反代破解Emby-Server-Premiere/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/02/21/Linux%E5%91%BD%E4%BB%A4%E7%AE%80%E8%AE%B0/" title="Linux命令简记">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Linux命令简记</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/21/Watchdog-for-Emby-Media-Server/" title="Watchdog for Emby Media Server">
+                        <span class="hidden-mobile">Watchdog for Emby Media Server</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
