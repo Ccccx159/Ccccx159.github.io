@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="Unraid自定义docker和虚拟机图标一、自定义docker图标在 Unraid 中可以通过自带的应用市场安装 docker 容器，但是也有部分docker并未上架市场，需要通过 “ADD CONTAINER” 按钮手动安装，这样的 docker 容器并没有自带图标。还有一部分即使是在应用市场安装的 docker 容器本身有图标，但是由于国内的网络环境原因，导致图标链接不可访问，最终在 doc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Unraid自定义docker和虚拟机图标">
+<meta property="og:url" content="https://ccccx159.github.io/2023/02/21/Unraid%E8%87%AA%E5%AE%9A%E4%B9%89docker%E5%92%8C%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%9B%BE%E6%A0%87/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="Unraid自定义docker和虚拟机图标一、自定义docker图标在 Unraid 中可以通过自带的应用市场安装 docker 容器，但是也有部分docker并未上架市场，需要通过 “ADD CONTAINER” 按钮手动安装，这样的 docker 容器并没有自带图标。还有一部分即使是在应用市场安装的 docker 容器本身有图标，但是由于国内的网络环境原因，导致图标链接不可访问，最终在 doc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220238709-7d4f5fff-c5f6-4955-a2be-b84d23658354.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220241255-d0f8e445-8d3d-4de6-929a-01719f8c7d87.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220242308-ad3b6a1f-621c-4fc7-b13f-5e5d56e45ec3.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220243495-3daabdd1-79bf-42d9-a819-375c763719de.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220243941-f6dc6ec8-7df4-4cb9-a83b-39ec20738bdf.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220259348-6b70c342-98e6-4d57-bade-6e6ee4111d04.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220262561-88362131-b355-498c-8193-899e7bc8564d.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220262946-6d53e1b0-5197-4e09-b79e-a4a96aa2ccb5.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220265145-e9d995dd-acd7-46fa-b717-b205d76de807.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220266149-ece8dd67-c4a1-4b5f-9111-a50b7999b615.png">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/220266951-c1cf9a8d-e093-4de1-a11d-f7cf9434d1ac.png">
+<meta property="article:published_time" content="2023-02-21T06:52:09.000Z">
+<meta property="article:modified_time" content="2023-02-21T06:52:49.279Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="unRAID">
+<meta property="article:tag" content="docker">
+<meta property="article:tag" content="VM">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://user-images.githubusercontent.com/35327600/220238709-7d4f5fff-c5f6-4955-a2be-b84d23658354.png">
+  
+  
+  
+  <title>Unraid自定义docker和虚拟机图标 - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="Unraid自定义docker和虚拟机图标"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-02-21 14:52" pubdate>
+          2023年2月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          19 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">Unraid自定义docker和虚拟机图标</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="Unraid自定义docker和虚拟机图标"><a href="#Unraid自定义docker和虚拟机图标" class="headerlink" title="Unraid自定义docker和虚拟机图标"></a>Unraid自定义docker和虚拟机图标</h1><h2 id="一、自定义docker图标"><a href="#一、自定义docker图标" class="headerlink" title="一、自定义docker图标"></a>一、自定义docker图标</h2><p>在 Unraid 中可以通过自带的应用市场安装 docker 容器，但是也有部分docker并未上架市场，需要通过 “ADD CONTAINER” 按钮手动安装，这样的 docker 容器并没有自带图标。还有一部分即使是在应用市场安装的 docker 容器本身有图标，但是由于国内的网络环境原因，导致图标链接不可访问，最终在 docker 界面中显示一个灰底的问号。</p>
+<p>这里用一个手动安装的 python:alpine3.16 的容器作为示例进行说明：<br><img src="https://user-images.githubusercontent.com/35327600/220238709-7d4f5fff-c5f6-4955-a2be-b84d23658354.png" srcset="/img/loading.gif" lazyload></p>
+<p>下面介绍两种方式来自定义设置 Docker 容器的图标。</p>
+<h3 id="1-1、方法一：直接修改-Docker-容器配置"><a href="#1-1、方法一：直接修改-Docker-容器配置" class="headerlink" title="1.1、方法一：直接修改 Docker 容器配置"></a>1.1、方法一：直接修改 Docker 容器配置</h3><p>无论是从应用市场安装的 docker 容器还是手动创建的，都会在安装前展示容器的配置界面，两种安装方式的差别仅仅就是应用市场的 docker 容器会将大部分的配置参数预先填充，避免了手动配置填充的过程，为部分经验不足的新手提供了相当的便利。</p>
+<p>一般来说，配置界面只展示了基础配置，我们点击右上角的 “BASIC VIEW” 按钮，打开高级配置 “ADVANCED VIEW”:<br><img src="https://user-images.githubusercontent.com/35327600/220241255-d0f8e445-8d3d-4de6-929a-01719f8c7d87.png" srcset="/img/loading.gif" lazyload></p>
+<p>打开后可见新增了许多配置项：<br><img src="https://user-images.githubusercontent.com/35327600/220242308-ad3b6a1f-621c-4fc7-b13f-5e5d56e45ec3.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到新增的配置项中，有一项名为 “Icon URL” 的配置，这里填充的就是当前 docker 容器的图标链接。我们在网上找一个 Python 的图标，并复制其图片地址进行配置填充：<br>python图标链接：<code>https://github.com/walkxcode/dashboard-icons/blob/main/png/python.png?raw=true</code><br><img src="https://user-images.githubusercontent.com/35327600/220243495-3daabdd1-79bf-42d9-a819-375c763719de.png" srcset="/img/loading.gif" lazyload></p>
+<p>配置完成后，点击 “APPLY” 按钮更新应用配置，待完成后在 Docker 界面就能看到图标由原本的问号，变为刚在填充的链接所展示的 python 图标了。<br><img src="https://user-images.githubusercontent.com/35327600/220243941-f6dc6ec8-7df4-4cb9-a83b-39ec20738bdf.png" srcset="/img/loading.gif" lazyload></p>
+<p>方法一操作简单，直接在 WebUI 中进行配置即可。但是也有朋友想用本地自己制作的个性化图标，一种方法就是将图标上传到图床，然后使用图床链接进行配置。如果是具有个人版权的图标，不想上传到公共图床或者网络上，同时也不想自建图床，因为自建图床的学习成本相对较高，那么有没有其他办法进行修改配置呢？请看方法二——本地存储图标配置。</p>
+<h3 id="1-2、方法二：本地存储图标图片并配置（需使用命令行操作，不会的朋友请尽量使用方法一）"><a href="#1-2、方法二：本地存储图标图片并配置（需使用命令行操作，不会的朋友请尽量使用方法一）" class="headerlink" title="1.2、方法二：本地存储图标图片并配置（需使用命令行操作，不会的朋友请尽量使用方法一）"></a>1.2、方法二：本地存储图标图片并配置（需使用命令行操作，不会的朋友请尽量使用方法一）</h3><p><mark>再次重申一下，方法二需要使用命令行操作，不会的朋友请尽量使用方法一，避免对系统本身造成无法修复的损害</mark>。</p>
+<ul>
+<li><p>首先我们先将图标下载到本地（因为我本地没有 Python 的图标，所以此处需要下载，如果本地已经有对应图标，就不需要下载），并存放到 unRAID 的任意共享目录中。</p>
+</li>
+<li><p>将图片名称修改为以下样式 <code>&lt;docker 容器名&gt;-icon.png</code> 。例如此处使用命令 <code>mv python.png python-icon.png</code> 即可完成重命名。<br>  这里我直接采用的 unRAID 后台命令行进行操作，也可以直接在windows下进行重命名<br>  <img src="https://user-images.githubusercontent.com/35327600/220259348-6b70c342-98e6-4d57-bade-6e6ee4111d04.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>然后我们通过命令行将重命名后的图标文件拷贝到这个目录：<code>/var/lib/docker/unraid/images</code> 。</p>
+  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">cp python-icon.png /var/lib/docker/unraid/images;<br></code></pre></td></tr></table></figure>
+<p>  其实在这个目录下，使用 ls 命令就能发现，所有 docker 容器的图标都被存放在这个目录底下。<br>  此时 docker 的图标还未生效，刷新界面后仍然显示的是灰底的问号。</p>
+</li>
+<li><p>下一步，我们需要去修改 docker 容器的配置。和<strong>方法一</strong>一样，打开高级配置，找到 “Icon URL” 配置项，但是此时<font color=red>不需要填充真实的链接，随意填入内容即可</font>。这是为了告诉 unRAID 系统，这个 docker 容器是有图标的，你得给我显示出来。<br>  但是为什么可以填充随意内容呢？结合上一步中在目录 <code>/var/lib/docker/unraid/images</code> ，我们不难猜到，unRAID 只是根据 “Icon URL” 中的链接去下载图标到特定目录，然后根据 docker 容器的命名和图标文件的命名进行匹配和展示的。由于我们自行将图标重命名并且存放到了指定位置，所以 unRAID 系统自然能进行匹配和展示了。</p>
+<p>  <img src="https://user-images.githubusercontent.com/35327600/220262561-88362131-b355-498c-8193-899e7bc8564d.png" srcset="/img/loading.gif" lazyload></p>
+<p>  填充完成后，还是老样子，点击下方 “APPLY” 按钮，此时你会发现图标已经变成你自定义的样子了。</p>
+<p>  <img src="https://user-images.githubusercontent.com/35327600/220262946-6d53e1b0-5197-4e09-b79e-a4a96aa2ccb5.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<h2 id="二、自定义虚拟机图标"><a href="#二、自定义虚拟机图标" class="headerlink" title="二、自定义虚拟机图标"></a>二、自定义虚拟机图标</h2><p>unRAID 提供的虚拟机图标类型较少，可能无法满足部分朋友的需要，此时也可通过自定义的方式进行配置。配置方法十分简单，下面一起来看下。</p>
+<p>注意：虚拟机的配置修改需要在虚拟机处于关机状态下进行。</p>
+<ol>
+<li>第一步，打开虚拟机配置编辑，点击右上角的 “FORM VIEW”，打开 “XML VIEW” 模式<br> <img src="https://user-images.githubusercontent.com/35327600/220265145-e9d995dd-acd7-46fa-b717-b205d76de807.png" srcset="/img/loading.gif" lazyload></li>
+<li>按下键盘的 <code>Ctrl</code> + <code>F</code> 键，在弹出的搜索框中输入 “icon”，并回车进行搜索，找到 XML 文件中对应的字样<br> <img src="https://user-images.githubusercontent.com/35327600/220266149-ece8dd67-c4a1-4b5f-9111-a50b7999b615.png" srcset="/img/loading.gif" lazyload></li>
+<li>将下划线部分 <code>icon=&quot;/mnt/user/domains/DSM7.1/synology_icon.png&quot;</code> 双引号中的内容，修改为你自定义虚拟机图标的绝对路径。图标存放位置不限。<blockquote>
+<p>图标文件的绝对路径，以存在位置为 unRAID 上创建的共享路径为例，可以参考这样修改：&#x2F;mnt&#x2F;user&#x2F;&lt;共享路径&gt;。将尖括号内的路径修改为图标在共享目录下的路径即可。以上文为例，我的共享目录是 domains，并在 domains 下创建了 DSM7.1 的子目录，图标存放在子目录中，因此绝对路径就是：&#x2F;mnt&#x2F;user&#x2F;domains&#x2F;DSM7.1&#x2F;synology_icon.png</p>
+</blockquote>
+</li>
+<li>点击下方 “UPDATE” 按钮后即可生效<br> <img src="https://user-images.githubusercontent.com/35327600/220266951-c1cf9a8d-e093-4de1-a11d-f7cf9434d1ac.png" srcset="/img/loading.gif" lazyload></li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%98%E8%85%BE%E4%B9%8B%E8%B7%AF/" class="category-chain-item">折腾之路</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/unRAID/">#unRAID</a>
+      
+        <a href="/tags/docker/">#docker</a>
+      
+        <a href="/tags/VM/">#VM</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>Unraid自定义docker和虚拟机图标</div>
+      <div>https://ccccx159.github.io/2023/02/21/Unraid自定义docker和虚拟机图标/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年2月21日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/02/21/%E4%B8%80%E4%B8%AA%E2%80%9Csize-type%E2%80%9D%E5%BC%95%E5%8F%91%E7%9A%84Bug/" title="一个“size_type”引发的Bug">
+                        <span class="hidden-mobile">一个“size_type”引发的Bug</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
