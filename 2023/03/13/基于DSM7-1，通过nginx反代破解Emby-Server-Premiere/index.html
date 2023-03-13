@@ -26,9 +26,9 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/201810752-d921d035-c76d-439c-9160-e320a36af37d.jpg">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/201813309-cc83b055-df1d-4b61-bda9-103939c7cc2c.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/201814624-8bc428eb-1947-430f-a27a-2301ce7379d8.png">
-<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/61aeee6cc39dee935294d56e3bd929a8.jpeg">
+<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/224621454-b0d99048-5b8c-470e-b7b9-70d81d5865df.jpg">
 <meta property="article:published_time" content="2023-03-13T06:52:09.000Z">
-<meta property="article:modified_time" content="2023-03-13T08:47:14.542Z">
+<meta property="article:modified_time" content="2023-03-13T08:50:48.260Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="Emby">
@@ -329,7 +329,7 @@
 </blockquote>
 <ol>
 <li>进入证书存储的目录，以上文为例，执行命令： <code>cd /volume1/web/mb3admin.com</code> </li>
-<li>打印证书内容，观察格式是否正确：<code>cat mb3admin.com.cert.pem</code><br> 按下回车键后，屏幕将输出形如一下内容，确认文件以 <code>-----BEGIN CERTIFICATE-----</code> 开头，<code>-----END CERTIFICATE-----</code> 结尾：<br> <img src="https://img-blog.csdnimg.cn/img_convert/61aeee6cc39dee935294d56e3bd929a8.jpeg" srcset="/img/loading.gif" lazyload></li>
+<li>打印证书内容，观察格式是否正确：<code>cat mb3admin.com.cert.pem</code><br> 按下回车键后，屏幕将输出形如一下内容，确认文件以 <code>-----BEGIN CERTIFICATE-----</code> 开头，<code>-----END CERTIFICATE-----</code> 结尾：<br> <img src="https://user-images.githubusercontent.com/35327600/224621454-b0d99048-5b8c-470e-b7b9-70d81d5865df.jpg" srcset="/img/loading.gif" lazyload></li>
 <li>将证书拷贝至对应目录，并重命名。这里以群晖7.1为例，执行以下命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo <span class="hljs-built_in">mkdir</span> -p /usr/syno/etc/security-profile/ca-bundle-profile/ca-certificates/;<br><span class="hljs-built_in">cp</span> /volume1/web/mb3admin.com/mb3admin.com.cert.pem /usr/syno/etc/security-profile/ca-bundle-profile/ca-certificates/mb3admin.com.crt;<br></code></pre></td></tr></table></figure></li>
 </ol>
 <blockquote>
