@@ -34,7 +34,6 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232398697-486d6c8f-6209-4b09-98e8-9a5ba93cba68.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232403948-a30edf1b-bb73-4555-9059-dcda07ba3430.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232404597-67f21713-5820-45fb-b232-ec8e0b21593e.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232404597-67f21713-5820-45fb-b232-ec8e0b21593e.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232405249-d864a176-6e29-4d03-a9fa-f8d713524e2d.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232416946-0c5db466-f400-42de-9668-da6ecc806b1b.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232418446-39dda62d-3a00-4457-8281-4b3e4442b537.png">
@@ -49,7 +48,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232426260-766bf78b-70f0-45da-843b-3d2166db963a.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/232432133-eeadc95b-5d55-4ddb-afd8-8e5de8998c3c.png">
 <meta property="article:published_time" content="2023-03-21T07:12:09.000Z">
-<meta property="article:modified_time" content="2023-04-17T09:15:56.119Z">
+<meta property="article:modified_time" content="2023-04-17T09:30:20.229Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="IPv6">
@@ -363,30 +362,28 @@
 <h4 id="3-2-3、记录值"><a href="#3-2-3、记录值" class="headerlink" title="3.2.3、记录值"></a>3.2.3、记录值</h4><p><img src="https://user-images.githubusercontent.com/35327600/232398697-486d6c8f-6209-4b09-98e8-9a5ba93cba68.png" srcset="/img/loading.gif" lazyload></p>
 <p>简单来说，待访问的终端 IP 地址。通过上一步的教程，我们将电脑的 IPv6 地址填入即可（请先确认地址有效，通过 mstsc 直接填入 IPv6 地址进行连接测试）。</p>
 <p>完成以上三项内容填写后，点击保存，我们就完成了 “ipv6.testdomain.xyz” 这个域名到我们电脑的 IPv6 地址解析记录添加。如下图所示：<br><img src="https://user-images.githubusercontent.com/35327600/232403948-a30edf1b-bb73-4555-9059-dcda07ba3430.png" srcset="/img/loading.gif" lazyload></p>
-<p>打开CMD，进行 ping 连接测试 <code>ping -6 ipv6.testdomain.xyz</code>：</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232404597-67f21713-5820-45fb-b232-ec8e0b21593e.png" srcset="/img/loading.gif" lazyload alt="image"><br><img src="https://user-images.githubusercontent.com/35327600/232404597-67f21713-5820-45fb-b232-ec8e0b21593e.png" srcset="/img/loading.gif" lazyload alt="image"></p>
-<p>显示正常 ping 通，说明解析服务已经正常生效了。然后我们再使用 mstsc 进行远程方式试试：</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232405249-d864a176-6e29-4d03-a9fa-f8d713524e2d.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>打开CMD，进行 ping 连接测试 <code>ping -6 ipv6.testdomain.xyz</code>：<br><img src="https://user-images.githubusercontent.com/35327600/232404597-67f21713-5820-45fb-b232-ec8e0b21593e.png" srcset="/img/loading.gif" lazyload></p>
+<p>显示正常 ping 通，说明解析服务已经正常生效了。然后我们再使用 mstsc 进行远程方式试试：<br><img src="https://user-images.githubusercontent.com/35327600/232405249-d864a176-6e29-4d03-a9fa-f8d713524e2d.png" srcset="/img/loading.gif" lazyload></p>
 <p>也能正常进行远程连接了。至此我们已经完成了通过域名解析到IPv6地址，并进行远程访问的所有设置。接下来我们进行 DDNS 动态域名解析的相关设置。</p>
 <h3 id="3-3、DDNS设置"><a href="#3-3、DDNS设置" class="headerlink" title="3.3、DDNS设置"></a>3.3、DDNS设置</h3><p>由于我的路由器 openwrt 固件中自带 DDNS 插件，因此下文将以路由器中的插件 “动态 DNS” 进行配置说明。</p>
 <blockquote>
 <p>这里推荐一个多平台（win、linux、macos等）可用，且支持docker运行的开源 DDNS 服务：”<a target="_blank" rel="noopener" href="https://github.com/jeessy2/ddns-go">ddns-go</a>“，可以直接前往 github 仓库查看其使用说明。整体使用和下文配置大同小异，可相互参考借鉴。</p>
 </blockquote>
-<p>openwrt 中的 “动态 DNS” 界面如下：<br><img src="https://user-images.githubusercontent.com/35327600/232416946-0c5db466-f400-42de-9668-da6ecc806b1b.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>openwrt 中的 “动态 DNS” 界面如下：<br><img src="https://user-images.githubusercontent.com/35327600/232416946-0c5db466-f400-42de-9668-da6ecc806b1b.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以看到我已经添加了一条配置，下面我们将详细介绍如何通过 “动态 DNS” 插件完成对腾讯云域名的动态解析设置。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232418446-39dda62d-3a00-4457-8281-4b3e4442b537.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232418446-39dda62d-3a00-4457-8281-4b3e4442b537.png" srcset="/img/loading.gif" lazyload></p>
 <p>点击添加按钮后，进入详细配置：</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232418767-a9c47b89-b09a-4614-821d-b174f86ab446.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232418767-a9c47b89-b09a-4614-821d-b174f86ab446.png" srcset="/img/loading.gif" lazyload></p>
 <p>由于不同 DNS 服务提供商所需要填充的设置也不同，因此进入以后我们先选择 “DDNS 服务提供商”，由于我们是通过腾讯云注册的，腾讯云提供的默认服务商为 DNSPOD，因此这里我们选择 “dnspod.cn”:</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232419295-ace51558-691f-49cc-ad44-df5f2f30c22f.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232419295-ace51558-691f-49cc-ad44-df5f2f30c22f.png" srcset="/img/loading.gif" lazyload></p>
 <p>点击更改提供者之后，就能看到详细的配置项了：</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232421210-57247aea-d68d-4bca-8e6e-d83d8aea852d.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232421210-57247aea-d68d-4bca-8e6e-d83d8aea852d.png" srcset="/img/loading.gif" lazyload></p>
 <p>其中 dsnpod 的用户 id 和 token，可前往 <a target="_blank" rel="noopener" href="https://console.dnspod.cn/account/token/token">DNSPOD 控制台</a>进行创建。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232422150-426adcc2-6627-49ac-836f-288e891964f6.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232422150-426adcc2-6627-49ac-836f-288e891964f6.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://user-images.githubusercontent.com/35327600/232422444-c358c376-7cf3-4a11-b051-436e3d91ee6f.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://user-images.githubusercontent.com/35327600/232422934-e4179e8e-cb08-4fb2-aed1-a8a9ac49fd4a.png" srcset="/img/loading.gif" lazyload></p>
 <p>将此处获取的 id 和 token 填入到插件配置中，填充完成后点击右下角 “保存&amp;应用” 完成配置创建。然后点击下图中的启动按钮，即可启动 DDNS 服务：</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232423971-36958701-6405-4201-97b1-c1a398a9aa66.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232423971-36958701-6405-4201-97b1-c1a398a9aa66.png" srcset="/img/loading.gif" lazyload></p>
 <p>我们在点击修改按钮进入配置界面，点击上方的”日志查看器”，点击”读取&#x2F;重新读取日志文件”，查看下方日志内容：<br><img src="https://user-images.githubusercontent.com/35327600/232425360-7d05ca20-83c8-43ca-aa0a-89a05e08eebe.png" srcset="/img/loading.gif" lazyload><br><img src="https://user-images.githubusercontent.com/35327600/232426260-766bf78b-70f0-45da-843b-3d2166db963a.png" srcset="/img/loading.gif" lazyload></p>
 <p>可以看到服务已经可以正常查询指定域名的 DNS 解析记录和本地 IPv6 地址。若日志中出现了 “warning “ 和 “error” 等级的日志内容，则说明有配置不正确，需要根据日志提示进行排查和修改。</p>
 <p>DDNS 服务会每隔几分钟轮询 DNS 解析记录和本地 IP，如果本地 IP 发生变更，则会调用 DNSPod 的 API 接口，将新的 IP 地址注册到 DNSPod 中，修改对应域名的解析记录，完美解决了 IP 地址不定时更新的问题。</p>
@@ -394,7 +391,7 @@
 <p>本来配置 DDNS 解析本地 IPv6 地址的过程在上一章节就完全结束了，但是由于作者是通过路由器获取的 IPv6 地址，直接访问域名的话，实际上访问的是路由器。因此如果需要远程访问路由器下的某台电脑，则还需要在路由器的防火墙中，设置端口转发，将流量转发到指定的子网设备中。</p>
 <p>openwrt 防火墙的端口转发仅支持 IPv4 to IPv4。我们现在需要进行 IPv6 向 IPv4 进行转发，因此还需借助另一个插件 “Socat”，来完成 IPv6 流量向 IPv4 地址的转发。</p>
 <p>点击插件界面的 “添加” 按钮，按下图所示完成配置后，点击 “保存&amp;应用”，即可完成最后的端口转发设置。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/232432133-eeadc95b-5d55-4ddb-afd8-8e5de8998c3c.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://user-images.githubusercontent.com/35327600/232432133-eeadc95b-5d55-4ddb-afd8-8e5de8998c3c.png" srcset="/img/loading.gif" lazyload></p>
 <h2 id="四、总结"><a href="#四、总结" class="headerlink" title="四、总结"></a>四、总结</h2><p>在本文中，我们注册申请了一个二级域名，并通过设置域名的 DNS 解析记录，使得可以通过域名来对内网下的windows主机进行远程访问。完全自定义的二级和三级域名，可以是具备标识意义的名称，完美解决了 IP 地址难以记忆的问题。</p>
 <p>我们又通过 DDNS 服务插件完成了当 IP 地址变更时，自动更新对应域名的 DNS 解析记录，确保 IP 变更时，域名仍然能正确指向我们的终端设备。</p>
 <p>通过<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_38894585/article/details/129664331">《使用公网IPv6远程访问内网设备》</a>和本文的所有配置，一般家用场景下已经能完美通过公网 IPv6 地址进行远程访问内网设备了。当然还有进阶的玩法，比如通过 DNSPod 提供的泛解析和路由器的端口转发，我们可以用不同的三级域名来访问家中的不同服务，再加上 Nginx 反向代理，实现全服务的 https 访问。</p>
