@@ -37,7 +37,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226238918-83374ecb-6640-4c8e-87bd-2153e81124ac.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226239110-a296c35e-5546-4a3d-b5cb-913901ac9121.png">
 <meta property="article:published_time" content="2023-03-21T02:42:01.000Z">
-<meta property="article:modified_time" content="2023-03-21T02:42:05.187Z">
+<meta property="article:modified_time" content="2023-03-21T08:32:58.194Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="IPv6">
@@ -237,7 +237,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          1.8k 字
         
       </span>
     
@@ -248,7 +248,7 @@
         
         
         
-          14 分钟
+          16 分钟
         
       </span>
     
@@ -324,10 +324,12 @@
 <ol>
 <li>IPv6 地址很长，不方便记忆；</li>
 <li>公网 IPv6 地址并非固定不变，在一定情况下，地址发生变更，如果不能及时获取地址，则无法进行远程访问</li>
+<li>部分网络无IPv6的Internet访问权限，比如公司内网等，则无法访问任何IPv6地址</li>
 </ol>
 <p>针对第一个缺陷，由于域名可以自定义申请，并且方便记忆，因此我们可以申请一个域名（例如 baidu.com、google.com），并将域名解析到对应IP地址（DNS服务商提供解析服务），通过域名来进行访问。</p>
 <p>而第二个缺陷，在域名的基础上，我们还需要定期将当前的IP地址，同步给DNS服务商，修改域名解析的目标IP，确保域名能正确解析到我们自己的设备上。</p>
-<p>由于文章篇幅较长，因此将在下一篇文章中进行详细说明介绍~</p>
+<p>第三个缺陷，我们则需要借助域名解析服务商提供的CDN功能进行IPv4访问，IPv6回源，同时国内的CDN服务都需要域名在工信部备案（这里点个名，由于作者域名在鹅厂购买的，本来考虑直接使用它的ECDN，结果个人域名备案需要绑定国内云服务器实例….其他云服务商不确定是否也具有同样的骚操作），不得不考虑国外的CDN服务，例如大名鼎鼎的 Cloudflare。</p>
+<p>由于文章篇幅较长，因此将在专栏后续文章中进行详细说明介绍~</p>
 
                 
               </div>
