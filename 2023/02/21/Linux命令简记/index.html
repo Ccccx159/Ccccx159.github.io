@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/212609068-f83073cf-06b9-4c73-ad8b-55af99d80d98.png">
 <meta property="og:image" content="https://user-images.githubusercontent.com/35327600/212609286-2525b883-4bfc-4ac9-a804-09f720f3828e.png">
 <meta property="article:published_time" content="2023-02-21T02:18:28.000Z">
-<meta property="article:modified_time" content="2023-02-21T02:24:38.693Z">
+<meta property="article:modified_time" content="2023-05-05T03:48:39.372Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="Linux">
@@ -225,7 +225,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          3.9k 字
+          4.5k 字
         
       </span>
     
@@ -236,7 +236,7 @@
         
         
         
-          33 分钟
+          38 分钟
         
       </span>
     
@@ -382,6 +382,25 @@
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 向磁盘上写入一个大小为1Gb的大文件, 通过计算该命令执行时间，判断磁盘写性能</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/dev/zero bs=1024 count=1000000 of=/root/1Gb.file<br><br><span class="hljs-comment"># 读取一个刚才生成的1Gb的文件，通过计算命令执行时间，判断磁盘读取性能</span><br><span class="hljs-built_in">dd</span> <span class="hljs-keyword">if</span>=/root/1Gb.file bs=64k of=/dev/null<br></code></pre></td></tr></table></figure>
 
+<h2 id="touch"><a href="#touch" class="headerlink" title="touch"></a>touch</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs shell">touch 不仅可以创建文件，还可以对其进行时间的一些修改  <br>格式：touch 参数 文件名  <br>参数：  <br>-a: 修改访问时间，或 -–time=atime 或 -–time=access 或 -–time=use  <br>-c: 或 -–no-creat，如果文件不存在则不创建文件  <br>-d: 使用指定的日期时间，可以使用不同的格式  <br>-m: 或 -–time=mtime 或 -–time=modify，改变修改时间  <br>-r: 把指定的文件日期更设成和参考文档或目录日期相同的时间  <br>-t: 使用指定的日期时间，格式与 date 指令相同<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="mtime"><a href="#mtime" class="headerlink" title="-mtime"></a>-mtime</h2><p>查找指定时间修改的文件，单位天，但是按24小时更便于理解，在下面的示例中，将文件修改时间与当前时间的时间差记为 “T”</p>
+<p>e.g.</p>
+<ul>
+<li>-mtime -1：T &lt; 24</li>
+<li>-mtime 1： 24 &lt; T &lt; 48</li>
+<li>-mtime +1：T &gt; 48</li>
+<li>-mtime -2：T &lt; 48</li>
+<li>-mtime 2： 48 &lt; T &lt; 72</li>
+<li>-mtime +2：T &gt; 72</li>
+</ul>
+<p>总结一下：</p>
+<ol>
+<li>假设期望获取修改时间为 <strong>N 天之内</strong>（T &lt; <code>N * 24h</code>内修改过）的文件，则 -mtime -N</li>
+<li>假设期望获取修改时间为<strong>距离当前时间的第 N 天</strong>（<code>N * 24h</code> &lt; T &lt;  <code>(N + 1) * 24h</code>  之间修改）的文件，则 -mtime N</li>
+<li>假设期望获取修改时间为<strong>距离当前时间 N 天之前</strong>（T &gt; <code>N * 24h</code>之前修改）的文件，则 -mtime (N-1)</li>
+</ol>
 <h2 id="sed"><a href="#sed" class="headerlink" title="sed"></a>sed</h2><h2 id="find"><a href="#find" class="headerlink" title="find"></a>find</h2><h2 id="awk"><a href="#awk" class="headerlink" title="awk"></a>awk</h2><h2 id="xargs"><a href="#xargs" class="headerlink" title="xargs"></a>xargs</h2>
                 
               </div>
@@ -450,7 +469,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年2月21日</div>
+          <div>2023年5月5日</div>
         </div>
       
       
