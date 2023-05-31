@@ -1,0 +1,694 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="fail2ban 防止暴力破解密码一、前言在五一劳动节期间发现家中搭建的 unRAID 服务器的 CPU 直接被拉满了，怀疑是被暴力破解入侵了，并植入了挖矿程序。经过两天的斗智斗勇，发现在系统盘中被创建了一个名为 wireguard.go 的定时脚本，会定时下载运行 Xmrig 的挖矿程序。。。打死我也没想到伪装名用的是 wireguard。由于部分服务被我暴露到公网上，所以不可避免的会被扫描到，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="fail2ban 防止暴力破解密码">
+<meta property="og:url" content="https://ccccx159.github.io/2023/05/31/fail2ban%20%E9%98%B2%E6%AD%A2%E6%9A%B4%E5%8A%9B%E7%A0%B4%E8%A7%A3%E5%AF%86%E7%A0%81/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="fail2ban 防止暴力破解密码一、前言在五一劳动节期间发现家中搭建的 unRAID 服务器的 CPU 直接被拉满了，怀疑是被暴力破解入侵了，并植入了挖矿程序。经过两天的斗智斗勇，发现在系统盘中被创建了一个名为 wireguard.go 的定时脚本，会定时下载运行 Xmrig 的挖矿程序。。。打死我也没想到伪装名用的是 wireguard。由于部分服务被我暴露到公网上，所以不可避免的会被扫描到，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/b997e4a75c8c7a7692f7fcdad88c7f02/1685515906781.jpg">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/5e62abe2e324bb0e600864bd51a8476a/1685516101870.png">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/7354da94922920c9ead8d4d012049fc6/1685517579501.png">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/1c02f915b01c6f05f89b579cfd94109e/1685520145020.png">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/e6fcd2c4d2085ef6739a64c2331afc1a/1685520332045.png">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/8667dfceba63606dcbd1bb3eea6dfee2/1685520362023.png">
+<meta property="og:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/b82877dd944756d2e25844094fd5a41a/1685520388282.png">
+<meta property="article:published_time" content="2023-05-31T03:29:43.000Z">
+<meta property="article:modified_time" content="2023-05-31T08:40:44.742Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="fail2ban">
+<meta property="article:tag" content="防破解">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/b997e4a75c8c7a7692f7fcdad88c7f02/1685515906781.jpg">
+  
+  
+  
+  <title>fail2ban 防止暴力破解密码 - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="fail2ban 防止暴力破解密码"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-31 11:29" pubdate>
+          2023年5月31日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          43 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">fail2ban 防止暴力破解密码</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="fail2ban-防止暴力破解密码"><a href="#fail2ban-防止暴力破解密码" class="headerlink" title="fail2ban 防止暴力破解密码"></a>fail2ban 防止暴力破解密码</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>在五一劳动节期间发现家中搭建的 unRAID 服务器的 CPU 直接被拉满了，怀疑是被暴力破解入侵了，并植入了挖矿程序。经过两天的斗智斗勇，发现在系统盘中被创建了一个名为 wireguard.go 的定时脚本，会定时下载运行 Xmrig 的挖矿程序。。。打死我也没想到伪装名用的是 wireguard。由于部分服务被我暴露到公网上，所以不可避免的会被扫描到，然后被暴力破解了 sshd 的 root 密码，从而导致了以上惨剧。因此设置高位端口和复杂密码的必要性可想而知，一旦自建服务器被黑，如果只是植入挖矿程序，还算良心，万一隐私信息的暴露，或者被勒索，那就杯具了。</p>
+<p>由于端口的有限性，尽管设置了高位端口，但还是有可能会有意者扫描到，因此防止暴力破解也是一个非常关键的安全手段。群晖自带了多次登录失败封禁 ip 的功能，但是 unRAID 本身没有这个功能，我们可以借助安装 fail2ban 这个防入侵软件来保护我们的服务器。</p>
+<h2 id="二、fail2ban-简介"><a href="#二、fail2ban-简介" class="headerlink" title="二、fail2ban 简介"></a>二、fail2ban 简介</h2><p>fail2ban 的官方开源仓库：<a target="_blank" rel="noopener" href="https://github.com/fail2ban/fail2ban">https://github.com/fail2ban/fail2ban</a></p>
+<p>这里引用 fail2ban 开源仓库的文档内容：</p>
+<blockquote>
+<p>Fail2Ban 扫描日志文件 <code>/var/log/auth.log</code> 并禁止 IP 地址进行过多失败的登录尝试。它通过更新系统防火墙规则以在可配置的时间内拒绝来自这些 IP 地址的新连接来实现这一点。Fail2Ban 开箱即用，可以读取许多标准日志文件，例如 sshd 和 Apache 的日志文件，并且可以轻松配置为读取您选择的任何日志文件，以获取您希望的任何错误。</p>
+<p>尽管 Fail2Ban 能够降低不正确的身份验证尝试率，但它无法消除弱身份验证带来的风险。如果您真的想保护服务，请将服务设置为仅使用两个因素或公共&#x2F;私人身份验证机制。</p>
+</blockquote>
+<p>简单来说，fail2ban 通过扫描日志文件获取相关错误，并通过改写 iptable 来阻止对应 IP 的连接，支持多种服务的保护。</p>
+<p>fail2ban 提供了 docker 版本，因此安装配置也是相对简单的，下面就简要介绍一下如何在 unRAID 中安装 docker 版本的 fail2ban。</p>
+<h2 id="三、docker-安装"><a href="#三、docker-安装" class="headerlink" title="三、docker 安装"></a>三、docker 安装</h2><p>这里以 unRAID 为例，简单介绍一下安装和配置的过程，由于 unRAID 的 APP 市场中存在现有的 docker 应用，因此我们直接拉取市场应用，并填写相关配置即可。当然你也可以基于其 github 发布的源码或者 release 包自行编写 dockerfile 构建镜像。</p>
+<ol>
+<li>点击 unRAID 的 APP 按钮，进入应用市场，在搜索栏中输入 fail2ban，会出来两个应用，我们选择发布者为 linuxserver 的应用，相对安全。另一个是第三方个人构建的 docker 镜像：<br><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/b997e4a75c8c7a7692f7fcdad88c7f02/1685515906781.jpg" srcset="/img/loading.gif" lazyload></li>
+<li>点击安装后会跳出一个提示界面，提示当前应用将运行在特权（privilege）模式下，可能存在安全风险。由于 fail2ban 是开源的，因此放心大胆的安装吧<br><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/5e62abe2e324bb0e600864bd51a8476a/1685516101870.png" srcset="/img/loading.gif" lazyload></li>
+<li>进入后是 docker 的配置界面，其实就是 docker run 的参数，填充完参数后完成创建<br><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/7354da94922920c9ead8d4d012049fc6/1685517579501.png" srcset="/img/loading.gif" lazyload>如果仅仅是为了读取系统的日志，其实我们什么都不需要填写和修改，直接创建即可。但是我们也可以看到，模板中还提供了可选的、其他服务的日志监控路径的挂载配置，上图未截全，如果有对应需求的朋友可以自行配置。</li>
+<li>此时根据<a target="_blank" rel="noopener" href="https://github.com/linuxserver/fail2ban-confs/blob/master/README.md">linuxserver的说明文档</a>，还要手动去创建和设置一个配置文件 jail.local，否则重启容器后会丢失配置，而且默认的监控服务是被禁用的，我们直接拷贝 ta 提供的完整配置，然后手动修改其中的部分内容，并保存为 jail.local：  <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><code class="hljs shell">[DEFAULT]<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">&quot;bantime.increment&quot;</span> allows to use database <span class="hljs-keyword">for</span> searching of previously banned ip<span class="hljs-string">&#x27;s to increase a</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">default ban time</span></span><br>bantime.increment = true<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">&quot;bantime.maxtime&quot; is the max number of seconds using the ban time can reach (doesn&#x27;</span>t grow further)</span><br>bantime.maxtime = 5w<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">&quot;bantime.factor&quot;</span> is a coefficient to calculate exponent growing of the formula or common multiplier</span><br>bantime.factor = 24<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">&quot;bantime&quot;</span> is the number of seconds that a host is banned.</span><br>bantime = 1h<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">A host is banned <span class="hljs-keyword">if</span> it has generated <span class="hljs-string">&quot;maxretry&quot;</span> during the last <span class="hljs-string">&quot;findtime&quot;</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">seconds.</span><br>findtime = 24h<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash"><span class="hljs-string">&quot;maxretry&quot;</span> is the number of failures before a host get banned.</span><br>maxretry = 5<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Prevents banning LAN subnets</span><br>ignoreip    = 127.0.0.1/8 ::1<br>              10.0.0.0/8<br>              172.16.0.0/12<br>              192.168.0.0/16<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The ban action <span class="hljs-string">&quot;iptables-multiport&quot;</span> (default) should work <span class="hljs-keyword">for</span> most</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The ban action <span class="hljs-string">&quot;iptables-allports&quot;</span> can be used <span class="hljs-keyword">if</span> multiport causes issues</span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">banaction = %(banaction_allports)s</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Read https://github.com/sebres/PoC/blob/master/FW.IDS-DROP-vs-REJECT/README.md before changing block <span class="hljs-built_in">type</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The block <span class="hljs-built_in">type</span> <span class="hljs-string">&quot;REJECT --reject-with icmp-port-unreachable&quot;</span> (default behavior) should respond to, but <span class="hljs-keyword">then</span> instantly reject connection attempts</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">The block <span class="hljs-built_in">type</span> <span class="hljs-string">&quot;DROP&quot;</span> should not respond to connection attempts, resulting <span class="hljs-keyword">in</span> a <span class="hljs-built_in">timeout</span></span><br><span class="hljs-meta prompt_">#</span><span class="language-bash">banaction = iptables-multiport[blocktype=DROP]</span><br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Add additional actions</span><br>action  = %(action_)s<br>          apprise-api[host=&quot;127.0.0.1&quot;, tag=&quot;fail2ban&quot;]<br>          cloudflare[cfuser=&quot;YOUR-EMAIL&quot;, cftoken=&quot;YOUR-TOKEN&quot;]<br><br>abuseipdb_apikey = YOUR-API-KEY<br><br>[unraid-sshd]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">configuration inherits from jail.d/unraid-sshd.conf</span><br>enabled = true<br>chain   = INPUT<br>action  = %(known/action)s<br>          abuseipdb[abuseipdb_apikey=&quot;%(abuseipdb_apikey)s&quot;, abuseipdb_category=&quot;18,22&quot;]<br><br>[unraid-webgui]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">configuration inherits from jail.d/unraid-webgui.conf</span><br>enabled = true<br>chain   = INPUT<br>port    = http,https,YOUR-UNRAID-MY-SERVERS-WAN-PORT<br>action  = %(known/action)s<br>          abuseipdb[abuseipdb_apikey=&quot;%(abuseipdb_apikey)s&quot;, abuseipdb_category=&quot;18,21&quot;]<br><br>[unifi-controller-auth]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">configuration inherits from jail.d/unifi-controller-auth.conf</span><br>enabled = true<br>chain   = DOCKER-USER<br>action  = %(known/action)s<br>          abuseipdb[abuseipdb_apikey=&quot;%(abuseipdb_apikey)s&quot;, abuseipdb_category=&quot;18,21&quot;]<br><br>[vaultwarden-auth]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">configuration inherits from jail.d/vaultwarden-auth.conf</span><br>enabled = true<br>chain   = DOCKER-USER<br>action  = %(known/action)s<br>          abuseipdb[abuseipdb_apikey=&quot;%(abuseipdb_apikey)s&quot;, abuseipdb_category=&quot;18,21&quot;]<br><br></code></pre></td></tr></table></figure></li>
+</ol>
+<p>  配置文件中，我们需要手动修改部分内容：</p>
+<ul>
+<li><p>删除第31行行首的 “#” 取消注释，按照其说明，默认的封禁 action 是 iptables-multiport，但是不知道为什么，我这边使用默认的封禁 action 时无法生效，因此我将这行注释取消，使用 iptables-allports 封禁所有端口</p>
+</li>
+<li><p>在 39 ~ 40 行中定义了三种 action，后面两种是推送消息的，如果有需要可以自行配置一下，如果不需要则在第 40 和 41 行的行首分别加上 “#” 即可</p>
+</li>
+<li><p>从 45 行开始，就是各个待监控的服务，每个服务都以 <code>[xxxxxx]</code> 开头，默认配置中添加了 <code>[unifi-controller-auth]</code> 和 <code>[vaultwarden-auth]</code> 的监控，如果不需要可以直接删除，并且默认的监控配置中，action 还额外增加了一条 abuseipdb 的配置，如果没有的，也可以直接将 abuseipdb 这行删除，保留默认的 <code>action = %(known/action)s</code> 即可。</p>
+</li>
+<li><p>如果需要添加其他的服务监控，可以从 docker 本身配置中复制过来，路径为 <code>/mnt/user/appdata/fail2ban/fail2ban/jail.d</code> 下面有各个服务独立的 conf 文件，我们以 gitlab.conf 为例。直接复制粘贴到 jail.local 中即可，将 enable 修改为 true，logpath 中的 &#x2F;gitlab&#x2F;xxxx 修改为 docker 配置界面中的挂载路径即可：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_">#</span><span class="language-bash"><span class="hljs-comment"># Version 2022/08/06</span></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">Fail2Ban jail configuration <span class="hljs-keyword">for</span> gitlab</span><br><br>[gitlab]<br><br>enabled = false<br>port    = http,https<br>logpath = %(logs_path)s/gitlab/gitlab-rails/application.log<br></code></pre></td></tr></table></figure></li>
+</ul>
+<ol start="5">
+<li>将 jail.local 拷贝到 unRAID 的目录中 <code>/mnt/user/appdata/fail2ban/fail2ban/jail.d</code>，重启 docker。</li>
+</ol>
+<h2 id="四、fail2ban-client-命令和效果测试"><a href="#四、fail2ban-client-命令和效果测试" class="headerlink" title="四、fail2ban-client 命令和效果测试"></a>四、fail2ban-client 命令和效果测试</h2><p><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/1c02f915b01c6f05f89b579cfd94109e/1685520145020.png" srcset="/img/loading.gif" lazyload></p>
+<p>可以看到在输错几次密码后，ssh 连接直接被拒绝了。我们进 fail2ban 的控制台中看一下封禁状态 <code>fail2ban-client status &lt;服务名称&gt;</code>：</p>
+<p><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/e6fcd2c4d2085ef6739a64c2331afc1a/1685520332045.png" srcset="/img/loading.gif" lazyload></p>
+<p>我这边开了7个监控服务，刚才被封禁的是 unraid-sshd，我们在看一下详细的监控服务状态：<br><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/8667dfceba63606dcbd1bb3eea6dfee2/1685520362023.png" srcset="/img/loading.gif" lazyload><br>列出了当前服务失败次数和总次数，以及当前封禁的 ip 数量和总 ip 数量，并列举出了被封禁的详细 ip。<br>我们可以通过 <code>fail2ban-client set &lt;服务名称&gt; unbanip &lt;被封禁的 IP 地址&gt;</code> 来取消封禁：<br><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/b82877dd944756d2e25844094fd5a41a/1685520388282.png" srcset="/img/loading.gif" lazyload></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%8A%98%E8%85%BE%E4%B9%8B%E8%B7%AF/" class="category-chain-item">折腾之路</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/fail2ban/">#fail2ban</a>
+      
+        <a href="/tags/%E9%98%B2%E7%A0%B4%E8%A7%A3/">#防破解</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>fail2ban 防止暴力破解密码</div>
+      <div>https://ccccx159.github.io/2023/05/31/fail2ban 防止暴力破解密码/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月31日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年5月31日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/19/Git%20%E2%80%94%E2%80%94%20submodule%20%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E/" title="Git —— submodule 操作说明">
+                        <span class="hidden-mobile">Git —— submodule 操作说明</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
