@@ -16,12 +16,12 @@
   <meta name="author" content="Xu@n Ch3n">
   <meta name="keywords" content="">
   
-    <meta name="description" content="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换通过公网IPv6地址实现远程访问专栏系列文章：  《使用公网IPv6远程访问内网设备》 《DDNS动态域名解析IPv6地址》   温馨提示：本文存在一部分付费内容，但是付费仅限于域名的购买，如果已经有域名的朋友，请放心大胆食用本文，因为剩余内容均为免费使用。没有域名的朋友，可以移步上一篇文章《DDNS动态域名解析IPv6">
+    <meta name="description" content="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换通过公网IPv6地址实现远程访问专栏系列文章：  《使用公网IPv6远程访问内网设备》 《DDNS动态域名解析IPv6地址》 《开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换》   温馨提示：本文存在一部分付费内容，但是付费仅限于域名的购买，如果已经有域名的朋友，请放心大胆食用本文，因为剩">
 <meta property="og:type" content="article">
 <meta property="og:title" content="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换">
 <meta property="og:url" content="https://ccccx159.github.io/2023/06/01/%E5%BC%80%E5%90%AF%20Cloudflare%20CDN%20%E4%BB%A3%E7%90%86%EF%BC%8C%E5%AE%9E%E7%8E%B0%20IPv4%20to%20IPv6%20%E8%BD%AC%E6%8D%A2/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换通过公网IPv6地址实现远程访问专栏系列文章：  《使用公网IPv6远程访问内网设备》 《DDNS动态域名解析IPv6地址》   温馨提示：本文存在一部分付费内容，但是付费仅限于域名的购买，如果已经有域名的朋友，请放心大胆食用本文，因为剩余内容均为免费使用。没有域名的朋友，可以移步上一篇文章《DDNS动态域名解析IPv6">
+<meta property="og:description" content="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换通过公网IPv6地址实现远程访问专栏系列文章：  《使用公网IPv6远程访问内网设备》 《DDNS动态域名解析IPv6地址》 《开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换》   温馨提示：本文存在一部分付费内容，但是付费仅限于域名的购买，如果已经有域名的朋友，请放心大胆食用本文，因为剩">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/483cec301c56b56f697ccb21605e50ce/1685951169889.jpg">
 <meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/37a856c85d1a6fe44f380261327cbb6f/1685953812251.jpg">
@@ -40,7 +40,7 @@
 <meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/e489644ba5f788f159e905142f4fca6d/image.png">
 <meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/242211644d7144a59450b84bdc80a411/image.png">
 <meta property="article:published_time" content="2023-06-01T08:29:06.000Z">
-<meta property="article:modified_time" content="2023-06-05T11:30:55.874Z">
+<meta property="article:modified_time" content="2023-06-05T11:38:13.398Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="cloudflare">
@@ -298,6 +298,7 @@
 <ol>
 <li><a href="https://ccccx159.github.io/2023/03/21/%E4%BD%BF%E7%94%A8%E5%85%AC%E7%BD%91IPv6%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%E8%AE%BE%E5%A4%87/">《使用公网IPv6远程访问内网设备》</a></li>
 <li><a href="https://ccccx159.github.io/2023/03/21/DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90IPv6%E5%9C%B0%E5%9D%80/">《DDNS动态域名解析IPv6地址》</a></li>
+<li><a href="https://ccccx159.github.io/2023/06/01/%E5%BC%80%E5%90%AF%20Cloudflare%20CDN%20%E4%BB%A3%E7%90%86%EF%BC%8C%E5%AE%9E%E7%8E%B0%20IPv4%20to%20IPv6%20%E8%BD%AC%E6%8D%A2/">《开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换》</a></li>
 </ol>
 <blockquote>
 <p><font color="blue">温馨提示：</font><br>本文存在一部分付费内容，但是付费仅限于域名的购买，如果已经有域名的朋友，请放心大胆食用本文，因为剩余内容均为免费使用。没有域名的朋友，可以移步上一篇文章<a href="https://ccccx159.github.io/2023/03/21/DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90IPv6%E5%9C%B0%E5%9D%80/">《DDNS动态域名解析IPv6地址》</a>，里面详细介绍了如何在腾讯云购买便宜好用的域名。</p>
