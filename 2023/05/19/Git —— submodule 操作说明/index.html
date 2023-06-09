@@ -16,15 +16,15 @@
   <meta name="author" content="Xu@n Ch3n">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Git —— submodule 操作说明1. add 添加子模块123456# git add submodule -b master https:&#x2F;&#x2F;github.com&#x2F;coolsnowwolf&#x2F;lede.git .&#x2F;ledegit add submodule -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]# 本">
+    <meta name="description" content="Git —— submodule 操作说明1. add 添加子模块123456# git submodule add -b master https:&#x2F;&#x2F;github.com&#x2F;coolsnowwolf&#x2F;lede.git .&#x2F;ledegit submodule add -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]# 本">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Git —— submodule 操作说明">
 <meta property="og:url" content="https://ccccx159.github.io/2023/05/19/Git%20%E2%80%94%E2%80%94%20submodule%20%E6%93%8D%E4%BD%9C%E8%AF%B4%E6%98%8E/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="Git —— submodule 操作说明1. add 添加子模块123456# git add submodule -b master https:&#x2F;&#x2F;github.com&#x2F;coolsnowwolf&#x2F;lede.git .&#x2F;ledegit add submodule -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]# 本">
+<meta property="og:description" content="Git —— submodule 操作说明1. add 添加子模块123456# git submodule add -b master https:&#x2F;&#x2F;github.com&#x2F;coolsnowwolf&#x2F;lede.git .&#x2F;ledegit submodule add -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]# 本">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-19T02:22:34.000Z">
-<meta property="article:modified_time" content="2023-05-22T03:04:56.270Z">
+<meta property="article:modified_time" content="2023-06-09T02:47:59.257Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="Git">
@@ -301,7 +301,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：15 天前
+                    本文最后更新于：几秒前
                   
                 
               </p>
@@ -309,7 +309,7 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Git-——-submodule-操作说明"><a href="#Git-——-submodule-操作说明" class="headerlink" title="Git —— submodule 操作说明"></a>Git —— submodule 操作说明</h1><h2 id="1-add-添加子模块"><a href="#1-add-添加子模块" class="headerlink" title="1. add 添加子模块"></a>1. add 添加子模块</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">git add submodule -b master https://github.com/coolsnowwolf/lede.git ./lede</span><br>git add submodule -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">本地提交</span><br>git commit -m &quot;add submodule xxxx&quot;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">推送到远程仓库</span><br>git push<br></code></pre></td></tr></table></figure>
+                <h1 id="Git-——-submodule-操作说明"><a href="#Git-——-submodule-操作说明" class="headerlink" title="Git —— submodule 操作说明"></a>Git —— submodule 操作说明</h1><h2 id="1-add-添加子模块"><a href="#1-add-添加子模块" class="headerlink" title="1. add 添加子模块"></a>1. add 添加子模块</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">git submodule add -b master https://github.com/coolsnowwolf/lede.git ./lede</span><br>git submodule add -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]<br><span class="hljs-meta prompt_"># </span><span class="language-bash">本地提交</span><br>git commit -m &quot;add submodule xxxx&quot;<br><span class="hljs-meta prompt_"># </span><span class="language-bash">推送到远程仓库</span><br>git push<br></code></pre></td></tr></table></figure>
 <h2 id="2-checkout-子模块检出"><a href="#2-checkout-子模块检出" class="headerlink" title="2. checkout 子模块检出"></a>2. checkout 子模块检出</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell"><span class="hljs-meta prompt_"># </span><span class="language-bash">有两种方式：</span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">1. 使用 --recursive 参数，跟随主仓库递归 <span class="hljs-built_in">clone</span></span><br>git clone &lt;your main repository url&gt; --recursive # 此时 clone 下来的主项目会直接 clone 远程仓库中记录的 commit id 版本的子模块<br><span class="hljs-meta prompt_"></span><br><span class="hljs-meta prompt_"># </span><span class="language-bash">2. 单独 checkout 子模块</span><br>git clone &lt;your main repository url&gt; # 不带 --recursive 递归参数时，submodule 无法被一起 clone 下来<br>git submodule update --init --recursive # 将 submodule 更新到远程仓库中记录的 commit id 版本<br></code></pre></td></tr></table></figure>
 
 <h2 id="3-update-更新-x2F-切换子模块-commit-id-和当前分支"><a href="#3-update-更新-x2F-切换子模块-commit-id-和当前分支" class="headerlink" title="3. update 更新&#x2F;切换子模块 commit id 和当前分支"></a>3. update 更新&#x2F;切换子模块 commit id 和当前分支</h2><p>这里存在一个较大的坑，默认检出的子模块并不属于任何分支，而是一个 “detached head” ，虽然可以提交更改，但是并没有本地分支跟踪提交的更改，这意味着<font color=red>下次更新子模块会丢失这些更改</font>。</p>
@@ -411,7 +411,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年5月22日</div>
+          <div>2023年6月9日</div>
         </div>
       
       
