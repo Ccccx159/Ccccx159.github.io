@@ -16,41 +16,25 @@
   <meta name="author" content="Xu@n Ch3n">
   <meta name="keywords" content="">
   
-    <meta name="description" content="使用公网IPv6远程访问内网设备一、前言IPv4公网IP一号难求的环境下，如何优雅的使用公网IPv6进行远程访问？本文将以中国移动的宽带和光猫为例，进行IPv6的设置说明，并实现通过IPv6地址和Windows系统自带的远程工具”mstsc”，远程访问内网的Windows主机。 可能部分宽带安装师傅默认没有打开 IPv6 的功能，因此我们先登录光猫的后台确认光猫是否开启了 IPv6。由于电信的宽带">
+    <meta name="description" content="Git —— 常用命令 克隆  12345678git clone &lt;git-repository-url&gt; [local-path]# option# 1. --recursive # 递归克隆子模块git clone &lt;git-repository-url&gt; --recursive [local-path]# 2. --depth&#x3D;1 # 浅克隆git clone &amp;l">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用公网IPv6远程访问内网设备">
-<meta property="og:url" content="https://ccccx159.github.io/2023/03/21/%E4%BD%BF%E7%94%A8%E5%85%AC%E7%BD%91IPv6%E8%BF%9C%E7%A8%8B%E8%AE%BF%E9%97%AE%E5%86%85%E7%BD%91%E8%AE%BE%E5%A4%87/index.html">
+<meta property="og:title" content="Git —— 常用指令">
+<meta property="og:url" content="https://ccccx159.github.io/2023/07/31/Git%20%E2%80%94%E2%80%94%20%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="使用公网IPv6远程访问内网设备一、前言IPv4公网IP一号难求的环境下，如何优雅的使用公网IPv6进行远程访问？本文将以中国移动的宽带和光猫为例，进行IPv6的设置说明，并实现通过IPv6地址和Windows系统自带的远程工具”mstsc”，远程访问内网的Windows主机。 可能部分宽带安装师傅默认没有打开 IPv6 的功能，因此我们先登录光猫的后台确认光猫是否开启了 IPv6。由于电信的宽带">
+<meta property="og:description" content="Git —— 常用命令 克隆  12345678git clone &lt;git-repository-url&gt; [local-path]# option# 1. --recursive # 递归克隆子模块git clone &lt;git-repository-url&gt; --recursive [local-path]# 2. --depth&#x3D;1 # 浅克隆git clone &amp;l">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/223893633-286b2a64-fbe5-4f88-b4b1-ed7ea31af0d4.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/223897533-878fed3e-07c9-4912-8679-dc645432fefb.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226225202-a8abe3c7-357b-4a32-83b4-2e618983d270.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226227385-07eb44f5-9836-47d3-89ef-7237f855b369.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226231169-7eb0ce41-e3b9-429b-b9b2-06306351b0a5.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226231296-153119ad-ce30-4477-ac49-2e53a3a88316.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226232249-91264fa3-74f0-44d1-891b-64f0ba50561c.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226233016-617c197b-32e8-4d0e-bbdf-d36cac0deb69.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226234598-aa6dba1e-1b3c-4928-a1ea-5ae0794f61f0.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226236201-a851eec6-c3a7-40dd-b6f0-70f4e48889c2.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226237991-c5b5cadb-0837-40c6-aa1d-48d968927ce3.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226238918-83374ecb-6640-4c8e-87bd-2153e81124ac.png">
-<meta property="og:image" content="https://user-images.githubusercontent.com/35327600/226239110-a296c35e-5546-4a3d-b5cb-913901ac9121.png">
-<meta property="article:published_time" content="2023-03-21T02:42:01.000Z">
-<meta property="article:modified_time" content="2023-03-21T08:32:58.194Z">
+<meta property="article:published_time" content="2023-07-31T05:46:44.000Z">
+<meta property="article:modified_time" content="2023-08-07T06:43:43.704Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
-<meta property="article:tag" content="IPv6">
-<meta property="article:tag" content="mstsc">
-<meta property="article:tag" content="网络运维">
+<meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://user-images.githubusercontent.com/35327600/223893633-286b2a64-fbe5-4f88-b4b1-ed7ea31af0d4.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>使用公网IPv6远程访问内网设备 - Chaos</title>
+  <title>Git —— 常用指令 - Chaos</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -231,7 +215,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="使用公网IPv6远程访问内网设备"></span>
+            <span id="subtitle" data-typed-text="Git —— 常用指令"></span>
           
         </div>
 
@@ -242,8 +226,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-03-21 10:42" pubdate>
-          2023年3月21日 上午
+        <time datetime="2023-07-31 13:46" pubdate>
+          2023年7月31日 下午
         </time>
       </span>
     
@@ -254,7 +238,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          1.7k 字
         
       </span>
     
@@ -265,7 +249,7 @@
         
         
         
-          16 分钟
+          14 分钟
         
       </span>
     
@@ -311,12 +295,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">使用公网IPv6远程访问内网设备</h1>
+            <h1 style="display: none">Git —— 常用指令</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：5 个月前
+                    本文最后更新于：2 小时前
                   
                 
               </p>
@@ -324,45 +308,34 @@
             
               <div class="markdown-body">
                 
-                <h1 id="使用公网IPv6远程访问内网设备"><a href="#使用公网IPv6远程访问内网设备" class="headerlink" title="使用公网IPv6远程访问内网设备"></a>使用公网IPv6远程访问内网设备</h1><h2 id="一、前言"><a href="#一、前言" class="headerlink" title="一、前言"></a>一、前言</h2><p>IPv4公网IP一号难求的环境下，如何优雅的使用公网IPv6进行远程访问？本文将以中国移动的宽带和光猫为例，进行IPv6的设置说明，并实现通过IPv6地址和Windows系统自带的远程工具”mstsc”，远程访问内网的Windows主机。</p>
-<p>可能部分宽带安装师傅默认没有打开 IPv6 的功能，因此我们先登录光猫的后台确认光猫是否开启了 IPv6。由于电信的宽带服务相对比较容易获取到公网IPv4地址，因此这里以移动宽带举例，其他宽带运营商提供的光猫可能有所差异，但是功能大同小异，请自行搜索相应操作细节。</p>
-<h2 id="二、确认IPv6连接状态"><a href="#二、确认IPv6连接状态" class="headerlink" title="二、确认IPv6连接状态"></a>二、确认IPv6连接状态</h2><p>如果宽带是由光猫拨号连接的，在浏览器中输入光猫的后台地址，例如 <code>192.168.1.1</code>，移动光猫的后台界面如下图所示。一般来说，移动光猫的管理员账号和密码是相同的，曾经在同一省份的不同城市都办理过移动宽带，光猫后台的账号密码都如图中所示 <code>账号：CMCCAdmin  密码：aDm8H%MdA</code> 。不确定不同省份是否有所差异，如果这个账号密码不可用，请自行搜索或者向宽带运营商索取。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/223893633-286b2a64-fbe5-4f88-b4b1-ed7ea31af0d4.png" srcset="/img/loading.gif" lazyload></p>
-<p>点击确定后，进入后台界面，按下图中所标识的按钮和顺序，依次点击，可以在当前界面查看到 IPv6 的连接信息。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/223897533-878fed3e-07c9-4912-8679-dc645432fefb.png" srcset="/img/loading.gif" lazyload></p>
-<p>如果确定 IPv6 已正确连接，在上图界面中，可以拉动横向的滚动条，查看当前的 IPv6 地址。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/226225202-a8abe3c7-357b-4a32-83b4-2e618983d270.png" srcset="/img/loading.gif" lazyload></p>
-<p>如果上述界面中显示IPv6未连接，请根据以下界面检查运营商是否给当前宽带套餐开通IPv6功能。</p>
-<p><img src="https://user-images.githubusercontent.com/35327600/226227385-07eb44f5-9836-47d3-89ef-7237f855b369.png" srcset="/img/loading.gif" lazyload></p>
-<h2 id="三、打开并查看远程主机IPv6地址"><a href="#三、打开并查看远程主机IPv6地址" class="headerlink" title="三、打开并查看远程主机IPv6地址"></a>三、打开并查看远程主机IPv6地址</h2><p>这里以win10系统为例，可能部分人的PC默认没有开启IPv6，按照以下步骤打开IPv6，并获取IPv6地址。</p>
-<ol>
-<li>按下 “windows徽标” + “R”，打开运行窗口，输入 “ncpa.cpl” 后回车，打开网络适配器管理界面<br> <img src="https://user-images.githubusercontent.com/35327600/226231169-7eb0ce41-e3b9-429b-b9b2-06306351b0a5.png" srcset="/img/loading.gif" lazyload><br> <img src="https://user-images.githubusercontent.com/35327600/226231296-153119ad-ce30-4477-ac49-2e53a3a88316.png" srcset="/img/loading.gif" lazyload></li>
-<li>双击以太网连接，查看当前以太网状态，若IPv6连接显示无网络连接，则按以下图片内说明打开IPv6连接<br> <img src="https://user-images.githubusercontent.com/35327600/226232249-91264fa3-74f0-44d1-891b-64f0ba50561c.png" srcset="/img/loading.gif" lazyload><br> <img src="https://user-images.githubusercontent.com/35327600/226233016-617c197b-32e8-4d0e-bbdf-d36cac0deb69.png" srcset="/img/loading.gif" lazyload><br> <img src="https://user-images.githubusercontent.com/35327600/226234598-aa6dba1e-1b3c-4928-a1ea-5ae0794f61f0.png" srcset="/img/loading.gif" lazyload></li>
+                <h1 id="Git-——-常用命令"><a href="#Git-——-常用命令" class="headerlink" title="Git —— 常用命令"></a>Git —— 常用命令</h1><ol>
+<li><p>克隆</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; [local-path]<br><span class="hljs-comment"># option</span><br><span class="hljs-comment"># 1. --recursive # 递归克隆子模块</span><br>git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; --recursive [local-path]<br><span class="hljs-comment"># 2. --depth=1 # 浅克隆</span><br>git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; --depth=1 [local-path]<br><span class="hljs-comment"># 3. --branch &lt;branch-name&gt; / -b &lt;branch-name&gt; # 克隆指定分支</span><br>git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; --branch &lt;branch-name&gt; [local-path]<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>提交</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 添加文件</span><br>git add &lt;file-path&gt;<br><span class="hljs-comment"># 2. 提交</span><br>git commit -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># commit option</span><br><span class="hljs-comment"># 1. --amend # 修改上一次提交记录，注意！仅允许在本地仓库修改，不允许在远程仓库修改，且会覆盖上一次提交的记录</span><br>git commit --amend -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 2. --no-edit # 仅修改上一次提交的文件，不修改提交记录</span><br>git commit --amend --no-edit<br><span class="hljs-comment"># 3. -a # 跳过 git add，添加所有存在跟踪记录的修改文件</span><br>git commit -a -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 4. -v # 显示修改的文件</span><br>git commit -v -m <span class="hljs-string">&quot;commit message&quot;</span><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>推送至远程仓库</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 注意！不建议直接在主干分支中进行修改和更新。</span><br><span class="hljs-comment"># 注意！建议在本地创建分支进行修改，并创建远程分支进行提交，修改完成后在主界面上提交merge request，由管理员审核后合并到主干分支</span><br><span class="hljs-comment"># 注意！建议先拉取远程仓库更新，并将更新合并到本地分支后，确定无conflict后再推送</span><br>git push &lt;remote-name&gt; &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>创建&#x2F;切换分支</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1.查看远程分支</span><br>git branch -r<br><span class="hljs-comment"># 2.查看本地分支</span><br>git branch -l<br><span class="hljs-comment"># 3.创建分支</span><br>git branch &lt;branch-name&gt;<br>git add .<br>git commit -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 4.切换分支</span><br>git checkout &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>将远程仓库更新合并到本地分支</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用 git fetch 获取远程仓库更新</span><br>git fetch origin &lt;branch-name&gt;<br><span class="hljs-comment"># 比较本地分支与远程分支的差异</span><br>git <span class="hljs-built_in">log</span> -p FETCH_HEAD &lt;branch-name&gt;<br>git diff FETCH_HEAD &lt;branch-name&gt;<br><span class="hljs-comment"># 修改存在差异和冲突的文件</span><br><span class="hljs-comment"># 将远程分支合并到本地分支</span><br>git merge FETCH_HEAD<br><span class="hljs-comment"># 如果存在冲突，解决冲突后，再次提交</span><br>git commit -am <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 将本地分支推送至远程分支</span><br>git push origin &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>删除本地已合并分支</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch --merged main | grep -v <span class="hljs-string">&#x27;^[ *]*main$&#x27;</span> | xargs git branch -d<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>删除远程仓库中已不存在的本地分支</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git remote prune origin<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>http&#x2F;https 免密</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global credential.helper store<br></code></pre></td></tr></table></figure>
+</li>
+<li><p>ssh 免密</p>
+ <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C <span class="hljs-string">&quot;your_email&quot;</span><br><span class="hljs-comment"># copy id_ras.pub to git	</span><br></code></pre></td></tr></table></figure></li>
 </ol>
-<h2 id="四、打开本地PC的IPv6连接"><a href="#四、打开本地PC的IPv6连接" class="headerlink" title="四、打开本地PC的IPv6连接"></a>四、打开本地PC的IPv6连接</h2><p>由于需要使用IPv6进行远程连接，需要确保本地 PC 和远程 PC 同时具备 IPv6 的连接能力，因此对于本地PC，也需要按照上述<strong>第2步</strong>进行确认。</p>
-<blockquote>
-<p>远程PC和本地PC可使用浏览器访问<a target="_blank" rel="noopener" href="http://ipv6.test-ipv6.com/">IPv6测试网站</a>进行连接测试。</p>
-</blockquote>
-<p>完成两端的 IPv6 连接设置后，可以直接使用 IPv6 地址尝试远程连接，不出意外，此时已经可以成功进行远程访问了。</p>
-<ul>
-<li>按下 “windows 徽标” + “R”，打开运行界面，输入 “mstsc”，回车，打开远程连接界面，填入第二步中获取的”<strong>远程 PC 的 IPv6 地址</strong>“，点击连接。正常情况下，此时会弹出要求输入用户名和密码。<br>  <img src="https://user-images.githubusercontent.com/35327600/226236201-a851eec6-c3a7-40dd-b6f0-70f4e48889c2.png" srcset="/img/loading.gif" lazyload></li>
-</ul>
-<h2 id="五、遇到的坑"><a href="#五、遇到的坑" class="headerlink" title="五、遇到的坑"></a>五、遇到的坑</h2><p>整个过程可能会存在两个坑，导致无法连接：</p>
-<ol>
-<li>光猫默认使能IPv6防火墙的控制转发报文功能（作者的移动光猫中是这么描述的），导致所有的IPv6数据包被拦截，从而无法建立远程连接，甚至无法 ping 通。需要将该功能关闭，才能正常使用IPv6。<br> <img src="https://user-images.githubusercontent.com/35327600/226237991-c5b5cadb-0837-40c6-aa1d-48d968927ce3.png" srcset="/img/loading.gif" lazyload></li>
-<li>远程PC未打开远程访问功能。win10家庭版不支持远程桌面，专业版则默认关闭了远程桌面，因此需要手动打开和确认。<br> <img src="https://user-images.githubusercontent.com/35327600/226238918-83374ecb-6640-4c8e-87bd-2153e81124ac.png" srcset="/img/loading.gif" lazyload><br> <img src="https://user-images.githubusercontent.com/35327600/226239110-a296c35e-5546-4a3d-b5cb-913901ac9121.png" srcset="/img/loading.gif" lazyload></li>
-<li>部分网络默认不开启IPv6，例如公司内部网络等，因此远程PC虽然开启了IPv6，但仍然无法通过IPv6进行远程连接；</li>
-</ol>
-<h2 id="六、存在的缺陷"><a href="#六、存在的缺陷" class="headerlink" title="六、存在的缺陷"></a>六、存在的缺陷</h2><p>按步骤完成上述操作后，一般来说，已经能成功使用IPv6地址进行远程访问。但是使用起来仍然存在2个比较致命的问题：</p>
-<ol>
-<li>IPv6 地址很长，不方便记忆；</li>
-<li>公网 IPv6 地址并非固定不变，在一定情况下，地址发生变更，如果不能及时获取地址，则无法进行远程访问</li>
-<li>部分网络无IPv6的Internet访问权限，比如公司内网等，则无法访问任何IPv6地址</li>
-</ol>
-<p>针对第一个缺陷，由于域名可以自定义申请，并且方便记忆，因此我们可以申请一个域名（例如 baidu.com、google.com），并将域名解析到对应IP地址（DNS服务商提供解析服务），通过域名来进行访问。</p>
-<p>而第二个缺陷，在域名的基础上，我们还需要定期将当前的IP地址，同步给DNS服务商，修改域名解析的目标IP，确保域名能正确解析到我们自己的设备上。</p>
-<p>第三个缺陷，我们则需要借助域名解析服务商提供的CDN功能进行IPv4访问，IPv6回源，同时国内的CDN服务都需要域名在工信部备案（这里点个名，由于作者域名在鹅厂购买的，本来考虑直接使用它的ECDN，结果个人域名备案需要绑定国内云服务器实例….其他云服务商不确定是否也具有同样的骚操作），不得不考虑国外的CDN服务，例如大名鼎鼎的 Cloudflare。</p>
-<p>由于文章篇幅较长，因此将在专栏后续文章中进行详细说明介绍~</p>
 
                 
               </div>
@@ -381,7 +354,7 @@
     
       <span class="category-chain">
         
-  <a href="/categories/%E6%8A%98%E8%85%BE%E4%B9%8B%E8%B7%AF/" class="category-chain-item">折腾之路</a>
+  <a href="/categories/%E7%A8%8B%E5%BA%8F%E5%91%98%E8%BF%9B%E9%98%B6/" class="category-chain-item">程序员进阶</a>
   
   
 
@@ -398,11 +371,7 @@
       
         <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
       
-        <a href="/tags/IPv6/">#IPv6</a>
-      
-        <a href="/tags/mstsc/">#mstsc</a>
-      
-        <a href="/tags/%E7%BD%91%E7%BB%9C%E8%BF%90%E7%BB%B4/">#网络运维</a>
+        <a href="/tags/Git/">#Git</a>
       
     </div>
   
@@ -414,8 +383,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>使用公网IPv6远程访问内网设备</div>
-      <div>https://ccccx159.github.io/2023/03/21/使用公网IPv6远程访问内网设备/</div>
+      <div>Git —— 常用指令</div>
+      <div>https://ccccx159.github.io/2023/07/31/Git —— 常用指令/</div>
     </div>
     <div class="license-meta">
       
@@ -427,13 +396,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年3月21日</div>
+          <div>2023年7月31日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年3月21日</div>
+          <div>2023年8月7日</div>
         </div>
       
       
@@ -464,18 +433,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/03/21/DDNS%E5%8A%A8%E6%80%81%E5%9F%9F%E5%90%8D%E8%A7%A3%E6%9E%90IPv6%E5%9C%B0%E5%9D%80/" title="DDNS动态域名解析IPv6地址">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">DDNS动态域名解析IPv6地址</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/13/%E5%9F%BA%E4%BA%8EDSM7-1%EF%BC%8C%E9%80%9A%E8%BF%87nginx%E5%8F%8D%E4%BB%A3%E7%A0%B4%E8%A7%A3Emby-Server-Premiere/" title="基于DSM7.1，通过nginx反代破解Emby Server Premiere">
-                        <span class="hidden-mobile">基于DSM7.1，通过nginx反代破解Emby Server Premiere</span>
+                      <a href="/2023/06/01/%E5%BC%80%E5%90%AF%20Cloudflare%20CDN%20%E4%BB%A3%E7%90%86%EF%BC%8C%E5%AE%9E%E7%8E%B0%20IPv4%20to%20IPv6%20%E8%BD%AC%E6%8D%A2/" title="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换">
+                        <span class="hidden-mobile">开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

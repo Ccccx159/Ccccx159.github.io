@@ -24,7 +24,7 @@
 <meta property="og:description" content="Git —— submodule 操作说明1. add 添加子模块123456# git submodule add -b master https:&#x2F;&#x2F;github.com&#x2F;coolsnowwolf&#x2F;lede.git .&#x2F;ledegit submodule add -b &lt;branch-name]&gt; &lt;git-repository-url&gt; [local-path]# 本">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-05-19T02:22:34.000Z">
-<meta property="article:modified_time" content="2023-06-09T02:47:59.257Z">
+<meta property="article:modified_time" content="2023-08-07T08:31:11.938Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="Git">
@@ -301,7 +301,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：5 天前
+                    本文最后更新于：6 分钟前
                   
                 
               </p>
@@ -321,7 +321,7 @@
 <p>由于子模块和主模块是独立的两个仓库，主模块仅仅应用了子模块的 url 和 commit id。因此当子模块推送更改后，生成新的 commit id，但是主模块对子模块的引用配置并未发生更改，因此需要在主模块中同步进行提交更改。</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd ../ # 回到主模块目录<br>git add .<br>git commit -am &quot;submodule reference modify&quot;<br>git push # 推送主模块对子模块的引用记录更改到远程仓库<br></code></pre></td></tr></table></figure>
 
-<p>可以看到对于子模块的修改，我们需要分别提交和推送子、主木块的更改，当然我们也可以将 “推送至远程仓库” 这一步合并：</p>
+<p>可以看到对于子模块的修改，我们需要分别提交和推送子、主模块的更改，当然我们也可以将 “推送至远程仓库” 这一步合并：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">cd &lt;main module dir&gt; # 进入主模块目录<br><span class="hljs-meta prompt_"># </span><span class="language-bash">使用 --recurse-submodules=on-demand 选项，可以在推送主模块更改时，自动推送未推送的子模块</span><br>git push --recurse-submodules=on-demand<br></code></pre></td></tr></table></figure>
 
 <p>如果出现子模块提交了更改记录，但是未推送到远程仓库，主模块提交了子模块引用记录的变更，并完成了推送到远程仓库的操作。此时拉取主模块没问题，但是在拉取子模块时，会出现 “not our ref” 的报错。这是因为主模块引用了一个远程仓库未记录的 commit id 版本的子模块。需要在提交了变更记录的子模块中完成 push 即可。为了避免<mark>忘记推送子模块修改，仅推送了主模块的引用记录变更</mark>，可以将主模块的推送命令修改为：</p>
@@ -411,7 +411,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年6月9日</div>
+          <div>2023年8月7日</div>
         </div>
       
       
