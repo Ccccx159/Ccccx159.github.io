@@ -16,25 +16,36 @@
   <meta name="author" content="Xu@n Ch3n">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Git —— 常用命令 克隆  12345678git clone &lt;git-repository-url&gt; [local-path] # option# 1. --recursive # 递归克隆子模块git clone &lt;git-repository-url&gt; --recursive [local-path]# 2. --depth&#x3D;1 # 浅克隆git clone &amp;">
+    <meta name="description" content="Git —— Commit Message 规范介绍为什么要规范 Commit Message日常开发中，我们经常会使用到 Git 进行代码管理，而 Git 中最常用的命令就是 git commit，我们通过 commit 命令将修改后的代码提交到本地仓库，然后再通过 git push 命令将本地仓库的代码推送到远程仓库。 git 规定提交时必须要写提交信息，作为改动说明，保存在 commit 历">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Git —— 常用指令">
-<meta property="og:url" content="https://ccccx159.github.io/2023/07/31/Git%20%E2%80%94%E2%80%94%20%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:title" content="Git —— Commit Message 规范介绍">
+<meta property="og:url" content="https://ccccx159.github.io/2023/12/26/Git%20%E2%80%94%E2%80%94%20Commit%20Message%20%E8%A7%84%E8%8C%83%E4%BB%8B%E7%BB%8D/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="Git —— 常用命令 克隆  12345678git clone &lt;git-repository-url&gt; [local-path] # option# 1. --recursive # 递归克隆子模块git clone &lt;git-repository-url&gt; --recursive [local-path]# 2. --depth&#x3D;1 # 浅克隆git clone &amp;">
+<meta property="og:description" content="Git —— Commit Message 规范介绍为什么要规范 Commit Message日常开发中，我们经常会使用到 Git 进行代码管理，而 Git 中最常用的命令就是 git commit，我们通过 commit 命令将修改后的代码提交到本地仓库，然后再通过 git push 命令将本地仓库的代码推送到远程仓库。 git 规定提交时必须要写提交信息，作为改动说明，保存在 commit 历">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-07-31T05:46:44.000Z">
-<meta property="article:modified_time" content="2023-12-26T01:40:38.889Z">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/0cd57b334faac82c88858d17cb3ff3e3/1703558434900.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/153afa2bf93c4a55d9e4c5420aa43ee0/1703558938449.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/1ec1f6e85b71bd74e244632584d64eb3/1703559027194.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/45e369bb0b664b9ee79ae550bc0524cb/1703559610753.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/cd6eb2280db4b9e0e125bc83329c0bd6/1703559528891.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/df8e94be63ac8bdc9528e84a2bf2cd83/1703559648902.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/2f3bac498fc45f31f266dc5c6edb3135/1703569918312.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/a0b698669c2690308be04db208c5dd77/1703570281939.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/bd892785244176b2fc593c84e84a81a5/1703570593953.png">
+<meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/793f74f73b0aa895fcc4abf8ab95eb4a/1703571607092.png">
+<meta property="article:published_time" content="2023-12-26T01:41:22.000Z">
+<meta property="article:modified_time" content="2023-12-26T06:34:56.726Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="Git">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/0cd57b334faac82c88858d17cb3ff3e3/1703558434900.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>Git —— 常用指令 - Chaos</title>
+  <title>Git —— Commit Message 规范介绍 - Chaos</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -215,7 +226,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Git —— 常用指令"></span>
+            <span id="subtitle" data-typed-text="Git —— Commit Message 规范介绍"></span>
           
         </div>
 
@@ -226,8 +237,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-07-31 13:46" pubdate>
-          2023年7月31日 下午
+        <time datetime="2023-12-26 09:41" pubdate>
+          2023年12月26日 上午
         </time>
       </span>
     
@@ -238,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.7k 字
+          3.5k 字
         
       </span>
     
@@ -249,7 +260,7 @@
         
         
         
-          15 分钟
+          29 分钟
         
       </span>
     
@@ -295,12 +306,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">Git —— 常用指令</h1>
+            <h1 style="display: none">Git —— Commit Message 规范介绍</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：5 小时前
+                    本文最后更新于：13 分钟前
                   
                 
               </p>
@@ -308,40 +319,95 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Git-——-常用命令"><a href="#Git-——-常用命令" class="headerlink" title="Git —— 常用命令"></a>Git —— 常用命令</h1><ol>
-<li><p>克隆</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; [local-path] <br><span class="hljs-comment"># option</span><br><span class="hljs-comment"># 1. --recursive # 递归克隆子模块</span><br>git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; --recursive [local-path]<br><span class="hljs-comment"># 2. --depth=1 # 浅克隆</span><br>git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; --depth=1 [local-path]<br><span class="hljs-comment"># 3. --branch &lt;branch-name&gt; / -b &lt;branch-name&gt; # 克隆指定分支</span><br>git <span class="hljs-built_in">clone</span> &lt;git-repository-url&gt; --branch &lt;branch-name&gt; [local-path]<br></code></pre></td></tr></table></figure>
+                <h1 id="Git-——-Commit-Message-规范介绍"><a href="#Git-——-Commit-Message-规范介绍" class="headerlink" title="Git —— Commit Message 规范介绍"></a>Git —— Commit Message 规范介绍</h1><h2 id="为什么要规范-Commit-Message"><a href="#为什么要规范-Commit-Message" class="headerlink" title="为什么要规范 Commit Message"></a>为什么要规范 Commit Message</h2><p>日常开发中，我们经常会使用到 Git 进行代码管理，而 Git 中最常用的命令就是 <code>git commit</code>，我们通过 commit 命令将修改后的代码提交到本地仓库，然后再通过 <code>git push</code> 命令将本地仓库的代码推送到远程仓库。</p>
+<p>git 规定提交时必须要写提交信息，作为改动说明，保存在 commit 历史中，方便回溯。规范的 log 不仅有助于他人 review, 还可以有效的输出 CHANGELOG，甚至对于项目的研发质量都有很大的提升，尤其是一些长期持续迭代维护，且多版本长期并存的项目。</p>
+<p>优秀的规范化 Commit Message 应该具备以下优点：</p>
+<ol>
+<li><p>清晰明了：commit message 应该清晰明了，说明本次提交的目的，具体做了什么操作。这样可以让团队成员更好地理解每次提交的内容。</p>
 </li>
-<li><p>提交</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1. 添加文件</span><br>git add &lt;file-path&gt;<br><span class="hljs-comment"># 2. 提交</span><br>git commit -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># commit option</span><br><span class="hljs-comment"># 1. --amend # 修改上一次提交记录，注意！仅允许在本地仓库修改，不允许在远程仓库修改，且会覆盖上一次提交的记录</span><br>git commit --amend -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 2. --no-edit # 仅修改上一次提交的文件，不修改提交记录</span><br>git commit --amend --no-edit<br><span class="hljs-comment"># 3. -a # 跳过 git add，添加所有存在跟踪记录的修改文件</span><br>git commit -a -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 4. -v # 显示修改的文件</span><br>git commit -v -m <span class="hljs-string">&quot;commit message&quot;</span><br></code></pre></td></tr></table></figure>
+<li><p>便于追溯：规范的 commit message 可以帮助程序员对提交历史进行追溯，了解发生了什么情况。</p>
 </li>
-<li><p>推送至远程仓库</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 注意！不建议直接在主干分支中进行修改和更新。</span><br><span class="hljs-comment"># 注意！建议在本地创建分支进行修改，并创建远程分支进行提交，修改完成后在主界面上提交merge request，由管理员审核后合并到主干分支</span><br><span class="hljs-comment"># 注意！建议先拉取远程仓库更新，并将更新合并到本地分支后，确定无conflict后再推送</span><br>git push &lt;remote-name&gt; &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+<li><p>提高研发效率：一旦约束了 commit message，意味着我们将慎重的进行每一次提交，不能再一股脑的把各种各样的改动都放在一个 git commit 里面，这样一来整个代码改动的历史也将更加清晰。</p>
 </li>
-<li><p>创建&#x2F;切换分支</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1.查看远程分支</span><br>git branch -r<br><span class="hljs-comment"># 2.查看本地分支</span><br>git branch -l<br><span class="hljs-comment"># 3.创建分支</span><br>git branch &lt;branch-name&gt;<br>git add .<br>git commit -m <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 4.切换分支</span><br>git checkout &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+<li><p>自动化工具的友好性：规范的 commit message 可以被自动化工具用于生成发布日志或自动化版本号管理。</p>
 </li>
-<li><p>将远程仓库更新合并到本地分支</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用 git fetch 获取远程仓库更新</span><br>git fetch origin &lt;branch-name&gt;<br><span class="hljs-comment"># 比较本地分支与远程分支的差异</span><br>git <span class="hljs-built_in">log</span> -p FETCH_HEAD &lt;branch-name&gt;<br>git diff FETCH_HEAD &lt;branch-name&gt;<br><span class="hljs-comment"># 修改存在差异和冲突的文件</span><br><span class="hljs-comment"># 将远程分支合并到本地分支</span><br>git merge FETCH_HEAD<br><span class="hljs-comment"># 如果存在冲突，解决冲突后，再次提交</span><br>git commit -am <span class="hljs-string">&quot;commit message&quot;</span><br><span class="hljs-comment"># 将本地分支推送至远程分支</span><br>git push origin &lt;branch-name&gt;<br></code></pre></td></tr></table></figure>
+<li><p>降低代码维护成本：如果 commit message 写得不清楚，例如使用 “fix bug” 这样笼统的描述，可能会导致后续代码维护成本特别大，有时自己都不知道自己的 “fix bug” 修复的是什么问题</p>
 </li>
-<li><p>删除本地已合并分支</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch --merged main | grep -v <span class="hljs-string">&#x27;^[ *]*main$&#x27;</span> | xargs git branch -d<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>删除远程仓库中已不存在的本地分支</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">git branch -a<br><span class="hljs-comment"># </span><br>git remote show origin<br><br>git remote prune origin<br><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>http&#x2F;https 免密</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config --global credential.helper store<br></code></pre></td></tr></table></figure>
-</li>
-<li><p>ssh 免密</p>
- <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">ssh-keygen -t rsa -C <span class="hljs-string">&quot;your_email&quot;</span><br><span class="hljs-comment"># copy id_ras.pub to git	</span><br></code></pre></td></tr></table></figure>
-</li>
-<li><p>stash</p>
-</li>
-<li><p>git fsck –full</p>
-</li>
-<li></li>
 </ol>
+<p>因此，规范化的 commit message 对于团队协作和项目管理是非常重要的。</p>
+<h2 id="Commit-Message-规范"><a href="#Commit-Message-规范" class="headerlink" title="Commit Message 规范"></a>Commit Message 规范</h2><p>在 Git 中 Commit Message 的规范又很多种，其中比较受欢迎的有以下这些：</p>
+<ol>
+<li><p>Angular 规范：这是目前使用最广的写法，比较合理和系统化，并且有配套工具可以辅助生成（VS CODE 插件：git-commit-plugin）。</p>
+</li>
+<li><p>Conventional Commits 规范：这是一个基于语义化版本 (semver) 和简单的消息格式的轻量级约定，一传达代码更改的意图。</p>
+</li>
+</ol>
+<p>这里我们着重介绍一下 Angular 规范。</p>
+<h3 id="Angular-规范"><a href="#Angular-规范" class="headerlink" title="Angular 规范"></a>Angular 规范</h3><p>Angular 规范是一种广泛应用于软件开发中的提交信息（commit message）规范，其目的在于提供一种统一、清晰的提交信息格式，以便于开发者和维护者理解代码的变动情况。</p>
+<p>Angular 规范将提交信息分为三个部分：Header、Body 和 Footer。</p>
+<ol>
+<li><p><strong>Header</strong>：Header 是提交信息的头部，包含三个字段：type、scope 和 subject。</p>
+<ul>
+<li><strong>type</strong>：type 字段用于指明<mark>本次提交的类型</mark>，例如：feat（新功能）、fix（修补bug）、docs（文档）、style（格式）、refactor（重构）、perf（性能优化）、test（增加测试）、chore（构建过程或辅助工具的变动）等。</li>
+<li><strong>scope</strong>：scope 字段用于指明<mark>本次提交影响的范围</mark>，例如：数据层、控制层、视图层等。这个字段是可选的。</li>
+<li><strong>subject</strong>：subject 字段是对<mark>本次提交目的的简短描述</mark>，不超过50个字符。</li>
+</ul>
+</li>
+<li><p><strong>Body</strong>：Body 是提交信息的主体部分，用于<mark>详细描述本次提交的内容和原因</mark>。这个部分是可选的。</p>
+</li>
+<li><p><strong>Footer</strong>：Footer 是提交信息的尾部，通常用于<mark>记录不兼容变动和关闭 Issue</mark>。这个部分也是可选的。</p>
+</li>
+</ol>
+<p>Angular 规范的提交信息格式如下：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">type</span>&gt;</span>(<span class="hljs-tag">&lt;<span class="hljs-name">scope</span>&gt;</span>): <span class="hljs-tag">&lt;<span class="hljs-name">subject</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">BLANK</span> <span class="hljs-attr">LINE</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">BLANK</span> <span class="hljs-attr">LINE</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">footer</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>以上就是 Angular 规范的基本内容。遵循这种规范可以帮助我们更好地管理代码提交的内容，使得每次提交的目的和主要改动都能清晰地体现在 Commit Message 中，便于后续的代码维护和版本管理。具体的规范可能会因团队和项目的不同而有所差异。所以，虽然 Git 本身没有强制的 Commit Message 规范，但在实际使用中，我们通常会根据实际需求来约定一些规范，以提高代码的可读性和维护性。</p>
+<h2 id="Commit-Message-规范工具"><a href="#Commit-Message-规范工具" class="headerlink" title="Commit Message 规范工具"></a>Commit Message 规范工具</h2><p>在实际开发中，我们通常会使用一些工具来帮助我们规范 Commit Message，这样可以避免我们手动编写 Commit Message，提高开发效率。</p>
+<p>这里介绍一个 VS Code 插件：<strong>git-commit-plugin</strong>，它可以帮助我们快速生成符合 Angular 规范的 Commit Message。这是它的仓库地址：<a target="_blank" rel="noopener" href="https://github.com/RedJue/git-commit-plugin">https://github.com/RedJue/git-commit-plugin</a>。我们也可以直接在 VS Code 的扩展商店中直接下载安装。</p>
+<blockquote>
+<p>注意：商店中有两个名为 git-commit-plugin 的插件，我们选择作者为 redjue 的那一个。另一个为fork的版本，已经不再维护。</p>
+</blockquote>
+<p><img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/0cd57b334faac82c88858d17cb3ff3e3/1703558434900.png" srcset="/img/loading.gif" lazyload alt="git-commit-plugin"></p>
+<p>安装完成后，我们点击 VS Code 左侧面板的存储库图标，可以看到存储库的右边出现了一个 git 图标，点击它就可以打开 git-commit-plugin 的界面。</p>
+<ol>
+<li><p>打开 git-commit-plugin 界面：</p>
+<p>   <img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/153afa2bf93c4a55d9e4c5420aa43ee0/1703558938449.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>选择提交类型，这里以 fix 为例：</p>
+<p>   <img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/1ec1f6e85b71bd74e244632584d64eb3/1703559027194.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>按照 Angular 规范依次完成 scope，subject，body 和 footer 字段</p>
+<p>   <img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/45e369bb0b664b9ee79ae550bc0524cb/1703559610753.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>完成每项内容的填写后，点击 Complete，插件会将填写的内容，按照规范自动生成在左侧源代码管理面板中的提交信息中：</p>
+<p>   <img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/cd6eb2280db4b9e0e125bc83329c0bd6/1703559528891.png" srcset="/img/loading.gif" lazyload></p>
+<p>   <img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/df8e94be63ac8bdc9528e84a2bf2cd83/1703559648902.png" srcset="/img/loading.gif" lazyload></p>
+<p>   注意此处 VS Code 会提示“当前行比72超出39个字符”，这是因为 VS Code 限制了提交消息每行的最大长度。我们在上一步编辑 Body 时，受限于插件的界面，将所有内容都写在了一行中，因此在这里我们需要将 Body 部分的内容进行换行，达到美观和规范的目的。</p>
+</li>
+<li><p>最后我们点击提交按钮将本次修改提交到本地仓库，再点击同步就可以将本地仓库的提交记录推送到远程仓库了。</p>
+</li>
+</ol>
+<h2 id="Commit-Message-模板的配置和使用"><a href="#Commit-Message-模板的配置和使用" class="headerlink" title="Commit Message 模板的配置和使用"></a>Commit Message 模板的配置和使用</h2><p>在某些环境下，可能仅有的就是一个命令行终端，我们需要在命令行中手动输入 Commit Message。这时候我们就需要一个 Commit Message 模板来帮助我们快速生成符合规范的 Commit Message。</p>
+<p>以 Linux 端为例，git 提供了一个 commit.template 的配置项，用来指定期望使用的 Commit Message 模板。</p>
+<ol>
+<li><p>首先我们在项目的根目录创建一个 .gitmessage 文件，用来存放 Commit Message 模板：</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">touch</span> .gitmessage<br></code></pre></td></tr></table></figure></li>
+<li><p>然后我们编辑 .gitmessage 文件，将以下内容复制到 .gitmessage 文件中：</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># head: &lt;type&gt;(&lt;scope&gt;): &lt;subject&gt;</span><br><span class="hljs-comment"># - type: ✨ feat, 🐞 fix, 📃 docs, 🌈 style, 🦄 refactor, 🎈 perf, 🧪 test, 🔧 build, 🐎 ci, 🐳 chore, ↩ revert</span><br><span class="hljs-comment"># - scope: can be empty (eg. if the change is a global or difficult to assign to a single component)</span><br><span class="hljs-comment"># - subject: start with verb (such as &#x27;change&#x27;), 50-character line</span><br><span class="hljs-comment">#</span><br><br><span class="hljs-comment"># body: 72-character wrapped. This should answer:</span><br><span class="hljs-comment"># * Why was this change necessary?</span><br><span class="hljs-comment"># * How does it address the problem?</span><br><span class="hljs-comment"># * Are there any side effects?</span><br><span class="hljs-comment">#</span><br><br><span class="hljs-comment"># footer: </span><br><span class="hljs-comment"># - Include a link to the ticket, if any.</span><br><span class="hljs-comment"># - BREAKING CHANGE</span><br><span class="hljs-comment">#</span><br><br></code></pre></td></tr></table></figure>
+</li>
+<li><p>在项目路径下，我们通过 <code>git config</code> 命令指定 commit.template 的路径：</p>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">git config commit.template .gitmessage<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：这里仅对当前项目进行了模板配置，如果想要对所有项目使用该模板，则将该文件放置到用户目录下，然后在上述命令中添加 –global 参数即可。 </p>
+<p><code>git config --global commit.template ~/.gitmessage</code></p>
+</blockquote>
+</li>
+</ol>
+<p>此时通过命令 <code>git commit</code> （<strong>不能带参数 -m ！</strong>）即可显示模板，并在模板中快速完成 Commit Message 的编辑。</p>
+<p><img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/2f3bac498fc45f31f266dc5c6edb3135/1703569918312.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/a0b698669c2690308be04db208c5dd77/1703570281939.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/bd892785244176b2fc593c84e84a81a5/1703570593953.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/793f74f73b0aa895fcc4abf8ab95eb4a/1703571607092.png" srcset="/img/loading.gif" lazyload></p>
 
                 
               </div>
@@ -389,8 +455,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Git —— 常用指令</div>
-      <div>https://ccccx159.github.io/2023/07/31/Git —— 常用指令/</div>
+      <div>Git —— Commit Message 规范介绍</div>
+      <div>https://ccccx159.github.io/2023/12/26/Git —— Commit Message 规范介绍/</div>
     </div>
     <div class="license-meta">
       
@@ -402,7 +468,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年7月31日</div>
+          <div>2023年12月26日</div>
         </div>
       
       
@@ -439,18 +505,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/10/25/Home%20Assistant%E2%80%94%E2%80%94%E6%B6%82%E9%B8%A6%E6%99%BA%E8%83%BD%E6%8E%A5%E5%85%A5%E6%96%B9%E6%B3%95/" title="Home Assistant——涂鸦智能接入方法">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Home Assistant——涂鸦智能接入方法</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/06/01/%E5%BC%80%E5%90%AF%20Cloudflare%20CDN%20%E4%BB%A3%E7%90%86%EF%BC%8C%E5%AE%9E%E7%8E%B0%20IPv4%20to%20IPv6%20%E8%BD%AC%E6%8D%A2/" title="开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换">
-                        <span class="hidden-mobile">开启 Cloudflare CDN 代理，实现 IPv4 to IPv6 转换</span>
+                      <a href="/2023/10/25/Home%20Assistant%E2%80%94%E2%80%94%E6%B6%82%E9%B8%A6%E6%99%BA%E8%83%BD%E6%8E%A5%E5%85%A5%E6%96%B9%E6%B3%95/" title="Home Assistant——涂鸦智能接入方法">
+                        <span class="hidden-mobile">Home Assistant——涂鸦智能接入方法</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
