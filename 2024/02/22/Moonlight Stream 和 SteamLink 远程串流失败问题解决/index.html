@@ -26,7 +26,7 @@
 <meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/e79aa91c00f14e723488789aa484904b/1.png">
 <meta property="og:image" content="https://gitlab.ccccxyz.top:8443/xu4nch3n/notebooks/uploads/659e88a7a79c52a7b3ce62ea0225ceb3/4.jpg">
 <meta property="article:published_time" content="2024-02-22T03:11:40.000Z">
-<meta property="article:modified_time" content="2024-02-22T05:51:43.804Z">
+<meta property="article:modified_time" content="2024-02-28T01:46:28.190Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
 <meta property="article:tag" content="mstsc">
@@ -244,7 +244,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.2k 字
+          1.1k 字
         
       </span>
     
@@ -306,7 +306,7 @@
               <p class="note note-info">
                 
                   
-                    本文最后更新于：18 分钟前
+                    本文最后更新于：1 分钟前
                   
                 
               </p>
@@ -325,10 +325,10 @@
 <p>其实问题原因是重启或者远程登录都会导致远程 PC 被锁定，串流软件不具备解锁功能，换句话说，串流软件只能在远程 PC 处于解锁状态下才能正常工作。通俗点讲就是你需要在远程 PC 上输入锁屏密码解锁后，才能正常使用串流软件。</p>
 <p>但是远程串流的场景大多情况下不具备手动解锁 PC 的条件，所以我们需要一种可以远程解锁的方法来解决这个问题。</p>
 <h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>解决方法非常简单，本质上只需要借助 Windows 自带的一个命令 <code>tscon</code> 来注销当前的远程登录即可，先上代码：</p>
-<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bat">@<span class="hljs-built_in">echo</span> off<br><span class="hljs-comment">@REM 获取当前会话的名称</span><br><span class="hljs-built_in">setlocal</span><br><span class="hljs-built_in">set</span> &quot;sessionname=<span class="hljs-variable">%sessionname:~0,-2%</span>&quot;<br><span class="hljs-comment">@REM 获取对应的会话ID</span><br><span class="hljs-keyword">for</span> /f &quot;tokens=<span class="hljs-number">3</span>&quot; <span class="hljs-variable">%%i</span> <span class="hljs-keyword">in</span> (&#x27;query user ^| <span class="hljs-built_in">findstr</span> /I /C:&quot;<span class="hljs-variable">%sessionname%</span>&quot;&#x27;) <span class="hljs-keyword">do</span> <span class="hljs-built_in">set</span> &quot;sessionid=<span class="hljs-variable">%%i</span>&quot;<br><span class="hljs-comment">@REM 如果会话ID存在，则关闭对应的会话</span><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">defined</span> sessionid (<br>    @<span class="hljs-variable">%windir%</span>\System32\tscon.exe <span class="hljs-variable">%sessionid%</span> /dest:console<br>) <span class="hljs-keyword">else</span> (<br>    <span class="hljs-built_in">echo</span> No session found <span class="hljs-keyword">for</span> <span class="hljs-variable">%sessionname%</span><br>)<br><span class="hljs-built_in">endlocal</span><br></code></pre></td></tr></table></figure>
+<figure class="highlight bat"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bat">@<span class="hljs-built_in">echo</span> off<br><span class="hljs-comment">@REM 获取当前会话的名称</span><br><span class="hljs-built_in">setlocal</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">@REM 获取对应的会话ID</span><br><span class="hljs-keyword">for</span> /f &quot;tokens=<span class="hljs-number">3</span>&quot; <span class="hljs-variable">%%i</span> <span class="hljs-keyword">in</span> (&#x27;query session ^| <span class="hljs-built_in">findstr</span> &quot;&gt;&quot;&#x27;) <span class="hljs-keyword">do</span> <span class="hljs-built_in">set</span> &quot;sessionid=<span class="hljs-variable">%%i</span>&quot;<br><span class="hljs-comment">@REM echo %sessionid%</span><br><span class="hljs-comment">@REM 如果会话ID存在，则关闭对应的会话</span><br><span class="hljs-keyword">if</span> <span class="hljs-keyword">defined</span> sessionid (<br>    @<span class="hljs-variable">%windir%</span>\System32\tscon.exe <span class="hljs-variable">%sessionid%</span> /dest:console<br>) <span class="hljs-keyword">else</span> (<br>    <span class="hljs-built_in">echo</span> No session found <span class="hljs-keyword">for</span> <span class="hljs-variable">%sessionname%</span><br>)<br><span class="hljs-built_in">endlocal</span><br></code></pre></td></tr></table></figure>
 
 <blockquote>
-<p>注意：鉴于会话 id 是动态的，所以我们需要通过 <code>query user</code> 命令来获取当前所有会话信息，并通过当前会话名称比配来获取当前的会话 id，然后再通过 <code>tscon</code> 命令来关闭对应的会话。</p>
+<p>注意：鉴于会话 id 是动态的，所以我们需要通过 <code>query session</code> 命令来获取当前所有会话信息，并通过当前会话名称中包含 ‘&gt;’ 字符这一特征匹配来获取当前的会话 id，然后再通过 <code>tscon</code> 命令来关闭对应的会话。</p>
 </blockquote>
 <p>看不懂没关系，按照下面的操作步骤来操作即可：</p>
 <ol>
@@ -411,7 +411,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年2月22日</div>
+          <div>2024年2月28日</div>
         </div>
       
       
