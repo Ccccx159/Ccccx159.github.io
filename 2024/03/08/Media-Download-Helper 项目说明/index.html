@@ -16,29 +16,32 @@
   <meta name="author" content="Xu@n Ch3n">
   <meta name="keywords" content="">
   
-    <meta name="description" content="基于 TelegramBot 和 Qbittorrent 打造下载机器人[] 创建 telegram bot[] 编写 Google apps script[] bot 注册 webhook[] 本地搭建 http server[] 调用 qbittorrent web API 下载并监控[] 下载完成后根据文件名向TMDB查询信息，并通过bot发送至telegram">
+    <meta name="description" content="Media-Download-Helper完整部署教程请参考：Media-Download-Helper 完整部署教程 V2.0.0 版本说明 鉴于公网 IP 难以获取，而且将内部服务直接暴露到公网环境，安全系数较低，部署难度较大等几个原因，因此在 v2.0.0 版本中，取消了 http server 模块，由 media download helper 直接向 Google Apps Scrip">
 <meta property="og:type" content="article">
-<meta property="og:title" content="基于TelegramBot和Qbittorrent打造下载机器人">
-<meta property="og:url" content="https://ccccx159.github.io/2024/02/22/%E5%9F%BA%E4%BA%8ETelegramBot%E5%92%8CQbittorrent%E6%89%93%E9%80%A0%E4%B8%8B%E8%BD%BD%E6%9C%BA%E5%99%A8%E4%BA%BA/index.html">
+<meta property="og:title" content="Media-Download-Helper 项目说明">
+<meta property="og:url" content="https://ccccx159.github.io/2024/03/08/Media-Download-Helper%20%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E/index.html">
 <meta property="og:site_name" content="Chaos">
-<meta property="og:description" content="基于 TelegramBot 和 Qbittorrent 打造下载机器人[] 创建 telegram bot[] 编写 Google apps script[] bot 注册 webhook[] 本地搭建 http server[] 调用 qbittorrent web API 下载并监控[] 下载完成后根据文件名向TMDB查询信息，并通过bot发送至telegram">
+<meta property="og:description" content="Media-Download-Helper完整部署教程请参考：Media-Download-Helper 完整部署教程 V2.0.0 版本说明 鉴于公网 IP 难以获取，而且将内部服务直接暴露到公网环境，安全系数较低，部署难度较大等几个原因，因此在 v2.0.0 版本中，取消了 http server 模块，由 media download helper 直接向 Google Apps Scrip">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2024-02-22T02:02:40.000Z">
-<meta property="article:modified_time" content="2024-02-22T02:39:10.035Z">
+<meta property="og:image" content="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/module.png">
+<meta property="og:image" content="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/demo-suc.png">
+<meta property="og:image" content="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/demo-fail.png">
+<meta property="article:published_time" content="2024-03-08T02:42:01.000Z">
+<meta property="article:modified_time" content="2024-03-08T07:49:59.260Z">
 <meta property="article:author" content="Xu@n Ch3n">
 <meta property="article:tag" content="原创">
-<meta property="article:tag" content="TelegramBot">
-<meta property="article:tag" content="qbittoorrent">
 <meta property="article:tag" content="Google Apps Script">
 <meta property="article:tag" content="TMDB">
-<meta property="article:tag" content="Python">
+<meta property="article:tag" content="qbittorrent">
+<meta property="article:tag" content="Telegram bot">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/module.png">
   
   
     <meta name="referrer" content="no-referrer-when-downgrade">
   
   
-  <title>基于TelegramBot和Qbittorrent打造下载机器人 - Chaos</title>
+  <title>Media-Download-Helper 项目说明 - Chaos</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -219,7 +222,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="基于TelegramBot和Qbittorrent打造下载机器人"></span>
+            <span id="subtitle" data-typed-text="Media-Download-Helper 项目说明"></span>
           
         </div>
 
@@ -230,8 +233,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-02-22 10:02" pubdate>
-          2024年2月22日 上午
+        <time datetime="2024-03-08 10:42" pubdate>
+          2024年3月8日 上午
         </time>
       </span>
     
@@ -242,7 +245,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          162 字
+          2.4k 字
         
       </span>
     
@@ -253,7 +256,7 @@
         
         
         
-          2 分钟
+          20 分钟
         
       </span>
     
@@ -299,12 +302,12 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">基于TelegramBot和Qbittorrent打造下载机器人</h1>
+            <h1 style="display: none">Media-Download-Helper 项目说明</h1>
             
               <p class="note note-info">
                 
                   
-                    本文最后更新于：15 天前
+                    本文最后更新于：11 分钟前
                   
                 
               </p>
@@ -312,7 +315,85 @@
             
               <div class="markdown-body">
                 
-                <h1 id="基于-TelegramBot-和-Qbittorrent-打造下载机器人"><a href="#基于-TelegramBot-和-Qbittorrent-打造下载机器人" class="headerlink" title="基于 TelegramBot 和 Qbittorrent 打造下载机器人"></a>基于 TelegramBot 和 Qbittorrent 打造下载机器人</h1><p>[] 创建 telegram bot<br>[] 编写 Google apps script<br>[] bot 注册 webhook<br>[] 本地搭建 http server<br>[] 调用 qbittorrent web API 下载并监控<br>[] 下载完成后根据文件名向TMDB查询信息，并通过bot发送至telegram</p>
+                <h1 id="Media-Download-Helper"><a href="#Media-Download-Helper" class="headerlink" title="Media-Download-Helper"></a>Media-Download-Helper</h1><p>完整部署教程请参考：<a target="_blank" rel="noopener" href="https://github.com/Ccccx159/Media-Download-Helper/blob/v2.0.0/doc/Media-Download-Helper%20%E5%AE%8C%E6%95%B4%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B.md">Media-Download-Helper 完整部署教程</a></p>
+<h2 id="V2-0-0-版本说明"><a href="#V2-0-0-版本说明" class="headerlink" title="V2.0.0 版本说明"></a>V2.0.0 版本说明</h2><blockquote>
+<p>鉴于公网 IP 难以获取，而且将内部服务直接暴露到公网环境，安全系数较低，部署难度较大等几个原因，因此在 v2.0.0 版本中，取消了 http server 模块，由 media download helper 直接向 Google Apps Script 主动发起 get 请求进行轮询获取磁力链接信息。去除了公网 ip 的依赖，提高安全性的同时也增加了部署的便利性。</p>
+<p>当然，v2.0.0 并非完美的方案，它同样存在着弊端，就是轮询请求 Google Apps Script 部署的在线 Web 应用的间隔不好把控。目前版本设置的轮询间隔为 1 分钟，这也就意味着 Google Apps Script 的 web 应用一天需要相应 1440 次请求，如果可以，请考虑使用更长的轮询间隔，避免薅羊毛过狠导致后期不可用的情况出现。</p>
+<p>还有一点，v2.0.0 版本中，Google Apps Script 仅仅通过脚本属性字段来缓存接收到的 post 数据，这里也存在着未知的风险。</p>
+<p>如果条件允许的情况下，还是推举使用 v1.x.x 版本，由 google apps script 响应 post 请求时，直接将数据推送到 Media Download Helper 内置的 http server，避免了缓存和并发的问题。</p>
+<p>当然，轻度使用场景下，v2.0.0 版本也是可以接受的。</p>
+</blockquote>
+<h2 id="开发目的"><a href="#开发目的" class="headerlink" title="开发目的"></a>开发目的</h2><p>玩个人影视服务器的朋友，应该都知道 Jeckett，Sonarr，Radarr 这些自动下载工具，只要我添加了对应的 PT 站，它们就能根据提交的请求进行检索下载。但是部分资源可能不在 PT 站，尤其是部分生肉，外网的磁力链接发布的更快一些，例如 TG 上的一些频道。Radarr 和 Sonarr 不支持直接使用磁力链接进行下载，在外也不方便使用这些内网的服务。</p>
+<p>再者有部分朋友也不想弄 PT 和上面说的那些服务，只是偶尔有部分资源想下载下来观看一下，完整部署自动化追剧工具就显得有点大材小用了。</p>
+<p>所以才想开发一个小工具，借助免费的工具就可以实现在外远程进行下载，同时还可以在下载完成后通过电报机器人推送影片信息，方便查看下载信息。</p>
+<h2 id="项目简介"><a href="#项目简介" class="headerlink" title="项目简介"></a>项目简介</h2><p><strong>“Media Download Helper”</strong> 是一个基于电报机器人，Google Apps Script 和 qbittorrent 的多媒体下载助手。</p>
+<p>用户可通过向 tg bot 发送影片的磁力链接，通过部署的 Google Apps Script 在线 web 应用转发至 Media Download Helper。Media Download Helper 将通过 qbittorrent web API 下载该磁力链接，并支持查重功能，根据磁链中的 hash 值判重，如果 qbittorrent 中已存在该 hash 值的 torrent，则不再重复下载，通过 tg bot 返回 “xxxxxx 已存在，请勿重复下载”给用户。</p>
+<p>除了提供下载功能以外，Media Download Helper 还支持在下载完成后，根据磁力链接中的文件名，对 TMDB 数据库进行检索，将检索到的影片信息通过 tg bot 返回给用户，具体效果图可见<a href="#%E6%95%88%E6%9E%9C%E5%9B%BE">下方章节</a>。( 说句题外话，这个推送的效果，本来是用在我另一个辅助 Emby 私人服务器针对入库影片进行推送发布消息的，感兴趣的朋友也可以试用一下，给点建议，项目地址：<a target="_blank" rel="noopener" href="https://github.com/Ccccx159/watchdog_for_Emby">https://github.com/Ccccx159/watchdog_for_Emby</a> )</p>
+<h2 id="各模块交互图"><a href="#各模块交互图" class="headerlink" title="各模块交互图"></a>各模块交互图</h2><p><img src="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/module.png" srcset="/img/loading.gif" lazyload alt="模块交互图"></p>
+<h2 id="依赖项"><a href="#依赖项" class="headerlink" title="依赖项"></a>依赖项</h2><p>仅在 Python 3.11 环境下测试通过：</p>
+<ul>
+<li>python 3.11 (External module: requests, python-qbittorrent, colorlog)</li>
+<li>Telegram Bot and it’s Token (鉴于电报资源丰富，尤其 <a target="_blank" rel="noopener" href="https://t.me/RarbgPro">@RarbgPro</a>  频道发布的公开磁链，以及强大的 bot 功能，因此将用户交互客户端选择为 Telegram)</li>
+<li>Google Apps Script (构建在线脚本，并注册为电报机器人的 webhook)</li>
+<li>Qbittorrent with WebUI (磁链下载工具)</li>
+<li>TMDB API Token (影视资源数据库，用于下载完成后进行检索，并传递相关信息给用户)</li>
+</ul>
+<p><del>这里需要注意，<code>Simple Http Server</code> 是在局域网内部部署的服务，如果没有将其暴露到公网环境下，那么 <code>Google Apps Scrip</code> 的在线脚本则无法访问 <code>Simple Http Server</code> 。所以，在部署在线脚本时，需要将 <code>Simple Http Server</code> 暴露到公网环境下。（此处可能存在安全风险，建议使用 https 和 cdn 来提高安全系数）</del></p>
+<p>完整部署教程请参考：<a target="_blank" rel="noopener" href="https://github.com/Ccccx159/Media-Download-Helper/blob/v2.0.0/doc/Media-Download-Helper%20%E5%AE%8C%E6%95%B4%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B.md">Media-Download-Helper 完整部署教程</a></p>
+<h2 id="环境变量说明"><a href="#环境变量说明" class="headerlink" title="环境变量说明"></a>环境变量说明</h2><table>
+<thead>
+<tr>
+<th align="center">环境变量</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>QBIT_HOST</code></td>
+<td align="left">Qbittorrent WebUI host 地址</td>
+</tr>
+<tr>
+<td align="center"><code>QBIT_USER</code></td>
+<td align="left">Qbittorrent WebUI username 用户名</td>
+</tr>
+<tr>
+<td align="center"><code>QBIT_PASS</code></td>
+<td align="left">Qbittorrent WebUI password 密码</td>
+</tr>
+<tr>
+<td align="center"><code>BOT_TOKEN</code></td>
+<td align="left">Telegram Bot Token</td>
+</tr>
+<tr>
+<td align="center"><code>TMDB_API_TOKEN</code></td>
+<td align="left">TMDB API Token</td>
+</tr>
+<tr>
+<td align="center"><code>GOOGLE_APPS_SCRIPT_URL</code></td>
+<td align="left">Googel Apps Script 部署的在线 web 应用网址</td>
+</tr>
+<tr>
+<td align="center"><code>LOG_LEVEL</code></td>
+<td align="left">(可选) 日志等级，默认 WARNING</td>
+</tr>
+<tr>
+<td align="center"><code>LOG_EXPORT</code></td>
+<td align="left">(可选) 日志导出到文件，默认 False</td>
+</tr>
+<tr>
+<td align="center"><code>LOG_PATH</code></td>
+<td align="left">(可选) 日志导出路径，默认 <code>/var/tmp/media_dlhelper_logs/</code></td>
+</tr>
+</tbody></table>
+<h2 id="效果图"><a href="#效果图" class="headerlink" title="效果图"></a>效果图</h2><p><img src="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/demo-suc.png" srcset="/img/loading.gif" lazyload alt="效果图"></p>
+<p><img src="https://github.com/Ccccx159/Media-Download-Helper/raw/v2.0.0/doc/demo-fail.png" srcset="/img/loading.gif" lazyload alt="效果图"></p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://core.telegram.org/bots/api">Telegram Bot API 说明</a></li>
+<li><a target="_blank" rel="noopener" href="https://python-qbittorrent.readthedocs.io/en/latest/modules/api.html">Python Qbittorrent 接口文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://github.com/qbittorrent/qBittorrent/wiki/">Qbittorrent 官方 API 文档</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.dengnz.com/2020/11/23/telegram-%E6%9C%BA%E5%99%A8%E4%BA%BA%E7%9A%84%E7%94%B3%E8%AF%B7%E5%92%8C%E8%AE%BE%E7%BD%AE%E5%9B%BE%E6%96%87%E6%95%99%E7%A8%8B/">Telegram 机器人的申请和设置图文教程</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.dengnz.com/2018/09/05/telegram-bot-%e7%ac%ac%e4%b8%80%e4%b8%aa%e5%9b%9e%e5%a3%b0%e6%9c%ba%e5%99%a8%e4%ba%ba-%e4%bd%a0%e6%98%af%e6%b1%a4%e5%a7%86%e7%8c%ab%e5%90%a7%e7%ac%ac%e4%ba%8c%e9%9b%86/">Telegram Bot 第一个回声机器人 – 你是汤姆猫吧[第二集]</a></li>
+<li><a target="_blank" rel="noopener" href="https://developer.themoviedb.org/reference/intro/getting-started">TMDB API 说明文档</a></li>
+</ul>
 
                 
               </div>
@@ -348,15 +429,13 @@
       
         <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
       
-        <a href="/tags/TelegramBot/">#TelegramBot</a>
-      
-        <a href="/tags/qbittoorrent/">#qbittoorrent</a>
-      
         <a href="/tags/Google-Apps-Script/">#Google Apps Script</a>
       
         <a href="/tags/TMDB/">#TMDB</a>
       
-        <a href="/tags/Python/">#Python</a>
+        <a href="/tags/qbittorrent/">#qbittorrent</a>
+      
+        <a href="/tags/Telegram-bot/">#Telegram bot</a>
       
     </div>
   
@@ -368,8 +447,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>基于TelegramBot和Qbittorrent打造下载机器人</div>
-      <div>https://ccccx159.github.io/2024/02/22/基于TelegramBot和Qbittorrent打造下载机器人/</div>
+      <div>Media-Download-Helper 项目说明</div>
+      <div>https://ccccx159.github.io/2024/03/08/Media-Download-Helper 项目说明/</div>
     </div>
     <div class="license-meta">
       
@@ -381,13 +460,13 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年2月22日</div>
+          <div>2024年3月8日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2024年2月22日</div>
+          <div>2024年3月8日</div>
         </div>
       
       
@@ -418,18 +497,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/22/Moonlight%20Stream%20%E5%92%8C%20SteamLink%20%E8%BF%9C%E7%A8%8B%E4%B8%B2%E6%B5%81%E5%A4%B1%E8%B4%A5%E9%97%AE%E9%A2%98%E8%A7%A3%E5%86%B3/" title="Moonlight Stream 和 SteamLink 远程串流失败问题解决">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Moonlight Stream 和 SteamLink 远程串流失败问题解决</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/05/%E6%97%B6%E9%97%B4%E8%BD%AE/" title="时间轮">
-                        <span class="hidden-mobile">时间轮</span>
+                      <a href="/2024/03/08/Media-Download-Helper%20%E5%AE%8C%E6%95%B4%E9%83%A8%E7%BD%B2%E6%95%99%E7%A8%8B/" title="Media-Download-Helper 完整部署教程">
+                        <span class="hidden-mobile">Media-Download-Helper 完整部署教程</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
