@@ -1,0 +1,812 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="10. 正则表达式匹配题目描述给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 ‘.’ 和 ‘*’ 的正则表达式匹配。  ‘.’ 匹配任意单个字符 ‘*’ 匹配零个或多个前面的那一个元素 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。  示例 1： 123输入：s &#x3D; &quot;aa&quot;, p &#x3D; &quot;a&quot;输出：false解释：&quot;a&amp;qu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="10. 正则表达式匹配">
+<meta property="og:url" content="https://ccccx159.github.io/2024/04/14/leetcode/10.%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E5%8C%B9%E9%85%8D/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="10. 正则表达式匹配题目描述给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 ‘.’ 和 ‘*’ 的正则表达式匹配。  ‘.’ 匹配任意单个字符 ‘*’ 匹配零个或多个前面的那一个元素 所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。  示例 1： 123输入：s &#x3D; &quot;aa&quot;, p &#x3D; &quot;a&quot;输出：false解释：&quot;a&amp;qu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://pic.leetcode-cn.com/073085fa67286871f76e8e9daa162bdb291a101b4314666c75379a7b0441cad6-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/5e7b1748039a2a779d7378bebc4926ef3e584e88cc22b67f3a4e18c0590bcc55-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/e1bcac2ad07a3a5c959bf0fe5c8ceea9bbd033c3066e7ec7f384aedd98cd95aa-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/f817caaa40b0c39fc3ddabfa1383a8218ab364b8e49b30e5ce85cb30a3cdc503-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/fe763378879a0a52e9f17171e3bc1db18cfc83bf59f14efcd31ec9edb37adfac-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/a1cc0caf806f7d7f5419d820e0e7be7a364c96656a98ca4d7f351661d6a62aa6-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/dabf2195c460052e2719340de8f2d22f791694d4443424478201be3b5d601fe1-image.png">
+<meta property="og:image" content="https://pic.leetcode-cn.com/140597adfd5f03dd481e136163d98e7160cce4761c7cb8227010d828f24b7498-image.png">
+<meta property="article:published_time" content="2024-04-14T09:46:39.000Z">
+<meta property="article:modified_time" content="2024-04-18T08:31:35.099Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://pic.leetcode-cn.com/073085fa67286871f76e8e9daa162bdb291a101b4314666c75379a7b0441cad6-image.png">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>10. 正则表达式匹配 - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="10. 正则表达式匹配"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-04-14 17:46" pubdate>
+          2024年4月14日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          2.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          23 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">10. 正则表达式匹配</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：10 分钟前
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="10-正则表达式匹配"><a href="#10-正则表达式匹配" class="headerlink" title="10. 正则表达式匹配"></a>10. 正则表达式匹配</h1><h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>给你一个字符串 s 和一个字符规律 p，请你来实现一个支持 ‘.’ 和 ‘*’ 的正则表达式匹配。</p>
+<ul>
+<li>‘.’ 匹配任意单个字符</li>
+<li>‘*’ 匹配零个或多个前面的那一个元素</li>
+<li>所谓匹配，是要涵盖 整个 字符串 s的，而不是部分字符串。</li>
+</ul>
+<p>示例 1：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">输入：s = &quot;aa&quot;, p = &quot;a&quot;<br>输出：false<br>解释：&quot;a&quot; 无法匹配 &quot;aa&quot; 整个字符串。<br></code></pre></td></tr></table></figure>
+
+<p>示例 2:</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">输入：s = &quot;aa&quot;, p = &quot;a*&quot;<br>输出：true<br>解释：因为 &#x27;*&#x27; 代表可以匹配零个或多个前面的那一个元素, 在这里前面的元素就是 &#x27;a&#x27;。因此，字符串 &quot;aa&quot; 可被视为 &#x27;a&#x27; 重复了一次。<br></code></pre></td></tr></table></figure>
+
+<p>示例 3：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs txt">输入：s = &quot;ab&quot;, p = &quot;.*&quot;<br>输出：true<br>解释：&quot;.*&quot; 表示可匹配零个或多个（&#x27;*&#x27;）任意字符（&#x27;.&#x27;）。<br></code></pre></td></tr></table></figure>
+
+<p>提示：</p>
+<ul>
+<li>1 &lt;&#x3D; s.length &lt;&#x3D; 20</li>
+<li>1 &lt;&#x3D; p.length &lt;&#x3D; 20</li>
+<li>s 只包含从 a-z 的小写字母。</li>
+<li>p 只包含从 a-z 的小写字母，以及字符 . 和 *。</li>
+<li>保证每次出现字符 * 时，前面都匹配到有效的字符</li>
+</ul>
+<h2 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h2><h3 id="解法一：动态规划"><a href="#解法一：动态规划" class="headerlink" title="解法一：动态规划"></a>解法一：动态规划</h3><blockquote>
+<p>以下题解思路和图片，引用自：</p>
+<p>作者：笨猪爆破组</p>
+<p>链接：<a target="_blank" rel="noopener" href="https://leetcode.cn/problems/regular-expression-matching/solutions/1/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/">https://leetcode.cn/problems/regular-expression-matching/solutions/1/shou-hui-tu-jie-wo-tai-nan-liao-by-hyj8/</a></p>
+</blockquote>
+<h4 id="从左往右扫的话"><a href="#从左往右扫的话" class="headerlink" title="从左往右扫的话"></a>从左往右扫的话</h4><ul>
+<li>字符后面是否跟着星号会影响结果，分析起来有点复杂。<br><img src="https://pic.leetcode-cn.com/073085fa67286871f76e8e9daa162bdb291a101b4314666c75379a7b0441cad6-image.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h4 id="选择从右往左扫描"><a href="#选择从右往左扫描" class="headerlink" title="选择从右往左扫描"></a>选择从右往左扫描</h4><ul>
+<li><p>星号的前面肯定有一个字符，星号也只影响这一个字符，它就像一个拷贝器。<br><img src="https://pic.leetcode-cn.com/5e7b1748039a2a779d7378bebc4926ef3e584e88cc22b67f3a4e18c0590bcc55-image.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+<li><p>s、p 串是否匹配，取决于：最右端是否匹配、剩余的子串是否匹配。</p>
+</li>
+<li><p>只是最右端可能是特殊符号，需要分情况讨论而已。</p>
+</li>
+</ul>
+<h4 id="通用地表示出子问题"><a href="#通用地表示出子问题" class="headerlink" title="通用地表示出子问题"></a>通用地表示出子问题</h4><ul>
+<li>大子串是否匹配，和剩余子串是否匹配，是规模不一样的同一问题。<br><img src="https://pic.leetcode-cn.com/e1bcac2ad07a3a5c959bf0fe5c8ceea9bbd033c3066e7ec7f384aedd98cd95aa-image.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h5 id="情况1：s-i−1-和-p-j−1-是匹配的"><a href="#情况1：s-i−1-和-p-j−1-是匹配的" class="headerlink" title="情况1：s[i−1] 和 p[j−1] 是匹配的"></a>情况1：s[i−1] 和 p[j−1] 是匹配的</h5><ul>
+<li>最右端的字符是匹配的，那么，大问题的答案 &#x3D; 剩余子串是否匹配。<br><img src="https://pic.leetcode-cn.com/f817caaa40b0c39fc3ddabfa1383a8218ab364b8e49b30e5ce85cb30a3cdc503-image.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<h5 id="情况2：s-i−1-和-p-j−1-是不匹配的"><a href="#情况2：s-i−1-和-p-j−1-是不匹配的" class="headerlink" title="情况2：s[i−1] 和 p[j−1] 是不匹配的"></a>情况2：s[i−1] 和 p[j−1] 是不匹配的</h5><ul>
+<li>右端不匹配，还不能判死刑——可能是 p[j−1] 为星号造成的不匹配，星号不是真实字符，它不匹配不算数。</li>
+<li>如果 p[j−1]p[j-1]p[j−1] 不是星号，那就真的不匹配了。<br><img src="https://pic.leetcode-cn.com/fe763378879a0a52e9f17171e3bc1db18cfc83bf59f14efcd31ec9edb37adfac-image.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+<ol>
+<li>p[j−1]&#x3D;&#x3D;”∗”，且 s[i−1] 和 p[j−2] 匹配<ul>
+<li>p[j−1] 是星号，并且 s[i−1] 和 p[j−2] 匹配，要考虑三种情况：<ul>
+<li>p[j−1] 星号可以让 p[j−2] 在 p 串中消失、出现 1 次、出现 &gt;&#x3D;2 次。</li>
+<li>只要其中一种使得剩余子串能匹配，那就能匹配，见下图 a1、a2、a3。<br>  <img src="https://pic.leetcode-cn.com/a1cc0caf806f7d7f5419d820e0e7be7a364c96656a98ca4d7f351661d6a62aa6-image.png" srcset="/img/loading.gif" lazyload></li>
+<li>a3 情况：假设 s 的右端是一个 a，p 的右端是 a * ，* 让 a 重复 &gt;&#x3D; 2 次<ul>
+<li>星号不是真实字符，s、p是否匹配，要看 s 去掉末尾的 a，p 去掉末尾一个 a，剩下的是否匹配。</li>
+<li>星号拷贝了 &gt;&#x3D;2 个 a，拿掉一个，剩下 &gt;&#x3D;1 个a，p 末端依旧是 a* 没变。</li>
+<li>s 末尾的 a 被抵消了，继续考察 s(0,i-2) 和 p(0,i-1) 是否匹配。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>p[j−1]&#x3D;&#x3D;”∗”，但 s[i−1] 和 p[j−2] 不匹配<ul>
+<li>s[i−1] 和 p[j−2] 不匹配，还有救，p[j−1] 星号可以干掉 p[j−2]，继续考察 s(0,i−1) 和 p(0,j−3)。<br> <img src="https://pic.leetcode-cn.com/dabf2195c460052e2719340de8f2d22f791694d4443424478201be3b5d601fe1-image.png" srcset="/img/loading.gif" lazyload></li>
+</ul>
+</li>
+</ol>
+<h4 id="base-case"><a href="#base-case" class="headerlink" title="base case"></a>base case</h4><ul>
+<li>p 为空串，s 不为空串，肯定不匹配。</li>
+<li>s 为空串，但 p 不为空串，要想匹配，只可能是右端是星号，它干掉一个字符后，把 p 变为空串。</li>
+<li>s、p 都为空串，肯定匹配。</li>
+</ul>
+<p><img src="https://pic.leetcode-cn.com/140597adfd5f03dd481e136163d98e7160cce4761c7cb8227010d828f24b7498-image.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs cpp"><span class="hljs-keyword">class</span> <span class="hljs-title class_">Solution</span> &#123;<br><span class="hljs-keyword">public</span>:<br>  <span class="hljs-function"><span class="hljs-type">bool</span> <span class="hljs-title">isMatch</span><span class="hljs-params">(std::string s, std::string p)</span> </span>&#123;<br>    <span class="hljs-type">int</span> s_len = s.<span class="hljs-built_in">size</span>(), p_len = p.<span class="hljs-built_in">size</span>(), i = <span class="hljs-number">0</span>, j = <span class="hljs-number">0</span>;<br>    <span class="hljs-keyword">if</span> (s_len &gt; <span class="hljs-number">0</span> &amp;&amp; p_len &lt;= <span class="hljs-number">0</span>) <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>    <span class="hljs-comment">// 申请 dp</span><br>    std::vector&lt;std::vector&lt;<span class="hljs-type">bool</span>&gt;&gt; <span class="hljs-built_in">dp</span>(s_len + <span class="hljs-number">1</span>,<br>                                      std::<span class="hljs-built_in">vector</span>&lt;<span class="hljs-type">bool</span>&gt;(p_len + <span class="hljs-number">1</span>, <span class="hljs-literal">false</span>));<br><br>    <span class="hljs-comment">// 边界</span><br>    <span class="hljs-comment">// 1. s, p 均为空串</span><br>    dp[<span class="hljs-number">0</span>][<span class="hljs-number">0</span>] = <span class="hljs-literal">true</span>;<br>    <span class="hljs-comment">// 2. s 为空串，p 不为空，则 p 必须以 * 结尾</span><br>    <span class="hljs-keyword">for</span> (<span class="hljs-type">int</span> j = <span class="hljs-number">2</span>; j &lt;= p_len; j++) &#123;<br>      <span class="hljs-keyword">if</span> (p[j - <span class="hljs-number">1</span>] == <span class="hljs-string">&#x27;*&#x27;</span>) dp[<span class="hljs-number">0</span>][j] = dp[<span class="hljs-number">0</span>][j - <span class="hljs-number">2</span>];<br>    &#125;<br>    <span class="hljs-comment">// 3. s 不为空，p 为空，初始化时默认已经全部设为false了</span><br><br>    <span class="hljs-comment">// 状态转移，i 和 j 表示的时长度，并非真实下标</span><br>    <span class="hljs-keyword">for</span> (j = <span class="hljs-number">1</span>; j &lt;= p_len; j++) &#123;<br>      <span class="hljs-keyword">for</span> (i = <span class="hljs-number">1</span>; i &lt;= s_len; i++) &#123;<br>        <span class="hljs-keyword">if</span> (s[i<span class="hljs-number">-1</span>] == p[j<span class="hljs-number">-1</span>] || p[j<span class="hljs-number">-1</span>] == <span class="hljs-string">&#x27;.&#x27;</span>) &#123;      <span class="hljs-comment">// 当 s[i-1] 和 p[j-1] 匹配，则状态转移为 dp[i-1][j-1]</span><br>          dp[i][j] = dp[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-1</span>];<br>        &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (p[j<span class="hljs-number">-1</span>] == <span class="hljs-string">&#x27;*&#x27;</span>) &#123;                   <span class="hljs-comment">// 当 s[i-1] 和 p[j-1] 不匹配时，考虑 p[j-1] 为 * 号</span><br>          <span class="hljs-keyword">if</span> (s[i<span class="hljs-number">-1</span>] == p[j<span class="hljs-number">-2</span>] || p[j<span class="hljs-number">-2</span>] == <span class="hljs-string">&#x27;.&#x27;</span>) &#123;<br>            <span class="hljs-comment">// 当 s[i-1] 和 p[j-2] 匹配，则考虑 * 抵消 0 次，1 次和 多次</span><br>            <span class="hljs-comment">// 0   次：i 不变，j-2</span><br>            <span class="hljs-comment">// 1   次：i-1, j-2</span><br>            <span class="hljs-comment">// &gt;=2 次：i-1，j 不变</span><br>            dp[i][j] = dp[i<span class="hljs-number">-1</span>][j<span class="hljs-number">-2</span>] || dp[i<span class="hljs-number">-1</span>][j] || dp[i][j<span class="hljs-number">-2</span>];<br>          &#125; <span class="hljs-keyword">else</span> &#123;<br>            <span class="hljs-comment">// 当 s[i-1] 和 p[j-2] 不匹配时，由于 * 号可表示前置字符出现0次，因此 p 中去除这两个字符 j - 2 后继续匹配</span><br>            dp[i][j] = dp[i][j<span class="hljs-number">-2</span>];<br>          &#125;<br>        &#125;<br>      &#125;<br>    &#125;<br>    <span class="hljs-keyword">return</span> dp[s_len][p_len];<br>  &#125;<br>&#125;;<br></code></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>逆序思考问题，从右往左扫描，可以简化问题；</li>
+<li>状态转移方程的推导，需要考虑多种情况，包括星号的作用；</li>
+<li>边界条件的处理，需要考虑 s、p 为空串的情况；</li>
+</ol>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/leetcode/" class="category-chain-item">leetcode</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/">#动态规划</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>10. 正则表达式匹配</div>
+      <div>https://ccccx159.github.io/2024/04/14/leetcode/10.正则表达式匹配/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年4月14日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年4月18日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/04/17/leetcode/11.%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/" title="11. 盛最多水的容器">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">11. 盛最多水的容器</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/14/leetcode/09.%E5%9B%9E%E6%96%87%E6%95%B0/" title="09. 回文数">
+                        <span class="hidden-mobile">09. 回文数</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'Ccccx159/Ccccx159.github.io');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('label', '💬comment');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
