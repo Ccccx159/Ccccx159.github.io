@@ -4,6 +4,72 @@
   
   
   <entry>
+    <title>Emby Notifier 项目说明</title>
+    <link href="/2024/04/29/Emby%20Notifier%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E/"/>
+    <url>/2024/04/29/Emby%20Notifier%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E/</url>
+    
+    <content type="html"><![CDATA[<h1 id="Emby-Notifier"><a href="#Emby-Notifier" class="headerlink" title="Emby Notifier"></a>Emby Notifier</h1><blockquote><p>这是另一个项目 <a href="https://github.com/Ccccx159/watchdog_for_Emby/tree/main">watchdog_for_Emby</a> 的最新优化版本，取消了 nfo 文件的监视依赖，该版本不再需要手动设置媒体库路径，对通过网盘挂载生成的媒体库更加友好~</p></blockquote><h2 id="Emby-Server-版本-重要！！！"><a href="#Emby-Server-版本-重要！！！" class="headerlink" title="Emby Server 版本 (重要！！！)"></a>Emby Server 版本 (重要！！！)</h2><p><font color=red><strong>4.8.0.80 及更新版本的 Emby Server！！！</strong></font></p><p>本项目是基于 Emby Server 官方插件 Webhooks 实现的，在 4.8.0.80 版本以前需要激活 Emby Premiere 才能使用 Webhooks 插件。</p><p>在 4.8.0.80 版本，Webhooks 被集成到控制台 “通知” 功能中，免费用户也可使用，因此建议使用本项目的朋友更新 Emby Server 到指定版本。</p><p><mark>需要注意的是，群晖套件中心的 Emby Server 最新在线版本为 4.7.14.0，因此需要 Emby 官方网站下载相应平台的安装包进行手动安装。</mark></p><h2 id="修订版本"><a href="#修订版本" class="headerlink" title="修订版本"></a>修订版本</h2><table><thead><tr><th>版本</th><th>日期</th><th>修订说明</th></tr></thead><tbody><tr><td>v1.0.0</td><td>2024.04.29</td><td><li>新增项目</li></td></tr></tbody></table><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p><strong>Emby Notifier</strong> 是一个基于 Emby Server Webhooks 实现的自动通知工具。Emby Server 通过 Webhooks 插件，可以在影片刮削完成后，自动推送事件到指定的 URL。本项目通过监听 Emby Server 推送的 Webhooks 事件，获取影片的基本信息，通过 TMDB 的 API 查询影片的详细信息，然后通过 Telegram Bot 推送至指定频道。</p><h2 id="环境变量和服务端口"><a href="#环境变量和服务端口" class="headerlink" title="环境变量和服务端口"></a>环境变量和服务端口</h2><p>端口：8000</p><table><thead><tr><th>参数</th><th>要求</th><th>说明</th></tr></thead><tbody><tr><td>TMDB_API_TOKEN</td><td>必须</td><td>Your TMDB API Token</td></tr><tr><td>TVDB_API_KEY</td><td>必须</td><td>Your TVDB API Key</td></tr><tr><td>TG_BOT_TOKEN</td><td>必须</td><td>Your Telegram Bot Tokne</td></tr><tr><td>TG_CHAT_ID</td><td>必须</td><td>Your Telegram Channel’s Chat ID</td></tr><tr><td>LOG_LEVEL</td><td>可选</td><td>日志等级 [DEBUG, INFO, WARNING] 三个等级，默认 WARNING</td></tr><tr><td>LOG_EXPORT</td><td>可选</td><td>日志写文件标志 [True, False] 是否将日志输出到文件，默认 False</td></tr><tr><td>LOG_PATH</td><td>可选</td><td>日志文件保存路径，默认 &#x2F;var&#x2F;tmp&#x2F;emby_notifier_tg</td></tr></tbody></table><h2 id="docker-Run"><a href="#docker-Run" class="headerlink" title="docker Run"></a>docker Run</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs shell">docker run -d --name=emby-notifier-tg --restart=unless-stopped \<br>    -e TMDB_API_TOKEN=Your_TMDB_API_Token \<br>    -e TVDB_API_KEY=Your_TVDB_API_Key \<br>    -e TG_BOT_TOKEN=Your_Telegram_Bot_Token \<br>    -e TG_CHAT_ID=Your_Telegram_Chat_ID \<br>    -p 8000:8000 \<br>    b1gfac3c4t/emby_notifier_tg:latest<br>  <br></code></pre></td></tr></table></figure><h2 id="docker-compose"><a href="#docker-compose" class="headerlink" title="docker-compose"></a>docker-compose</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">version:</span> <span class="hljs-string">&#x27;3&#x27;</span><br><span class="hljs-attr">services:</span><br>  <span class="hljs-attr">emby_notifier_tg:</span><br>    <span class="hljs-attr">build:</span><br>      <span class="hljs-attr">context:</span> <span class="hljs-string">.</span><br>      <span class="hljs-attr">dockerfile:</span> <span class="hljs-string">dockerfile</span><br>    <span class="hljs-attr">image:</span> <span class="hljs-string">b1gfac3c4t/emby_notifier_tg:latest</span><br>    <span class="hljs-attr">environment:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TZ=Asia/Shanghai</span><br>      <span class="hljs-comment"># 这里所有的环境变量都不要使用引号</span><br>      <span class="hljs-comment"># 必填参数</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TMDB_API_TOKEN=&lt;Your</span> <span class="hljs-string">TMDB</span> <span class="hljs-string">API</span> <span class="hljs-string">Token&gt;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TVDB_API_KEY=&lt;Your</span> <span class="hljs-string">TVDB</span> <span class="hljs-string">API</span> <span class="hljs-string">Key&gt;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TG_BOT_TOKEN=&lt;Your</span> <span class="hljs-string">Telegram</span> <span class="hljs-string">Bot</span> <span class="hljs-string">Tokne&gt;</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">TG_CHAT_ID=&lt;Your</span> <span class="hljs-string">Telegram</span> <span class="hljs-string">Channel&#x27;s</span> <span class="hljs-string">Chat</span> <span class="hljs-string">ID&gt;</span><br>      <span class="hljs-comment"># 可选参数</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">LOG_LEVEL=WARNING</span> <span class="hljs-comment"># [DEBUG, INFO, WARNING] 三个等级，默认 WARNING</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">LOG_EXPORT=False</span> <span class="hljs-comment"># [True, False0] 是否将日志输出到文件，默认 False</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">LOG_PATH=/var/tmp/emby_notifier_tg/</span> <span class="hljs-comment"># 默认 /var/tmp/emby_notifier_tg/</span><br>    <span class="hljs-attr">network_mode:</span> <span class="hljs-string">&quot;bridge&quot;</span><br>    <span class="hljs-attr">ports:</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">&quot;8000:8000&quot;</span><br>    <span class="hljs-attr">restart:</span> <span class="hljs-string">unless-stopped</span><br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker-compose up -d<br></code></pre></td></tr></table></figure><h2 id="Emby-Server-设置"><a href="#Emby-Server-设置" class="headerlink" title="Emby Server 设置"></a>Emby Server 设置</h2><ol><li><p>打开 Emby Server 控制台，点击左侧菜单栏的 “设置” -&gt; “通知” -&gt; “添加 Webhooks”</p><p> <img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/emby-telegram-notification/-/raw/main/doc/%E6%B7%BB%E5%8A%A0%E9%80%9A%E7%9F%A5.png" alt="添加通知"></p><p> <img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/emby-telegram-notification/-/raw/main/doc/%E6%B7%BB%E5%8A%A0webhooks.png" alt="添加Webhooks"></p></li><li><p>在弹出的对话框中，填写 Webhooks 的 URL，例如：<code>http://192.168.1.100:8000</code>，选择数据类型为 <code>application/json</code></p><p> <img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/emby-telegram-notification/-/raw/main/doc/%E9%85%8D%E7%BD%AEnotifier.png" alt="配置Webhooks"></p></li><li><p>点击 “发送测试通知” 按钮，观察 Notifier 的日志输出，如果输出了测试通知的信息，说明 Webhooks 设置成功</p><p> <img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/emby-telegram-notification/-/raw/main/doc/%E6%8E%A5%E5%8F%97%E6%B5%8B%E8%AF%95%E6%B6%88%E6%81%AF.png" alt="接收测试事件通知"></p><p> Notifier 日志中出现以下信息，说明 Webhooks 设置成功</p> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">[WARNING] : Unsupported event type: system.notificationtest<br></code></pre></td></tr></table></figure></li><li><p>选择通知事件：媒体库 -&gt; 新媒体已添加，点击保存</p><p> <img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/emby-telegram-notification/-/raw/main/doc/%E9%80%89%E6%8B%A9%E4%BA%8B%E4%BB%B6.png" alt="选择通知事件"></p></li></ol><h2 id="媒体信息检索流程"><a href="#媒体信息检索流程" class="headerlink" title="媒体信息检索流程"></a>媒体信息检索流程</h2><p><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/emby-telegram-notification/-/raw/main/doc/Emby_Notifier.drawio.png"></p><h2 id="局限性"><a href="#局限性" class="headerlink" title="局限性"></a>局限性</h2><p>Emby Server 的新媒体添加事件的触发时机受限于对新增文件的监视方式和扫描媒体库的频率，如果 Emby Server 触发新媒体添加事件，则 Notifier 也就无法推送通知。</p><h2 id="效果展示"><a href="#效果展示" class="headerlink" title="效果展示"></a>效果展示</h2><p>电影：</p><p><img src="https://user-images.githubusercontent.com/35327600/209752390-4e45180b-d8cc-4378-bd98-c489638f7cb7.png"></p><p>剧集：</p><p><img src="https://user-images.githubusercontent.com/35327600/209752275-bad230b0-97a7-47e5-9a77-081afae7d6cf.png"></p><h2 id="参考文档"><a href="#参考文档" class="headerlink" title="参考文档"></a>参考文档</h2><ul><li>tmdb api 文档：<a href="https://developers.themoviedb.org/3">https://developers.themoviedb.org/3</a></li><li>telegram bot api 文档：<a href="https://core.telegram.org/bots/api">https://core.telegram.org/bots/api</a></li></ul>]]></content>
+    
+    
+    <categories>
+      
+      <category>折腾之路</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+      <tag>Emby</tag>
+      
+      <tag>Notification</tag>
+      
+      <tag>Webhook</tag>
+      
+      <tag>Telegram</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>一个“size_type”引发的Bug</title>
+    <link href="/2024/04/25/ELF%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA%E5%85%B1%E4%BA%AB%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6/"/>
+    <url>/2024/04/25/ELF%E5%8F%AF%E6%89%A7%E8%A1%8C%E6%96%87%E4%BB%B6%E8%A2%AB%E8%AF%86%E5%88%AB%E4%B8%BA%E5%85%B1%E4%BA%AB%E7%9B%AE%E6%A0%87%E6%96%87%E4%BB%B6/</url>
+    
+    <content type="html"><![CDATA[<h1 id="ELF-可执行文件被识别为共享目标文件"><a href="#ELF-可执行文件被识别为共享目标文件" class="headerlink" title="ELF 可执行文件被识别为共享目标文件"></a>ELF 可执行文件被识别为共享目标文件</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>个人项目中有一个解析 ELF 文件类型的功能，在测试过程中，错误地将可执行文件 (ET_EXEC) 识别为共享目标文件 (ET_DYN)。</p><p>如下图所示，exec_test 必然是一个可执行文件：</p><p><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/43dad8fbc3f5c70f79ab0c2d3724eefe/2024-04-25_155005.png"></p><p>但是当我无论使用 <code>readelf -h</code> 查看 exec_test 的头部信息，还是使用 <code>file</code> 命令查看文件类型，都显示这是一个共享目标文件：</p><p><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/371fe11454fc9e9404b2ee5e147c24a7/2024-04-25_155806.png"></p><p>通过上面第一张图片中的编译指令，可以看到仅仅使用了最常规的 <code>-g -O0 -o</code> 选项，并没有使用额外的编译或者链接选项。</p><h2 id="系统环境"><a href="#系统环境" class="headerlink" title="系统环境"></a>系统环境</h2><ul><li>OS: Ubuntu 20.04.6 LTS x86_64</li><li>Compiler: g++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0</li></ul><h2 id="ELF-文件简单介绍"><a href="#ELF-文件简单介绍" class="headerlink" title="ELF 文件简单介绍"></a>ELF 文件简单介绍</h2><p>一般来说，ELF 文件有 4 种：</p><ul><li>可重定位文件 (ET_REL)</li><li>可执行文件 (ET_EXEC)</li><li>共享目标文件 (ET_DYN)</li><li>核心转储文件 (ET_CORE)</li></ul><table><thead><tr><th align="left">文件类型</th><th align="left">描述</th></tr></thead><tbody><tr><td align="left">可重定位文件 (ET_REL)</td><td align="left"><li>待重定位文件是由编译器产生的中间文件，包含了程序的机器代码、符号表、重定位信息等。</li><li>它是源代码编译后生成的目标文件，但还没有链接成可执行文件或共享目标文件。</li><li>待重定位文件中的地址信息仍然是相对地址，需要在链接时进行地址重定位。</li></td></tr><tr><td align="left">可执行文件 (ET_EXEC)</td><td align="left"><li>可执行文件包含了可以直接在操作系统上运行的程序代码和数据。</li><li>它可以被操作系统加载到内存中，并执行其中的指令。</li><li>在Unix&#x2F;Linux系统中，可执行文件通常没有文件扩展名，但是在Windows系统中通常使用 .exe 扩展名。</li></td></tr><tr><td align="left">共享目标文件 (ET_DYN)</td><td align="left"><li>共享目标文件是包含了可重用代码和数据的文件，可以被多个可执行文件动态链接和共享使用。</li><li>它以一种与操作系统和其他程序共享的形式存在，可以在程序运行时动态加载到内存中。</li><li>共享目标文件通常具有文件扩展名 .so（Unix&#x2F;Linux）或 .dll（Windows）。</li></td></tr><tr><td align="left">核心转储文件 (ET_CORE)</td><td align="left"><li>Core 文件是在程序崩溃或异常退出时由操作系统自动生成的一种文件。</li><li>它包含了程序崩溃时的内存快照信息，包括堆栈信息、寄存器状态等。</li><li>Core 文件通常用于调试程序崩溃的原因，可以通过调试工具分析其内容以定位问题。</li></td></tr></tbody></table><p>也可见下图：</p><p><img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bab723b24d954cd39cf89370b95a1cdf~tplv-k3u1fbpfcp-zoom-in-crop-mark:1512:0:0:0.awebp"></p><h2 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h2><p>在查找了资料后，得知是由于高版本 gcc&#x2F;g++ 默认使用 <code>-pie</code> 选项，导致生成的可执行文件被识别为共享目标文件。</p><p><code>-pie</code> 选项是 Position Independent Executable 的缩写，即生成位置无关可执行文件。这种可执行文件可以被加载到任意地址运行，而不需要进行地址重定位。这样可以提高程序的安全性，防止恶意程序利用地址重定位漏洞进行攻击。</p><h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>解决方法有两种：</p><ol><li>使用 <code>-no-pie</code> 选项，禁用生成位置无关可执行文件：</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ -g -O0 -no-pie -o exec_test test.cc<br></code></pre></td></tr></table></figure><ol start="2"><li>使用 <code>-fno-pie</code> 选项，禁用生成位置无关可执行文件：</li></ol><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs shell">g++ -g -O0 -fno-pie -o exec_test test.cc<br></code></pre></td></tr></table></figure><p><img src="https://gitlab.b1gfac3c4t.top:1594/xu4nch3n/notebooks/uploads/d79f24ba7a2a8e259a4011aad40cafb8/2024-04-25_163212.png"></p><p>可以看到，在添加了 <code>-no-pie</code> 选项后，exec_test 被正确识别为可执行文件。</p>]]></content>
+    
+    
+    <categories>
+      
+      <category>踩坑日记</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>原创</tag>
+      
+      <tag>ELF</tag>
+      
+      <tag>gcc</tag>
+      
+      <tag>共享目标文件</tag>
+      
+      <tag>链接</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>19. 删除链表的倒数第 N 个结点</title>
     <link href="/2024/04/18/leetcode/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/"/>
     <url>/2024/04/18/leetcode/19.%E5%88%A0%E9%99%A4%E9%93%BE%E8%A1%A8%E7%9A%84%E5%80%92%E6%95%B0%E7%AC%ACN%E4%B8%AA%E7%BB%93%E7%82%B9/</url>
