@@ -1,0 +1,788 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/site_img.png">
+  <link rel="icon" href="/img/site_img.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Xu@n Ch3n">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="dlopen动态加载共享库出现符号未定义错误问题描述有两个动态库，libfunc.so 和 libbase.so。其中 libfunc.so 依赖 libbase.so，在 libfunc.so 中有一个函数 void func() 调用了 libbase.so 中的函数 void base()，如下： 12345678910111213141516&#x2F;&#x2F; libbase.so&#x2F;&#x2F; base.h#i">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dlopen动态加载共享库出现符号未定义错误">
+<meta property="og:url" content="https://ccccx159.github.io/2024/05/13/dlopen%E5%8A%A8%E6%80%81%E5%8A%A0%E8%BD%BD%E5%85%B1%E4%BA%AB%E5%BA%93%E5%87%BA%E7%8E%B0%E7%AC%A6%E5%8F%B7%E6%9C%AA%E5%AE%9A%E4%B9%89%E9%94%99%E8%AF%AF/index.html">
+<meta property="og:site_name" content="Chaos">
+<meta property="og:description" content="dlopen动态加载共享库出现符号未定义错误问题描述有两个动态库，libfunc.so 和 libbase.so。其中 libfunc.so 依赖 libbase.so，在 libfunc.so 中有一个函数 void func() 调用了 libbase.so 中的函数 void base()，如下： 12345678910111213141516&#x2F;&#x2F; libbase.so&#x2F;&#x2F; base.h#i">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-13T05:40:56.000Z">
+<meta property="article:modified_time" content="2024-05-13T08:06:17.454Z">
+<meta property="article:author" content="Xu@n Ch3n">
+<meta property="article:tag" content="原创">
+<meta property="article:tag" content="dlopen">
+<meta property="article:tag" content="linux">
+<meta property="article:tag" content="符号未定义">
+<meta property="article:tag" content="c&#x2F;c++">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+    <meta name="referrer" content="no-referrer-when-downgrade">
+  
+  
+  <title>dlopen动态加载共享库出现符号未定义错误 - Chaos</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"ccccx159.github.io","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":"❡"},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Chaos</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="dlopen动态加载共享库出现符号未定义错误"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-05-13 13:40" pubdate>
+          2024年5月13日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          4.7k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          39 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="busuanzi_container_page_pv" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="busuanzi_value_page_pv"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">dlopen动态加载共享库出现符号未定义错误</h1>
+            
+              <p class="note note-info">
+                
+                  
+                    本文最后更新于：1 分钟前
+                  
+                
+              </p>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="dlopen动态加载共享库出现符号未定义错误"><a href="#dlopen动态加载共享库出现符号未定义错误" class="headerlink" title="dlopen动态加载共享库出现符号未定义错误"></a>dlopen动态加载共享库出现符号未定义错误</h1><h2 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h2><p>有两个动态库，libfunc.so 和 libbase.so。其中 libfunc.so 依赖 libbase.so，在 libfunc.so 中有一个函数 <code>void func()</code> 调用了 libbase.so 中的函数 <code>void base()</code>，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// libbase.so</span><br><span class="hljs-comment">// base.h</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> _base_h_</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> _base_h_</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">base</span><span class="hljs-params">()</span>;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">// _base_h_</span></span><br><br><span class="hljs-comment">// base.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;base.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">base</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;base\n&quot;</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// libfunc.so</span><br><span class="hljs-comment">// func.h</span><br><span class="hljs-meta">#<span class="hljs-keyword">ifndef</span> _func_h_</span><br><span class="hljs-meta">#<span class="hljs-keyword">define</span> _func_h_</span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">func</span><span class="hljs-params">()</span>;<br><br><span class="hljs-meta">#<span class="hljs-keyword">endif</span> <span class="hljs-comment">// _func_h_</span></span><br><br><span class="hljs-comment">// func.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;func.h&quot;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&quot;base.h&quot;</span></span><br><br><span class="hljs-type">void</span> <span class="hljs-title function_">func</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;func\n&quot;</span>);<br>    base();<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>在 main.c 中通过 <code>dlopen</code> 函数动态加载 libfunc.so，并调用其中的 <code>func</code> 函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-comment">// main.c</span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;dlfcn.h&gt;</span></span><br><span class="hljs-meta">#<span class="hljs-keyword">include</span> <span class="hljs-string">&lt;stdio.h&gt;</span></span><br><br><span class="hljs-type">int</span> <span class="hljs-title function_">main</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">void</span> *handle = dlopen(<span class="hljs-string">&quot;./libfunc.so&quot;</span>, RTLD_LAZY);<br>    <span class="hljs-keyword">if</span> (!handle) &#123;<br>        <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;%s\n&quot;</span>, dlerror());<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    <span class="hljs-type">void</span> (*func)() = dlsym(handle, <span class="hljs-string">&quot;func&quot;</span>);<br>    <span class="hljs-keyword">if</span> (!func) &#123;<br>        <span class="hljs-built_in">fprintf</span>(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">&quot;%s\n&quot;</span>, dlerror());<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">-1</span>;<br>    &#125;<br><br>    func();<br><br>    dlclose(handle);<br><br>    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>但是在编译后提示 <code>undefined symbol: base</code> 错误：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [14:53:36] dl  ➜ gcc -O0 -g main.c -o test -ldl                <br>code-server [15:01:03] dl  ➜ ./test <br>func<br>./test: symbol lookup error: ./libfunc.so: undefined symbol: base<br></code></pre></td></tr></table></figure>
+
+<h2 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h2><p>由于 main.c 中并没有显式依赖 libfunc.so 和 libbase.so，所以在编译 main.c 的命令中没有进行显式链接这两个库。因此在运行时，<code>dlopen</code> 函数只加载了 libfunc.so，而没有加载 libbase.so，导致在 libfunc.so 中调用 libbase.so 中的函数时出现符号未定义错误。</p>
+<p>那么我们尝试将这两个库都进行显式链接，看看能否解决问题：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:03:42] dl  ➜ gcc -O0 -g main.c -o test -ldl -L. -lfunc -lbase<br>code-server [15:05:27] dl  ➜ ./test <br>func<br>./test: symbol lookup error: ./libfunc.so: undefined symbol: base<br></code></pre></td></tr></table></figure>
+
+<p>可以看到仍然提示 <code>base</code> 符号未定义。</p>
+<h2 id="根因分析"><a href="#根因分析" class="headerlink" title="根因分析"></a>根因分析</h2><p>由于 main.c 通过 <code>dlopen()</code> 加载 libfunc.so，所以不存在显式的依赖关系，我们甚至不需要在 main.c 中包含 func.h 这个头文件。因此在链接过程中，链接器会认为当前的 libfunc.so 和 main.o 无关，并将 libfunc.so 给优化掉。既然 libfunc.so 被视为无关项，那 libbase.so 更没有理由被留下来了。</p>
+<p>也就是说，即使我们在命令中显式地去链接 <code>-L. -lfunc -lbase</code> 也是无效的。我们可以通过 <code>readelf -d</code> 命令查看 test 可执行文件的依赖：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:13:40] dl  ➜ readelf -d test | grep -i &#x27;share&#x27;<br> 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]<br> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]<br></code></pre></td></tr></table></figure>
+<p>因此当执行 <code>func()</code> 函数时，由于 libbase.so 没有被加载，所以会提示 <code>undefined symbol: base</code> 错误。</p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><p>libfunc.so 可以通过 <code>dlopen()</code> 被加载，但是 libbase.so 本身与 main.c 无关，因此我们没有理由通过 <code>dlopen()</code> 来加载 libbase.so。</p>
+<p>那有没有什么办法可以让 libbase.so 被加载进来呢？</p>
+<h3 id="1、-使用-LD-PRELOAD-强制预加载"><a href="#1、-使用-LD-PRELOAD-强制预加载" class="headerlink" title="1、 使用 LD_PRELOAD 强制预加载"></a>1、 使用 LD_PRELOAD 强制预加载</h3><p><code>LD_PRELOAD</code> 是一个环境变量，用于在运行程序时预先加载指定的共享库。它的作用是在运行目标程序时优先加载指定的共享库，覆盖系统默认的库，从而实现对目标程序的功能增强、修改或者监控等目的。使用 LD_PRELOAD 可以在不修改目标程序源代码的情况下，对目标程序的行为进行改变。</p>
+<p>我们可以通过设置 <code>LD_PRELOAD</code> 环境变量来强制预加载 libbase.so：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:18:27] dl  ➜ LD_PRELOAD=./libbase.so ./test <br>func<br>base<br></code></pre></td></tr></table></figure>
+
+<p>可以看到此时程序正常运行，<code>base</code> 函数也被调用了。</p>
+<p>但是这样有个问题，如果 libfunc.so 依赖了多个共享库，那么我们就需要将所有的共享库都通过 <code>LD_PRELOAD</code> 预加载进来这样就会变得非常麻烦。</p>
+<p>因此是否有其他的方法来解决这个问题呢？</p>
+<h3 id="2-Wl-–no-as-needed-选项"><a href="#2-Wl-–no-as-needed-选项" class="headerlink" title="2. -Wl,–no-as-needed 选项"></a>2. -Wl,–no-as-needed 选项</h3><p>在部分默认情况下，链接器会尽可能地链接被指定的库，但如果这个库的符号没有被使用到，链接器也不会链接它，可以认为，链接器在默认状态下使用了 <code>--as-needed</code> 选项对库进行链接。</p>
+<p>这种情况导致了我们即使显式链接 libfunc.so 和 libbase.so，由于 main.c 并没有使用这两个库符号，所以链接器会将这两个库优化掉。</p>
+<p>因此我们可以通过 <code>-Wl,--no-as-needed</code> 选项来关闭这个优化，使得可执行文件强制保持这个依赖关系：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:46:29] dl  ➜ gcc -O0 -g main.c -o test -ldl -L. -Wl,--no-as-needed -lfunc -lbase <br>code-server [15:46:34] dl  ➜ ./test <br>func<br>base<br></code></pre></td></tr></table></figure>
+
+<p>此时程序正常运行，我们再通过 <code>readelf -d</code> 命令查看 test 可执行文件的依赖：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:47:53] dl  ➜ readelf -d test | grep -i &#x27;share&#x27;<br> 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]<br> 0x0000000000000001 (NEEDED)             Shared library: [libfunc.so]<br> 0x0000000000000001 (NEEDED)             Shared library: [libbase.so]<br> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]<br></code></pre></td></tr></table></figure>
+
+<p>可以看到此时 test 可执行文件已经显式依赖了 libfunc.so 和 libbase.so 两个共享库。</p>
+<p>此时还有一个问题，我们将这个依赖关系交给了应用去链接处理，当模块数量较多，且各个模块有各自的依赖时，应用的链接命令会变得非常复杂，并且应用本身并不想关心各个模块自己的依赖关系，它只想维护自己关心的模块即可。</p>
+<p>是否还有其他的方式进行优化解决呢？</p>
+<h3 id="3-构建-libfunc-so-时指定依赖"><a href="#3-构建-libfunc-so-时指定依赖" class="headerlink" title="3. 构建 libfunc.so 时指定依赖"></a>3. 构建 libfunc.so 时指定依赖</h3><p>既然应用不想关心这些依赖关系，那么只能由 libfunc.so 自己来管理自己的依赖关系了。我们可以在构建 libfunc.so 时指定依赖的库，这样在链接 libfunc.so 时，链接器会自动将这些依赖的库链接进来。</p>
+<p>我们只需要在编译 libfunc.so 时显式链接它的所有依赖库即可。我们先看看不链接依赖库时，libfunc.so 的信息：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:58:46] dl  ➜ readelf -d libfunc.so | grep -i &#x27;share&#x27;<br> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]<br></code></pre></td></tr></table></figure>
+
+<p>可以看到此时 libfunc.so 只依赖了 libc.so.6 这个库。</p>
+<p>我们在编译命令上加上 <code>-lbase</code> 选项，显式链接 libbase.so：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [15:59:03] dl  ➜ gcc -fPIC -shared -O0 -g func.c  -I. -o libfunc.so -L. -lbase      <br>code-server [15:59:50] dl  ➜ readelf -d libfunc.so | grep -i &#x27;share&#x27;<br> 0x0000000000000001 (NEEDED)             Shared library: [libbase.so]<br> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]<br></code></pre></td></tr></table></figure>
+
+<p>此时 libfunc.so 显式依赖了 libbase.so 这个库。</p>
+<p>我们再来编译运行一下 test 试试：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs shell">code-server [16:01:03] dl  ➜ gcc -O0 -g main.c -o test -ldl<br>code-server [16:01:07] dl  ➜ readelf -d test | grep -i &#x27;share&#x27;      <br> 0x0000000000000001 (NEEDED)             Shared library: [libdl.so.2]<br> 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]<br>code-server [16:01:13] dl  ➜ ./test <br>func<br>base<br></code></pre></td></tr></table></figure>
+
+<p>可以看到此时可执行文件 test 并没有显式依赖 libfunc.so 和 libbase.so，通过 <code>dlopen</code> 加载 libfunc.so 时，libbase.so 也被加载进来了，因此程序正常运行。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在使用 <code>dlopen</code> 函数动态加载共享库时，如果共享库之间存在依赖关系，需要注意以下几点：</p>
+<ol>
+<li>如果共享库之间存在依赖关系，可以通过 <code>LD_PRELOAD</code> 环境变量来强制预加载依赖库。</li>
+<li>如果共享库之间存在依赖关系，可以通过 <code>-Wl,--no-as-needed</code> 选项来关闭链接器的优化，强制保持这个依赖关系。</li>
+<li>如果共享库之间存在依赖关系，可以在构建共享库时显式链接它的依赖库，这样在加载共享库时，依赖库也会被加载进来。</li>
+</ol>
+<p>在模块化开发中，我们应该尽量使用第三种方法进行处理，将依赖关系交给模块自己去管理，而不是交给应用去处理。</p>
+<p>以上就是本文的全部内容，希望对你有所帮助。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E8%B8%A9%E5%9D%91%E6%97%A5%E8%AE%B0/" class="category-chain-item">踩坑日记</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E5%8E%9F%E5%88%9B/">#原创</a>
+      
+        <a href="/tags/dlopen/">#dlopen</a>
+      
+        <a href="/tags/linux/">#linux</a>
+      
+        <a href="/tags/%E7%AC%A6%E5%8F%B7%E6%9C%AA%E5%AE%9A%E4%B9%89/">#符号未定义</a>
+      
+        <a href="/tags/c-c/">#c/c++</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>dlopen动态加载共享库出现符号未定义错误</div>
+      <div>https://ccccx159.github.io/2024/05/13/dlopen动态加载共享库出现符号未定义错误/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Xu@n Ch3n</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年5月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2024年5月13日</div>
+        </div>
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/04/29/Emby%20Notifier%E9%A1%B9%E7%9B%AE%E8%AF%B4%E6%98%8E/" title="Emby Notifier 项目说明">
+                        <span class="hidden-mobile">Emby Notifier 项目说明</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#comments', function() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
+      }
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'Ccccx159/Ccccx159.github.io');
+      s.setAttribute('issue-term', 'title');
+      
+      s.setAttribute('label', '💬comment');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    })
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
